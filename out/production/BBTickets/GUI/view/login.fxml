@@ -32,6 +32,14 @@
                   </VBox>
                   <VBox>
                      <children>
+                        <VBox alignment="CENTER" VBox.vgrow="NEVER">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <children>
+                              <Label fx:id="errorMsgLabel" alignment="TOP_CENTER" contentDisplay="CENTER" textAlignment="CENTER" textFill="RED" />
+                           </children>
+                        </VBox>
                         <Label styleClass="userPWLbl" text="Username:" />
                         <TextField id="userPWTxtField" fx:id="usernameField" promptText="Username" />
                         <Label styleClass="userPWLbl" text="Password:" />

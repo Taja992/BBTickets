@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -15,6 +16,7 @@ import java.util.prefs.Preferences;
 public class LoginController {
     public Button loginBtn;
     public CheckBox rememberCheckBox;
+    public Label errorMsgLabel;
 
     private BLLUser bllUser;
 
@@ -72,7 +74,7 @@ public class LoginController {
                     stage.setScene(scene);
                     stage.show();
                 } else {
-                    System.out.println("Invalid username or password");
+                    errorMsgLabel.setText("Invalid username or password");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
