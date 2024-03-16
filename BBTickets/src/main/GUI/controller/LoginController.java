@@ -19,10 +19,7 @@ public class LoginController {
     public void initialize() {
         loginBtn.setOnAction(event -> {
             System.out.println("Login button clicked");
-            String username = usernameField.getText();
-            String password = passwordField.getText();
         });
-
     }
 
 

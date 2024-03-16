@@ -1,25 +1,19 @@
 package BE;
 
 public class User {
-    private String admin;
-    private String event_controller;
+    private int user_type;
     private String password;
     private String username;
 
-    public User(String admin, String event_controller, String password, String username) {
-        this.admin = admin;
-        this.event_controller = event_controller;
+    public User(Integer user_type, String password, String username) {
+        this.user_type = user_type;
         this.password = password;
         this.username = username;
     }
 
-    public String getAdmin() {return admin;}
+    public int getUser_type() {return user_type;}
 
-    public void setAdmin(String admin) {this.admin = admin;}
-
-    public String getEvent_controller() {return event_controller;}
-
-    public void setEvent_controller(String event_controller) {this.event_controller = event_controller;}
+    public int setUser_type(int user_type) {return this.user_type = user_type;}
 
     public String getPassword() {return password;}
 
