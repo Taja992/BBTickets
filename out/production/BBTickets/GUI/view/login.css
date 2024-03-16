@@ -38,7 +38,7 @@
 }
 
 .imageContainer {
-    -fx-background-image: url('/resources/images/easv.png');
+    -fx-background-image: url('/images/easv.png');
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-size: cover;
