@@ -4,7 +4,7 @@ package BE;
 import java.time.LocalDateTime;
 
 public class Event {
-    private int eventId;
+
     private String eventType;
     private String eventLocation;
     private LocalDateTime eventStartTime;
@@ -13,16 +13,18 @@ public class Event {
     private String locationGuidance;
 
 
-    public Event(int eventId, String eventType, String eventLocation, LocalDateTime eventStartTime) {
-        this.eventId = eventId;
+    public Event(String eventType, String eventLocation, LocalDateTime eventStartTime) {
         this.eventType = eventType;
         this.eventLocation = eventLocation;
         this.eventStartTime = eventStartTime;
     }
 
+    public Event(){
 
-    public Event(int eventId, String eventType, String eventLocation, LocalDateTime eventStartTime, LocalDateTime eventEndingTime, String eventNotes, String locationGuidance) {
-        this.eventId = eventId;
+    }
+
+
+    public Event(String eventType, String eventLocation, LocalDateTime eventStartTime, LocalDateTime eventEndingTime, String eventNotes, String locationGuidance) {
         this.eventType = eventType;
         this.eventLocation = eventLocation;
         this.eventStartTime = eventStartTime;
@@ -31,13 +33,7 @@ public class Event {
         this.locationGuidance = locationGuidance;
     }
 
-    public int getEventId() {
-        return eventId;
-    }
 
-    public void setEventId(int eventId) {
-        this.eventId = eventId;
-    }
 
     public String getEventType() {
         return eventType;
