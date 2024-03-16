@@ -15,6 +15,16 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GUI/view/main.fxml"));
+        //once we start opening program on the login screen we can use this instead for style
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GUI/view/login.fxml"));
+//        Parent root = fxmlLoader.load();
+//        root.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15;");
+//        Scene scene = new Scene(root, 320, 240);
+//        scene.setFill(Color.TRANSPARENT);
+//        primaryStage.initStyle(StageStyle.TRANSPARENT);
+//        primaryStage.setTitle("Ticket Interface");
+//        primaryStage.setScene(scene);
+//        primaryStage.show();
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         primaryStage.setTitle("Ticket Interface");
         primaryStage.setScene(scene);
