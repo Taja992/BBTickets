@@ -47,7 +47,7 @@ public class AppController {
 
     public void addEvent(ActionEvent actionEvent) {
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/path/to/CreateEvent.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/createEvent.fxml"));
                 Parent root = fxmlLoader.load();
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
