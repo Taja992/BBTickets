@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.PasswordField?>
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="/GUI/view/login.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.LoginController">
    <children>
       <HBox prefHeight="269.0" prefWidth="357.0" styleClass="frontPanel">
@@ -51,7 +52,7 @@
                               <VBox alignment="CENTER">
                                  <children>
                                     <Label styleClass="userPWLbl" text="Password:" />
-                                    <TextField id="userPWTxtField" fx:id="passwordField" alignment="CENTER" promptText="Password" />
+                                    <PasswordField id="userPWTxtField" fx:id="passwordField" alignment="CENTER" promptText="Password" />
                                  </children>
                               </VBox>
                            </children>
