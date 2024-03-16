@@ -1,8 +1,11 @@
 import DAL.ConnectionManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -14,21 +17,23 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GUI/view/main.fxml"));
+        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GUI/view/main.fxml"));
         //once we start opening program on the login screen we can use this instead for style
-//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GUI/view/login.fxml"));
-//        Parent root = fxmlLoader.load();
-//        root.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15;");
-//        Scene scene = new Scene(root, 320, 240);
-//        scene.setFill(Color.TRANSPARENT);
-//        primaryStage.initStyle(StageStyle.TRANSPARENT);
-//        primaryStage.setTitle("Ticket Interface");
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
-        Scene scene = new Scene(fxmlLoader.load());
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GUI/view/login.fxml"));
+        Parent root = fxmlLoader.load();
+        root.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15;");
+        Scene scene = new Scene(root, 320, 240);
+        scene.setFill(Color.TRANSPARENT);
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setTitle("Ticket Interface");
         primaryStage.setScene(scene);
         primaryStage.show();
+
+
+//        Scene scene = new Scene(fxmlLoader.load());
+//        primaryStage.setTitle("Ticket Interface");
+//        primaryStage.setScene(scene);
+//        primaryStage.show();
 
         // Test database connection
        /* try {
