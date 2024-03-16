@@ -13,7 +13,7 @@ public class UserDAO {
     }
 
     public void newUser(User user) throws BBExceptions {
-        String sql = "INSERT INTO User (user_type, password, username) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO [User] (user_type, password, username) VALUES (?, ?, ?)";
 
         try {
             Connection connection = connectionManager.getConnection();
@@ -21,7 +21,6 @@ public class UserDAO {
             statement.setInt(1, user.getUser_type());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getUsername());
-
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new BBExceptions("Failed to insert user", e);
@@ -29,7 +28,7 @@ public class UserDAO {
     }
 
     public User getUser(String username, String password) throws BBExceptions {
-        String sql = "SELECT * FROM User WHERE username = ? AND password = ?";
+        String sql = "SELECT * FROM [User] WHERE username = ? AND password = ?";
 
         try {
             Connection connection = connectionManager.getConnection();

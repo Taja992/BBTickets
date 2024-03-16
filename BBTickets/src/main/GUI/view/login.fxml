@@ -33,9 +33,9 @@
                   <VBox>
                      <children>
                         <Label styleClass="userPWLbl" text="Username:" />
-                        <TextField id="userPWTxtField" promptText="Username" />
+                        <TextField id="userPWTxtField" fx:id="usernameField" promptText="Username" />
                         <Label styleClass="userPWLbl" text="Password:" />
-                        <TextField id="userPWTxtField" promptText="Password" />
+                        <TextField id="userPWTxtField" fx:id="passwordField" promptText="Password" />
                         <CheckBox mnemonicParsing="false" text="Remember Me">
                            <VBox.margin>
                               <Insets top="5.0" />
