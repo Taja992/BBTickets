@@ -65,7 +65,7 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <Label text="Forgot Password?" />
+                  <Label fx:id="forgotPWLbl" text="Forgot Password?" />
                </children>
                <HBox.margin>
                   <Insets left="5.0" />

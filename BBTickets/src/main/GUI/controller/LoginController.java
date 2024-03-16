@@ -17,6 +17,7 @@ public class LoginController {
     public Button loginBtn;
     public CheckBox rememberCheckBox;
     public Label errorMsgLabel;
+    public Label forgotPWLbl;
 
     private BLLUser bllUser;
 
@@ -44,6 +45,10 @@ public class LoginController {
         if (!savedUsername.isEmpty() && !savedPassword.isEmpty()) {
             rememberCheckBox.setSelected(true);
         }
+
+        forgotPWLbl.setOnMouseClicked(event -> {
+            errorMsgLabel.setText("Too bad");
+        });
 
         loginBtn.setOnAction(event -> {
             String username = usernameField.getText();

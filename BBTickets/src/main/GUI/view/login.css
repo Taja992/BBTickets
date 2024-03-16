@@ -48,3 +48,9 @@
 
 .testIMG {
 }
+
+#forgotPWLbl:hover {
+    -fx-text-fill: blue;
+    -fx-cursor: hand;
+    -fx-underline: true;
+}
