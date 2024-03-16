@@ -17,7 +17,7 @@ public class EventDAO {
     }
 
     public void newEvent(Event event) throws BBExceptions {
-        String sql = "INSERT INTO dbo.EventTable (event_type, event_location, event_start_time, event_ending_time, event_notes, location_guidance) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO EventTable (event_type, event_location, event_start_time, event_ending_time, event_notes, location_guidance) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
