@@ -21,7 +21,7 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <VBox alignment="CENTER_LEFT">
+                  <VBox alignment="CENTER">
                      <children>
                         <Label styleClass="welcomeLbl" text="Welcome" />
                         <Label styleClass="easvLbl" text="EASV Bar Tickets" />
@@ -40,10 +40,22 @@
                               <Label fx:id="errorMsgLabel" alignment="TOP_CENTER" contentDisplay="CENTER" textAlignment="CENTER" textFill="RED" />
                            </children>
                         </VBox>
-                        <Label styleClass="userPWLbl" text="Username:" />
-                        <TextField id="userPWTxtField" fx:id="usernameField" promptText="Username" />
-                        <Label styleClass="userPWLbl" text="Password:" />
-                        <TextField id="userPWTxtField" fx:id="passwordField" promptText="Password" />
+                        <VBox alignment="CENTER">
+                           <children>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <Label styleClass="userPWLbl" text="Username:" />
+                                    <TextField id="userPWTxtField" fx:id="usernameField" alignment="CENTER" promptText="Username" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <Label styleClass="userPWLbl" text="Password:" />
+                                    <TextField id="userPWTxtField" fx:id="passwordField" alignment="CENTER" promptText="Password" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
                         <CheckBox fx:id="rememberCheckBox" mnemonicParsing="false" text="Remember Me">
                            <VBox.margin>
                               <Insets top="5.0" />
@@ -57,7 +69,7 @@
                         <Insets left="2.0" right="5.0" />
                      </padding>
                   </VBox>
-                  <HBox spacing="15.0">
+                  <HBox alignment="TOP_CENTER" spacing="15.0">
                      <children>
                         <Button fx:id="loginBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="loginBtn" text="Login" />
                      </children>
