@@ -6,9 +6,25 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="GUI.controller.AdminDashboardController"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Label text="Admin Dashboard" />
+        <Label text="List of all users" />
+        <ListView fx:id="userList" />
+        <HBox spacing="10">
+            <children>
+                <Button text="Create User" />
+                <Button text="Edit User" />
+                <Button text="Delete User" />
+            </children>
+        </HBox>
+        <Label text="List of all events" />
+        <ListView fx:id="eventList" />
+        <HBox spacing="10">
+            <children>
+                <Button text="Delete Event" />
+                <Button text="Assign Coordinator" />
+            </children>
+        </HBox>
+    </children>
+</VBox>
