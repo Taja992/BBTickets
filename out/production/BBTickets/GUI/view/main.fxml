@@ -16,8 +16,9 @@
       <Spinner fx:id="eventHourSpinner" initialValue="12" layoutX="127.0" layoutY="261.0" max="23" min="0" prefHeight="25.0" prefWidth="54.0" />
       <Spinner fx:id="eventMinuteSpinner" initialValue="30" layoutX="198.0" layoutY="261.0" max="59" min="0" prefHeight="25.0" prefWidth="54.0" />
       <Label layoutX="187.0" layoutY="265.0" text=":" />
-      <TextField fx:id="eventIdField" layoutX="366.0" layoutY="154.0" promptText="Event ID (to delete)" />
+      <TextField fx:id="eventIdField" layoutX="366.0" layoutY="154.0" promptText="Event ID (to delete/edit)" />
       <Button fx:id="deleteEvent" layoutX="366.0" layoutY="108.0" mnemonicParsing="false" onAction="#deleteEvent" styleClass="addEvent" text="Delete Event" />
+      <Button layoutX="459.0" layoutY="108.0" mnemonicParsing="false" onAction="#manageEvent" styleClass="addEvent" text="Manage Event" />
 
    </children>
 </AnchorPane>

@@ -54,7 +54,7 @@ public class EventDAO {
 
     }
 
-    public void manageEvent(Event event) throws BBExceptions, SQLServerException {
+    public void manageEvent(Event event) {
         String sql = "UPDATE EventTable SET " +
                 "event_type = ?, event_location = ?, event_start_time = ?, " +
                 "event_ending_time = ?, event_notes = ?, location_guidance = ? WHERE event_id = ?";
@@ -72,6 +72,8 @@ public class EventDAO {
             pstmnt.setString(5, event.getEventNotes());
             pstmnt.setString(6, event.getLocationGuidance());
             pstmnt.setInt(7, event.getEventId());
+
+            pstmnt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

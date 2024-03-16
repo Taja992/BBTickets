@@ -3,6 +3,7 @@ package BLL;
 import BE.Event;
 import DAL.EventDAO;
 import Exceptions.BBExceptions;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 public class BLLEvent {
 
@@ -14,5 +15,9 @@ public class BLLEvent {
 
     public void DeleteEvent(int Id) throws BBExceptions {
         DAO.deleteEvent(Id);
+    }
+
+    public void manageEvent(Event event) {
+        DAO.manageEvent(event);
     }
 }
