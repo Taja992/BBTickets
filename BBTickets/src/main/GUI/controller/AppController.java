@@ -17,6 +17,9 @@ public class AppController {
     public Spinner<Integer> eventHourSpinner;
     public Spinner<Integer> eventMinuteSpinner;
 
+    @FXML
+    private TextField eventIdField;
+
 
     @FXML
     private Button addEvent;
@@ -44,6 +47,12 @@ public class AppController {
             bllEvent.newEvent(event);
         } catch (BBExceptions e) {
             e.printStackTrace();
+        }
+    }
+
+    public void deleteEvent(ActionEvent actionEvent) throws BBExceptions {
+        if(!eventIdField.getText().isEmpty()){
+            bllEvent.DeleteEvent(Integer.parseInt(eventIdField.getText()));
         }
     }
 }

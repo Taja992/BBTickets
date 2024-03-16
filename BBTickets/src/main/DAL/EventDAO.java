@@ -38,4 +38,43 @@ public class EventDAO {
         }
     }
 
+    public void deleteEvent(int Id) throws BBExceptions {
+        String sql = "DELETE FROM EventTable WHERE event_id = ?";
+        try(Connection con = connectionManager.getConnection();){
+            PreparedStatement pstmnt = con.prepareStatement(sql);
+            pstmnt.setString(1, String.valueOf(Id));
+
+            pstmnt.executeUpdate();
+
+        } catch (SQLServerException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void manageEvent(Event event) throws BBExceptions, SQLServerException {
+        String sql = "UPDATE EventTable SET " +
+                "event_type = ?, event_location = ?, event_start_time = ?, " +
+                "event_ending_time = ?, event_notes = ?, location_guidance = ? WHERE event_id = ?";
+
+        try(Connection con = connectionManager.getConnection();){
+            PreparedStatement pstmnt = con.prepareStatement(sql);
+            pstmnt.setString(1, event.getEventType());
+            pstmnt.setString(2, event.getEventLocation());
+            pstmnt.setTimestamp(3, Timestamp.valueOf(event.getEventStartTime()));
+            if(event.getEventEndingTime()!= null){
+                pstmnt.setTimestamp(4, Timestamp.valueOf(event.getEventStartTime()));
+            } else{
+                pstmnt.setNull(4, Types.TIMESTAMP);
+            }
+            pstmnt.setString(5, event.getEventNotes());
+            pstmnt.setString(6, event.getLocationGuidance());
+            pstmnt.setInt(7, event.getEventId());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

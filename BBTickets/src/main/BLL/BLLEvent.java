@@ -11,4 +11,8 @@ public class BLLEvent {
     public void newEvent(Event event) throws BBExceptions {
         DAO.newEvent(event);
     }
+
+    public void DeleteEvent(int Id) throws BBExceptions {
+        DAO.deleteEvent(Id);
+    }
 }
