@@ -36,7 +36,7 @@
                         <TextField id="userPWTxtField" fx:id="usernameField" promptText="Username" />
                         <Label styleClass="userPWLbl" text="Password:" />
                         <TextField id="userPWTxtField" fx:id="passwordField" promptText="Password" />
-                        <CheckBox mnemonicParsing="false" text="Remember Me">
+                        <CheckBox fx:id="rememberCheckBox" mnemonicParsing="false" text="Remember Me">
                            <VBox.margin>
                               <Insets top="5.0" />
                            </VBox.margin>
