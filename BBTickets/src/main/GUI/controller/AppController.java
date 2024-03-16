@@ -3,7 +3,6 @@ package GUI.controller;
 import BE.Event;
 import BLL.BLLEvent;
 import Exceptions.BBExceptions;
-import com.jfoenix.controls.JFXTimePicker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
