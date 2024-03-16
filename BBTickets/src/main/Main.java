@@ -25,19 +25,19 @@ public class Main extends Application {
 //        primaryStage.setTitle("Ticket Interface");
 //        primaryStage.setScene(scene);
 //        primaryStage.show();
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Scene scene = new Scene(fxmlLoader.load());
         primaryStage.setTitle("Ticket Interface");
         primaryStage.setScene(scene);
         primaryStage.show();
 
         // Test database connection
-        try {
+       /* try {
             ConnectionManager connectionManager = new ConnectionManager();
             Connection connection = connectionManager.getConnection();
             System.out.println("Connected to database successfully!");
             connection.close();
         } catch (SQLException e) {
             System.out.println("Failed to connect to database: " + e.getMessage());
-        }
+        }*/
     }
 }

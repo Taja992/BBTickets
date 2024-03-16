@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" prefHeight="299.0" prefWidth="321.0" spacing="10" stylesheets="/GUI/view/main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.CreateEvent">
+    <children>
+        <Label text="Event Type:" />
+        <TextField fx:id="eventTypeField" promptText="Event Type">
+            <VBox.margin>
+                <Insets top="5.0" />
+            </VBox.margin></TextField>
+        <Label text="Event Location:" />
+        <TextField fx:id="eventLocationField" promptText="Event Location" />
+        <Label text="Start Date:" />
+        <DatePicker fx:id="eventStartDatePicker" promptText="Start Date" />
+        <Label text="Event Time:" />
+        <HBox alignment="CENTER" spacing="10">
+            <children>
+                <Spinner fx:id="eventHourSpinner" initialValue="12" max="23" min="0" prefHeight="25.0" prefWidth="53.0" />
+                <Label text=":" />
+                <Spinner fx:id="eventMinuteSpinner" initialValue="30" max="59" min="0" prefHeight="25.0" prefWidth="57.0" />
+            </children>
+        </HBox>
+        <Label text="End Date (Optional):" />
+        <DatePicker fx:id="eventEndDatePicker" promptText="End Date (Optional)" />
+        <Label text="Event Notes (Optional):" />
+        <TextField fx:id="eventNotesField" promptText="Event Notes (Optional)" />
+        <Label text="Directions (Optional):" />
+        <TextField fx:id="locationGuidanceField" promptText="Directions (Optional)" />
+        <Button fx:id="addEvent" onAction="#addEvent" text="Add Event" />
+    </children>
+</VBox>
