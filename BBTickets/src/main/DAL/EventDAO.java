@@ -50,15 +50,13 @@ public class EventDAO {
 
             pstmnt.executeUpdate();
 
-        } catch (SQLServerException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        }  catch (SQLException e) {
+            throw new BBExceptions("Failed to get delete event", e);
         }
 
     }
 
-    public void manageEvent(Event event) {
+    public void manageEvent(Event event) throws BBExceptions {
         String sql = "UPDATE EventTable SET " +
                 "event_type = ?, event_location = ?, event_start_time = ?, " +
                 "event_ending_time = ?, event_notes = ?, location_guidance = ? WHERE event_id = ?";
@@ -78,8 +76,8 @@ public class EventDAO {
             pstmnt.setInt(7, event.getEventId());
 
             pstmnt.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        }  catch (SQLException e) {
+            throw new BBExceptions("Failed to edit event", e);
         }
     }
     

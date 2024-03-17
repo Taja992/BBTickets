@@ -2,6 +2,7 @@ package GUI.controller;
 
 import BE.Event;
 import BLL.BLLEvent;
+import Exceptions.BBExceptions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
@@ -31,7 +32,7 @@ public class ManageEventController {
         eventIdField.setText(String.valueOf(Id));
     }
 
-    public void manageEvent(ActionEvent actionEvent) {
+    public void manageEvent(ActionEvent actionEvent) throws BBExceptions {
 
         int eventID = Integer.parseInt(eventIdField.getText());
         String type = eventTypeField.getText();
