@@ -15,7 +15,7 @@
         <HBox spacing="10">
             <children>
                 <Button fx:id="createEventBtn" text="Create Event" />
-                <Button text="Edit Event" />
+                <Button onAction="#editEvent" text="Edit Event" />
                 <Button onAction="#deleteEvent" text="Delete Event" />
             <Button fx:id="logoutBtn" mnemonicParsing="false" text="Log Out">
                <HBox.margin>

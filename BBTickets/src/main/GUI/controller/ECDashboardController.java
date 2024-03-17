@@ -119,4 +119,11 @@ public class ECDashboardController {
         stage.show();
 
     }
+
+    public void editEvent(ActionEvent actionEvent) {
+        BE.Event selected = (Event) eventList.getSelectionModel().getSelectedItem();
+        if(selected != null){
+            bllEvent.manageEvent(selected);
+        }
+    }
 }
