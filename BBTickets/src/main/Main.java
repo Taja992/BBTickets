@@ -19,22 +19,11 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GUI/view/login.fxml"));
         Parent root = fxmlLoader.load();
-        //root.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15;");
         Scene scene = new Scene(root, 600, 400);
         scene.setFill(Color.TRANSPARENT);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setTitle("Ticket Interface");
         primaryStage.setScene(scene);
         primaryStage.show();
-
-        // Test database connection
-       /* try {
-            ConnectionManager connectionManager = new ConnectionManager();
-            Connection connection = connectionManager.getConnection();
-            System.out.println("Connected to database successfully!");
-            connection.close();
-        } catch (SQLException e) {
-            System.out.println("Failed to connect to database: " + e.getMessage());
-        }*/
     }
 }

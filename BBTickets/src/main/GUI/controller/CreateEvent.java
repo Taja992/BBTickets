@@ -5,7 +5,9 @@ import BLL.BLLEvent;
 import Exceptions.BBExceptions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -51,8 +53,19 @@ public class CreateEvent {
 
         try {
             bllEvent.newEvent(event);
+            // Get the current stage from the action event and close it
+            Node source = (Node) actionEvent.getSource();
+            Stage stage = (Stage) source.getScene().getWindow();
+            stage.close();
         } catch (BBExceptions e) {
             e.printStackTrace();
         }
+    }
+
+    public void closeWindow(ActionEvent actionEvent) {
+        // Get the current stage from the action event and close it
+        Node source = (Node) actionEvent.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
     }
 }
