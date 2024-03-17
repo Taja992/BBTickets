@@ -4,6 +4,7 @@ public class User {
     private int user_type;
     private String password;
     private String username;
+    private String roleName;
 
     public User(Integer user_type, String password, String username) {
         this.user_type = user_type;
@@ -22,4 +23,13 @@ public class User {
     public String getUsername() {return username;}
 
     public void setUsername(String username) {this.username = username;}
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
 }
