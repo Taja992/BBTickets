@@ -8,25 +8,34 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.AdminDashboardController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="base" stylesheets="/GUI/view/adminDashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.AdminDashboardController">
     <children>
-        <Label text="Admin Dashboard" />
-        <Label text="List of all users" />
-        <TableView fx:id="userList">
+        <Label styleClass="adminDashLbl" text="Admin Dashboard" />
+        <Label styleClass="userLbl" text="List of all users" />
+        <TableView fx:id="userList" styleClass="userTable">
          <columns>
              <TableColumn fx:id="typeColumn" prefWidth="100.0" text="Role" />
              <TableColumn fx:id="usernameColumn" prefWidth="100.0" text="Username" />
              <TableColumn fx:id="passwordColumn" prefWidth="100.0" text="Password" />
          </columns></TableView>
-        <HBox spacing="10">
+        <HBox spacing="10" styleClass="userBtnBox">
             <children>
-                <Button text="Create User" />
-                <Button text="Edit User" />
-                <Button text="Delete User" />
+                <Button styleClass="createUser" text="Create User">
+               <HBox.margin>
+                  <Insets top="2.0" />
+               </HBox.margin></Button>
+                <Button styleClass="editUser" text="Edit User">
+               <HBox.margin>
+                  <Insets top="2.0" />
+               </HBox.margin></Button>
+                <Button styleClass="deleteUser" text="Delete User">
+               <HBox.margin>
+                  <Insets top="2.0" />
+               </HBox.margin></Button>
             </children>
         </HBox>
-        <Label text="List of all events" />
-        <TableView fx:id="eventList">
+        <Label styleClass="eventLbl" text="List of all events" />
+        <TableView fx:id="eventList" styleClass="eventList">
         <columns>
             <TableColumn fx:id="eventTypeColumn" prefWidth="100.0" text="Event Type" />
             <TableColumn fx:id="eventLocationColumn" prefWidth="100.0" text="Event Location" />
@@ -36,13 +45,19 @@
             <TableColumn fx:id="locationGuidanceColumn" prefWidth="200.0" text="Location Guidance" />
         </columns>
         </TableView>
-        <HBox spacing="10">
+        <HBox prefWidth="600.0" spacing="10" styleClass="eventBtnBox">
             <children>
-                <Button onAction="#deleteEvent" text="Delete Event" />
-                <Button text="Assign Coordinator" />
-            <Button fx:id="logoutBtn" mnemonicParsing="false" text="Log Out">
+                <Button onAction="#deleteEvent" styleClass="deleteEvent" text="Delete Event">
                <HBox.margin>
-                  <Insets left="300.0" />
+                  <Insets left="12.0" top="2.0" />
+               </HBox.margin></Button>
+                <Button prefWidth="122.0" styleClass="assignCoord" text="Assign Coordinator">
+               <HBox.margin>
+                  <Insets bottom="3.0" top="2.0" />
+               </HBox.margin></Button>
+            <Button fx:id="logoutBtn" mnemonicParsing="false" styleClass="logoutBTN" text="Log Out">
+               <HBox.margin>
+                  <Insets left="280.0" top="2.0" />
                </HBox.margin>
             </Button>
             </children>

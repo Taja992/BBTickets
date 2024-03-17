@@ -5,32 +5,48 @@ import BLL.BLLEvent;
 import Exceptions.BBExceptions;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.awt.*;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class ECDashboardController {
 
-    public Button logoutBtn;
-    public Button createEventBtn;
     @FXML
-    private ListView eventList;
+    private Button logoutBtn;
+    @FXML
+    private Button createEventBtn;
+    @FXML
+    private TableView<Event> eventList;
+    @FXML
+    private TableColumn<Event, String> eventTypeColumn;
+    @FXML
+    private TableColumn<Event, String> eventLocationColumn;
+    @FXML
+    private TableColumn<Event, LocalDateTime> eventStartTimeColumn;
+    @FXML
+    private TableColumn<Event, LocalDateTime> eventEndTimeColumn;
+    @FXML
+    private TableColumn<Event, String> eventNotesColumn;
+    @FXML
+    private TableColumn<Event, String> locationGuidanceColumn;
 
     private BLLEvent bllEvent;
 
     public void initialize() {
         setupLogoutButton();
         setupCreateEventButton();
+        setupEventTable();
     }
 
     private void setupLogoutButton() {
@@ -43,8 +59,17 @@ public class ECDashboardController {
         });
     }
 
+    public void setupEventTable() {
+        eventTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventType"));
+        eventLocationColumn.setCellValueFactory(new PropertyValueFactory<>("eventLocation"));
+        eventStartTimeColumn.setCellValueFactory(new PropertyValueFactory<>("eventStartTime"));
+        eventEndTimeColumn.setCellValueFactory(new PropertyValueFactory<>("eventEndingTime"));
+        eventNotesColumn.setCellValueFactory(new PropertyValueFactory<>("eventNotes"));
+        locationGuidanceColumn.setCellValueFactory(new PropertyValueFactory<>("locationGuidance"));
+    }
+
     public void deleteEvent(ActionEvent actionEvent) throws BBExceptions {
-        BE.Event selected = (Event) eventList.getSelectionModel().getSelectedItem();
+        BE.Event selected = eventList.getSelectionModel().getSelectedItem();
         if(selected != null){
             bllEvent.DeleteEvent(selected.getEventId());
         }
@@ -61,7 +86,7 @@ public class ECDashboardController {
     }
 
     public void editEvent(ActionEvent actionEvent) throws BBExceptions {
-        BE.Event selected = (Event) eventList.getSelectionModel().getSelectedItem();
+        BE.Event selected = eventList.getSelectionModel().getSelectedItem();
         if(selected != null){
             bllEvent.manageEvent(selected);
         }
