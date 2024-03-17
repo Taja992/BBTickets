@@ -109,4 +109,14 @@ public class ECDashboardController {
             bllEvent.DeleteEvent(selected.getEventId());
         }
     }
+
+    public void createTicket(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/CreateTicketTemp.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+
+    }
 }

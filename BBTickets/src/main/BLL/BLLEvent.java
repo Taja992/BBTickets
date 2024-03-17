@@ -22,6 +22,7 @@ public class BLLEvent {
     public void manageEvent(Event event) {
         DAO.manageEvent(event);
     }
+
     public List<Event> getAllEvents() throws BBExceptions {
         return DAO.getAllEvents();
     }

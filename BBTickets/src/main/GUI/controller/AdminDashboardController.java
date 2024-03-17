@@ -90,10 +90,11 @@ public class AdminDashboardController {
 
 
     public void deleteEvent(ActionEvent actionEvent) throws BBExceptions {
+        //gets the selected item from the table and deletes it (does nothing if nothing is selected)
         BE.Event selected = eventList.getSelectionModel().getSelectedItem();
         if(selected != null){
             bllEvent.DeleteEvent(selected.getEventId());
-            loadEvents();
+            loadEvents(); //reloads the table so it updates with the item deleted
         }
     }
 }

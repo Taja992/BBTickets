@@ -8,12 +8,17 @@ import java.sql.SQLException;
 
 public class TicketDAO {
 
-    private ConnectionManager connectionManager;
+    private ConnectionManager connectionManager = new ConnectionManager();
 
     public void createTicket(String type, int customerId, int eventId, double price) {
-        String sql = "insert into Tickets (type, customer_id, event_id, price) VALUES ?,?,?,?";
+        String sql = "insert into Tickets (type, customer_id, event_id, price) VALUES (?,?,?,?)";
 
         try(Connection con = connectionManager.getConnection()){
+
+            System.out.println(type);
+            System.out.println(customerId);
+            System.out.println(eventId);
+            System.out.println(price);
 
             PreparedStatement pstmnt = con.prepareStatement(sql);
             pstmnt.setString(1, type);

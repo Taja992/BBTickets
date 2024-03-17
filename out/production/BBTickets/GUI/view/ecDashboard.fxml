@@ -24,7 +24,7 @@
             </Button>
             </children>
         </HBox>
-        <Button text="Add Tickets to Event" />
+        <Button onAction="#createTicket" text="Add Tickets to Event" />
         <Button text="Assign Coordinators" />
     </children>
 </VBox>
