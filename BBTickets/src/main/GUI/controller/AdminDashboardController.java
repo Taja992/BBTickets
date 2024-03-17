@@ -1,10 +1,12 @@
 package GUI.controller;
 
 import BE.Event;
+import BE.User;
 import BLL.BLLEvent;
 import BLL.BLLUser;
 import Exceptions.BBExceptions;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,31 +22,61 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class AdminDashboardController {
-    public Button logoutBtn;
-    public TableView<Event> eventList;
-    public TableColumn<Event, String> eventTypeColumn;
-    public TableColumn<Event, String> eventLocationColumn;
-    public TableColumn<Event, LocalDateTime> eventStartTimeColumn;
-    public TableColumn<Event, LocalDateTime> eventEndTimeColumn;
-    public TableColumn<Event, String> eventNotesColumn;
-    public TableColumn<Event, String> locationGuidanceColumn;
+
+    @FXML
+    private Button logoutBtn;
+    @FXML
+    private TableView<Event> eventList;
+    @FXML
+    private TableColumn<Event, String> eventTypeColumn;
+    @FXML
+    private TableColumn<Event, String> eventLocationColumn;
+    @FXML
+    private TableColumn<Event, LocalDateTime> eventStartTimeColumn;
+    @FXML
+    private TableColumn<Event, LocalDateTime> eventEndTimeColumn;
+    @FXML
+    private TableColumn<Event, String> eventNotesColumn;
+    @FXML
+    private TableColumn<Event, String> locationGuidanceColumn;
+    @FXML
+    private TableColumn<User, Integer> typeColumn;
+    @FXML
+    private TableColumn<User, String> usernameColumn;
+    @FXML
+    private TableColumn<User, String> passwordColumn;
+    @FXML
+    private TableView<User> userList;
 
 
-    private BLLEvent bllEvent;
+    private final BLLEvent bllEvent;
+    private final BLLUser bllUser;
 
     public AdminDashboardController(){
         bllEvent = new BLLEvent();
+        bllUser = new BLLUser();
     }
     public void initialize() {
         logOut();
-        setupEventTable();
         loadEvents();
+        loadUsers();
+        setupEventTable();
+        setupUserTable();
     }
 
     public void loadEvents() {
         try {
             // Call getAllEvents from bllEvent and set the result as the items of eventList
             eventList.getItems().setAll(bllEvent.getAllEvents());
+        } catch (BBExceptions e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadUsers() {
+        try {
+            // Call getAllEvents from bllEvent and set the result as the items of eventList
+            userList.getItems().setAll(bllUser.allUsers());
         } catch (BBExceptions e) {
             e.printStackTrace();
         }
@@ -57,6 +89,12 @@ public class AdminDashboardController {
         eventEndTimeColumn.setCellValueFactory(new PropertyValueFactory<>("eventEndingTime"));
         eventNotesColumn.setCellValueFactory(new PropertyValueFactory<>("eventNotes"));
         locationGuidanceColumn.setCellValueFactory(new PropertyValueFactory<>("locationGuidance"));
+    }
+
+    public void setupUserTable() {
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("user_type"));
+        usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
+        passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
     }
 
     public void logOut(){
