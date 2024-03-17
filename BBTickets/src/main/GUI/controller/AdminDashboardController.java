@@ -5,6 +5,7 @@ import BE.User;
 import BLL.BLLEvent;
 import BLL.BLLUser;
 import Exceptions.BBExceptions;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -123,5 +124,15 @@ public class AdminDashboardController {
             }
         });
 
+    }
+
+
+    public void deleteEvent(ActionEvent actionEvent) throws BBExceptions {
+        //gets the selected item from the table and deletes it (does nothing if nothing is selected)
+        BE.Event selected = eventList.getSelectionModel().getSelectedItem();
+        if(selected != null){
+            bllEvent.DeleteEvent(selected.getEventId());
+            loadEvents(); //reloads the table so it updates with the item deleted
+        }
     }
 }

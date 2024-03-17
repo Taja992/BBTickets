@@ -15,8 +15,8 @@
         <HBox spacing="10">
             <children>
                 <Button fx:id="createEventBtn" text="Create Event" />
-                <Button text="Edit Event" />
-                <Button text="Delete Event" />
+                <Button onAction="#editEvent" text="Edit Event" />
+                <Button onAction="#deleteEvent" text="Delete Event" />
             <Button fx:id="logoutBtn" mnemonicParsing="false" text="Log Out">
                <HBox.margin>
                   <Insets left="250.0" />
@@ -24,7 +24,7 @@
             </Button>
             </children>
         </HBox>
-        <Button text="Add Tickets to Event" />
+        <Button onAction="#createTicket" text="Add Tickets to Event" />
         <Button text="Assign Coordinators" />
     </children>
 </VBox>

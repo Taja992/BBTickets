@@ -1,5 +1,9 @@
 package GUI.controller;
 
+import BE.Event;
+import BLL.BLLEvent;
+import Exceptions.BBExceptions;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
@@ -7,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -18,6 +23,10 @@ public class ECDashboardController {
 
     public Button logoutBtn;
     public Button createEventBtn;
+    @FXML
+    private ListView eventList;
+
+    private BLLEvent bllEvent;
 
     public void initialize() {
         setupLogoutButton();
@@ -32,6 +41,30 @@ public class ECDashboardController {
                 e.printStackTrace();
             }
         });
+    }
+
+    public void deleteEvent(ActionEvent actionEvent) throws BBExceptions {
+        BE.Event selected = (Event) eventList.getSelectionModel().getSelectedItem();
+        if(selected != null){
+            bllEvent.DeleteEvent(selected.getEventId());
+        }
+    }
+
+    public void createTicket(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/CreateTicketTemp.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+    public void editEvent(ActionEvent actionEvent) {
+        BE.Event selected = (Event) eventList.getSelectionModel().getSelectedItem();
+        if(selected != null){
+            bllEvent.manageEvent(selected);
+        }
     }
 
     private void setupCreateEventButton() {

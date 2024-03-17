@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 public class Event {
 
+    private int eventId;
     private String eventType;
     private String eventLocation;
     private LocalDateTime eventStartTime;
@@ -12,6 +13,22 @@ public class Event {
     private String eventNotes;
     private String locationGuidance;
 
+
+    public Event(int eventId, String eventType, String eventLocation, LocalDateTime eventStartTime) {
+        this.eventId = eventId;
+        this.eventType = eventType;
+        this.eventLocation = eventLocation;
+        this.eventStartTime = eventStartTime;
+    }
+    public Event(int eventId, String eventType, String eventLocation, LocalDateTime eventStartTime, LocalDateTime eventEndingTime, String eventNotes, String locationGuidance) {
+        this.eventId = eventId;
+        this.eventType = eventType;
+        this.eventLocation = eventLocation;
+        this.eventStartTime = eventStartTime;
+        this.eventEndingTime = eventEndingTime;
+        this.eventNotes = eventNotes;
+        this.locationGuidance = locationGuidance;
+    }
 
     public Event(String eventType, String eventLocation, LocalDateTime eventStartTime) {
         this.eventType = eventType;
@@ -33,7 +50,9 @@ public class Event {
         this.locationGuidance = locationGuidance;
     }
 
-
+    public int getEventId() {
+        return eventId;
+    }
 
     public String getEventType() {
         return eventType;
