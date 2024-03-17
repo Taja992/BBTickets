@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -49,7 +50,17 @@ public class CreateEvent {
         int hour = eventHourSpinner.getValue();
         int minute = eventMinuteSpinner.getValue();
         LocalDateTime eventStartTime = LocalDateTime.of(eventStartDatePicker.getValue(), LocalTime.of(hour, minute));
-        Event event = new Event(eventType, eventLocation, eventStartTime);
+        // Get the value from the eventEndDatePicker, which is a DatePicker. The getValue() method returns a LocalDate object.
+        LocalDate endDate = eventEndDatePicker.getValue();
+        // Check if endDate is not null. If it's not null, Set end date to start of day on date chosen
+        LocalDateTime eventEndingTime = endDate != null ? endDate.atStartOfDay() : null;
+        // Check if Null, if not, set notes
+        String eventNotes = eventNotesField.getText().isEmpty() ? null : eventNotesField.getText();
+        // Check if Null, if not, set notes
+        String locationGuidance = locationGuidanceField.getText().isEmpty() ? null : locationGuidanceField.getText();
+
+
+        Event event = new Event(eventType, eventLocation, eventStartTime, eventEndingTime, eventNotes, locationGuidance);
 
         try {
             bllEvent.newEvent(event);

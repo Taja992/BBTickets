@@ -2,15 +2,24 @@ package GUI.controller;
 
 import BE.User;
 import BLL.BLLUser;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.util.prefs.Preferences;
 
 public class LoginController {
+
+    @FXML
+    private HBox titleBar;
+    @FXML
+    private Button closeButton;
+    private double xOffset = 0;
+    private double yOffset = 0;
     public Button loginBtn;
     public CheckBox rememberCheckBox;
     public Label errorMsgLabel;
@@ -32,6 +41,9 @@ public class LoginController {
     }
 
     public void initialize() {
+        windowMovement();
+
+
         // Load the saved username and password
         String savedUsername = prefs.get("username", "");
         String savedPassword = prefs.get("password", "");
@@ -81,6 +93,26 @@ public class LoginController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        });
+    }
+
+    public void windowMovement(){
+        // Add functionality to move the window around
+        titleBar.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        titleBar.setOnMouseDragged(event -> {
+            Stage stage = (Stage) titleBar.getScene().getWindow();
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
+
+        // Add functionality to close the window
+        closeButton.setOnAction(event -> {
+            Stage stage = (Stage) closeButton.getScene().getWindow();
+            stage.close();
         });
     }
 }
