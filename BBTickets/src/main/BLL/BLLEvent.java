@@ -19,7 +19,7 @@ public class BLLEvent {
         DAO.deleteEvent(Id);
     }
 
-    public void manageEvent(Event event) {
+    public void manageEvent(Event event) throws BBExceptions {
         DAO.manageEvent(event);
     }
 

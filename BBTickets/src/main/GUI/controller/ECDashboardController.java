@@ -60,7 +60,7 @@ public class ECDashboardController {
 
     }
 
-    public void editEvent(ActionEvent actionEvent) {
+    public void editEvent(ActionEvent actionEvent) throws BBExceptions {
         BE.Event selected = (Event) eventList.getSelectionModel().getSelectedItem();
         if(selected != null){
             bllEvent.manageEvent(selected);
