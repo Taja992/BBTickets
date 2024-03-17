@@ -16,7 +16,7 @@ public class CustomerDAO {
         connectionManager = new ConnectionManager();
     }
 
-    public void newCustomer(Customer customer) {
+    public void newCustomer(Customer customer) throws BBExceptions {
         String sql = "INSERT INTO [Customer] (customer_name, customer_email) VALUES (?, ?, ?)";
 
         try {
@@ -26,10 +26,8 @@ public class CustomerDAO {
             statement.setString(2, customer.getCustomerEmail());
             statement.executeUpdate();
 
-        } catch (SQLServerException e) {
-            throw new RuntimeException(e);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new BBExceptions("Failed to retrieve user", e);
         }
     }
 }
