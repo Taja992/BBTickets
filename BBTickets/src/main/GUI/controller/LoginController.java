@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.prefs.Preferences;
 
@@ -75,7 +76,7 @@ public class LoginController {
                         prefs.remove("password");
                     }
 
-                    Stage stage = (Stage) loginBtn.getScene().getWindow();
+                    Stage stage = new Stage();
                     Parent root = null;
                     if (user.getUser_type() == 1) {
                         root = FXMLLoader.load(getClass().getResource("/GUI/view/adminDashboard.fxml"));
@@ -86,7 +87,11 @@ public class LoginController {
                     }
                     Scene scene = new Scene(root);
                     stage.setScene(scene);
+                    stage.initStyle(StageStyle.DECORATED);
                     stage.show();
+
+                    ((Stage) loginBtn.getScene().getWindow()).close();
+
                 } else {
                     errorMsgLabel.setText("Invalid username or password");
                 }

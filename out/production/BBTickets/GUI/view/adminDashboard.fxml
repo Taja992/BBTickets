@@ -3,15 +3,24 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.AdminDashboardController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.AdminDashboardController">
     <children>
         <Label text="Admin Dashboard" />
         <Label text="List of all users" />
-        <ListView fx:id="userList" />
+        <TableView fx:id="userList">
+         <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+            <TableColumn prefWidth="75.0" text="C3" />
+            <TableColumn prefWidth="75.0" text="C2" />
+            <TableColumn prefWidth="75.0" text="C2" />
+            <TableColumn prefWidth="75.0" text="C2" />
+         </columns></TableView>
         <HBox spacing="10">
             <children>
                 <Button text="Create User" />
@@ -20,7 +29,16 @@
             </children>
         </HBox>
         <Label text="List of all events" />
-        <ListView fx:id="eventList" />
+        <TableView fx:id="eventList">
+        <columns>
+            <TableColumn fx:id="eventTypeColumn" prefWidth="100.0" text="Event Type" />
+            <TableColumn fx:id="eventLocationColumn" prefWidth="100.0" text="Event Location" />
+            <TableColumn fx:id="eventStartTimeColumn" prefWidth="150.0" text="Event Start Time" />
+            <TableColumn fx:id="eventEndTimeColumn" prefWidth="150.0" text="Event End Time" />
+            <TableColumn fx:id="eventNotesColumn" prefWidth="200.0" text="Event Notes" />
+            <TableColumn fx:id="locationGuidanceColumn" prefWidth="200.0" text="Location Guidance" />
+        </columns>
+        </TableView>
         <HBox spacing="10">
             <children>
                 <Button text="Delete Event" />
