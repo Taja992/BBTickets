@@ -5,6 +5,10 @@ import Exceptions.BBExceptions;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import Exceptions.BBExceptions;
 
@@ -77,6 +81,33 @@ public class EventDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    
+    public List<Event> getAllEvents() throws BBExceptions {
+        List<Event> allEvents = new ArrayList<>();
+
+        String sql = "SELECT * FROM EventTable";
+
+        try(Connection connection = connectionManager.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery()) {
+
+            while(rs.next()) {
+                String eventType = rs.getString("event_type");
+                String eventLocation = rs.getString("event_location");
+                LocalDateTime eventStartTime = rs.getTimestamp("event_start_time").toLocalDateTime();
+                Timestamp eventEndingTimeTs = rs.getTimestamp("event_ending_time"); // Get the event ending time from the current row
+                LocalDateTime eventEndingTime = eventEndingTimeTs != null ? eventEndingTimeTs.toLocalDateTime() : null; // Convert the event ending time to a LocalDateTime if it's not null
+                String eventNotes = rs.getString("event_notes");
+                String locationGuidance = rs.getString("location_guidance");
+
+                Event event = new Event(eventType, eventLocation, eventStartTime, eventEndingTime, eventNotes, locationGuidance);
+                allEvents.add(event);
+            }
+        } catch (SQLException e) {
+            throw new BBExceptions("Failed to get all events", e);
+        }
+        return allEvents;
     }
 
 }

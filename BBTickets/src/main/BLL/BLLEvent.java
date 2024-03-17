@@ -5,6 +5,8 @@ import DAL.EventDAO;
 import Exceptions.BBExceptions;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
+import java.util.List;
+
 public class BLLEvent {
 
     EventDAO DAO = new EventDAO();
@@ -19,5 +21,8 @@ public class BLLEvent {
 
     public void manageEvent(Event event) {
         DAO.manageEvent(event);
+    }
+    public List<Event> getAllEvents() throws BBExceptions {
+        return DAO.getAllEvents();
     }
 }
