@@ -14,7 +14,7 @@ import Exceptions.BBExceptions;
 
 public class EventDAO {
 
-    private ConnectionManager connectionManager;
+    private final ConnectionManager connectionManager;
 
     public EventDAO(){
         connectionManager = new ConnectionManager();
