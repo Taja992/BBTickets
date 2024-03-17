@@ -24,7 +24,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GUI/view/login.fxml"));
         Parent root = fxmlLoader.load();
-        //root.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 15; -fx-border-radius: 15;");
         Scene scene = new Scene(root, 600, 400);
         scene.setFill(Color.TRANSPARENT);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
