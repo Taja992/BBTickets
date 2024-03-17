@@ -4,6 +4,8 @@ import BE.User;
 import Exceptions.BBExceptions;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
     private ConnectionManager connectionManager;
@@ -47,4 +49,29 @@ public class UserDAO {
             throw new BBExceptions("Failed to retrieve user", e);
         }
     }
+
+    public List<User> allUsers() throws BBExceptions {
+        List<User> allUsers = new ArrayList<>();
+        String sql = "SELECT * FROM [User]";
+
+        try {
+            Connection connection = connectionManager.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int user_type = resultSet.getInt("user_type");
+                String password = resultSet.getString("password");
+                String username = resultSet.getString("username");
+                User user = new User(user_type, password, username);
+                allUsers.add(user);
+            }
+        } catch (SQLException e) {
+            throw new BBExceptions("Failed to retrieve all users", e);
+        }
+
+        return allUsers;
+    }
+
+
 }
