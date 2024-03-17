@@ -14,12 +14,9 @@
         <Label text="List of all users" />
         <TableView fx:id="userList">
          <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
-            <TableColumn prefWidth="75.0" text="C3" />
-            <TableColumn prefWidth="75.0" text="C2" />
-            <TableColumn prefWidth="75.0" text="C2" />
-            <TableColumn prefWidth="75.0" text="C2" />
+             <TableColumn fx:id="typeColumn" prefWidth="100.0" text="Role" />
+             <TableColumn fx:id="usernameColumn" prefWidth="100.0" text="Username" />
+             <TableColumn fx:id="passwordColumn" prefWidth="100.0" text="Password" />
          </columns></TableView>
         <HBox spacing="10">
             <children>

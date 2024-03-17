@@ -1,6 +1,7 @@
 package GUI.controller;
 
 import BE.Event;
+import BE.User;
 import BLL.BLLEvent;
 import BLL.BLLUser;
 import Exceptions.BBExceptions;
@@ -27,23 +28,40 @@ public class AdminDashboardController {
     public TableColumn<Event, LocalDateTime> eventEndTimeColumn;
     public TableColumn<Event, String> eventNotesColumn;
     public TableColumn<Event, String> locationGuidanceColumn;
+    public TableColumn<User, Integer> typeColumn;
+    public TableColumn<User, String> usernameColumn;
+    public TableColumn<User, String> passwordColumn;
+    public TableView<User> userList;
 
 
-    private BLLEvent bllEvent;
+    private final BLLEvent bllEvent;
+    private final BLLUser bllUser;
 
     public AdminDashboardController(){
         bllEvent = new BLLEvent();
+        bllUser = new BLLUser();
     }
     public void initialize() {
         logOut();
-        setupEventTable();
         loadEvents();
+        loadUsers();
+        setupEventTable();
+        setupUserTable();
     }
 
     public void loadEvents() {
         try {
             // Call getAllEvents from bllEvent and set the result as the items of eventList
             eventList.getItems().setAll(bllEvent.getAllEvents());
+        } catch (BBExceptions e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadUsers() {
+        try {
+            // Call getAllEvents from bllEvent and set the result as the items of eventList
+            userList.getItems().setAll(bllUser.allUsers());
         } catch (BBExceptions e) {
             e.printStackTrace();
         }
@@ -56,6 +74,12 @@ public class AdminDashboardController {
         eventEndTimeColumn.setCellValueFactory(new PropertyValueFactory<>("eventEndingTime"));
         eventNotesColumn.setCellValueFactory(new PropertyValueFactory<>("eventNotes"));
         locationGuidanceColumn.setCellValueFactory(new PropertyValueFactory<>("locationGuidance"));
+    }
+
+    public void setupUserTable() {
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("user_type"));
+        usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
+        passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
     }
 
     public void logOut(){
