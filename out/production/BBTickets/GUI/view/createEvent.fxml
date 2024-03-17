@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="299.0" prefWidth="321.0" spacing="10" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.CreateEvent">
+<VBox alignment="CENTER" prefHeight="299.0" stylesheets="/GUI/view/createEvent.css" prefWidth="321.0" spacing="10" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.CreateEvent">
     <children>
         <Label text="Event Type:" />
         <TextField fx:id="eventTypeField" promptText="Event Type">
