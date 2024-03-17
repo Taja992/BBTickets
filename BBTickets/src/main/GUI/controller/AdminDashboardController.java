@@ -92,7 +92,7 @@ public class AdminDashboardController {
     }
 
     public void setupUserTable() {
-        typeColumn.setCellValueFactory(new PropertyValueFactory<>("user_type"));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("roleName"));
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
     }

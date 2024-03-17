@@ -18,7 +18,16 @@ public class BLLUser {
     }
 
     public List<User> allUsers() throws BBExceptions {
-        return userDAO.allUsers();
+        List<User> allUsers = userDAO.allUsers();
+        for (User user : allUsers) {
+            String roleName = switch (user.getUser_type()) {
+                case 0 -> "Event Coordinator";
+                case 1 -> "Admin";
+                default -> "Unknown";
+            };
+            user.setRoleName(roleName);
+        }
+        return allUsers;
     }
 }
 
