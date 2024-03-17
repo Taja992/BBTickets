@@ -54,3 +54,15 @@
     -fx-cursor: hand;
     -fx-underline: true;
 }
+
+.closeButton {
+    -fx-background-color: TRANSPARENT;
+}
+
+.closeButton:hover {
+    -fx-text-fill: white;
+}
+
+.secretButton {
+    -fx-background-color: TRANSPARENT;
+}
