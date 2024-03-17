@@ -4,6 +4,7 @@ import BE.Event;
 import BLL.BLLEvent;
 import BLL.BLLUser;
 import Exceptions.BBExceptions;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -85,5 +86,14 @@ public class AdminDashboardController {
             }
         });
 
+    }
+
+
+    public void deleteEvent(ActionEvent actionEvent) throws BBExceptions {
+        BE.Event selected = eventList.getSelectionModel().getSelectedItem();
+        if(selected != null){
+            bllEvent.DeleteEvent(selected.getEventId());
+            loadEvents();
+        }
     }
 }

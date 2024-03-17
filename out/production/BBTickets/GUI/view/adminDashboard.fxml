@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.AdminDashboardController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.AdminDashboardController">
     <children>
         <Label text="Admin Dashboard" />
         <Label text="List of all users" />
@@ -41,7 +41,7 @@
         </TableView>
         <HBox spacing="10">
             <children>
-                <Button text="Delete Event" />
+                <Button onAction="#deleteEvent" text="Delete Event" />
                 <Button text="Assign Coordinator" />
             <Button fx:id="logoutBtn" mnemonicParsing="false" text="Log Out">
                <HBox.margin>

@@ -93,6 +93,7 @@ public class EventDAO {
             ResultSet rs = pstmt.executeQuery()) {
 
             while(rs.next()) {
+                int eventId = rs.getInt("event_id");
                 String eventType = rs.getString("event_type");
                 String eventLocation = rs.getString("event_location");
                 LocalDateTime eventStartTime = rs.getTimestamp("event_start_time").toLocalDateTime();
@@ -101,7 +102,7 @@ public class EventDAO {
                 String eventNotes = rs.getString("event_notes");
                 String locationGuidance = rs.getString("location_guidance");
 
-                Event event = new Event(eventType, eventLocation, eventStartTime, eventEndingTime, eventNotes, locationGuidance);
+                Event event = new Event(eventId, eventType, eventLocation, eventStartTime, eventEndingTime, eventNotes, locationGuidance);
                 allEvents.add(event);
             }
         } catch (SQLException e) {
