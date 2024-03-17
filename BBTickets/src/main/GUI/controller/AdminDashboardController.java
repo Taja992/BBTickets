@@ -5,6 +5,7 @@ import BE.User;
 import BLL.BLLEvent;
 import BLL.BLLUser;
 import Exceptions.BBExceptions;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,18 +21,31 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class AdminDashboardController {
-    public Button logoutBtn;
-    public TableView<Event> eventList;
-    public TableColumn<Event, String> eventTypeColumn;
-    public TableColumn<Event, String> eventLocationColumn;
-    public TableColumn<Event, LocalDateTime> eventStartTimeColumn;
-    public TableColumn<Event, LocalDateTime> eventEndTimeColumn;
-    public TableColumn<Event, String> eventNotesColumn;
-    public TableColumn<Event, String> locationGuidanceColumn;
-    public TableColumn<User, Integer> typeColumn;
-    public TableColumn<User, String> usernameColumn;
-    public TableColumn<User, String> passwordColumn;
-    public TableView<User> userList;
+
+    @FXML
+    private Button logoutBtn;
+    @FXML
+    private TableView<Event> eventList;
+    @FXML
+    private TableColumn<Event, String> eventTypeColumn;
+    @FXML
+    private TableColumn<Event, String> eventLocationColumn;
+    @FXML
+    private TableColumn<Event, LocalDateTime> eventStartTimeColumn;
+    @FXML
+    private TableColumn<Event, LocalDateTime> eventEndTimeColumn;
+    @FXML
+    private TableColumn<Event, String> eventNotesColumn;
+    @FXML
+    private TableColumn<Event, String> locationGuidanceColumn;
+    @FXML
+    private TableColumn<User, Integer> typeColumn;
+    @FXML
+    private TableColumn<User, String> usernameColumn;
+    @FXML
+    private TableColumn<User, String> passwordColumn;
+    @FXML
+    private TableView<User> userList;
 
 
     private final BLLEvent bllEvent;
