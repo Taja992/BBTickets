@@ -1,5 +1,6 @@
 package DAL;
 
+import BE.Customer;
 import Exceptions.BBExceptions;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
@@ -21,8 +22,8 @@ public class CustomerDAO {
         try {
             Connection connection = connectionManager.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, customer.getCustomer_name());
-            statement.setString(2, customer.getCustomer_email());
+            statement.setString(1, customer.getCustomerName());
+            statement.setString(2, customer.getCustomerEmail());
             statement.executeUpdate();
 
         } catch (SQLServerException e) {

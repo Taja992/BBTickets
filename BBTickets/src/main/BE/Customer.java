@@ -2,15 +2,13 @@ package BE;
 
 public class Customer {
     private String customerName;
-    private String emailAddress;
+    private String customerEmail;
 
     // Constructor
-    public Customer(String customerName, String emailAddress) {
+    public Customer(String customerName, String customerEmail) {
         this.customerName = customerName;
-        this.emailAddress = emailAddress;
+        this.customerEmail = customerEmail;
     }
-
-    // Getter and setter methods for customerName
     public String getCustomerName() {
         return customerName;
     }
@@ -19,12 +17,11 @@ public class Customer {
         this.customerName = customerName;
     }
 
-    // Getter and setter methods for emailAddress
-    public String getEmailAddress() {
-        return emailAddress;
+    public String getCustomerEmail() {
+        return customerEmail;
     }
 
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
+    public void setEmailAddress(String customerEmail) {
+        this.customerEmail = customerEmail;
     }
 }
