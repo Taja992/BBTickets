@@ -10,7 +10,12 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.Region?>
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="/GUI/view/login.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.LoginController">
+   <HBox fx:id="titleBar" alignment="center" spacing="10" style="-fx-background-color: #2f2f2f; -fx-padding: 5;">
+      <Region HBox.hgrow="ALWAYS" />
+      <Button fx:id="closeButton" text="X" />
+   </HBox>
    <children>
       <HBox prefHeight="269.0" prefWidth="357.0" styleClass="frontPanel">
          <children>
