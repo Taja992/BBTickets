@@ -7,7 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -16,7 +18,7 @@ import java.util.prefs.Preferences;
 public class LoginController {
 
     @FXML
-    private HBox titleBar;
+    private BorderPane titleBar;
     @FXML
     private Button closeButton;
     private double xOffset = 0;

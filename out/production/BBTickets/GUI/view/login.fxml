@@ -4,95 +4,104 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.layout.Region?>
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="root" stylesheets="/GUI/view/login.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.LoginController">
-   <HBox fx:id="titleBar" alignment="center" spacing="10" style="-fx-background-color: #2f2f2f; -fx-padding: 5;">
-      <Region HBox.hgrow="ALWAYS" />
-      <Button fx:id="closeButton" text="X" />
-   </HBox>
-   <children>
-      <HBox prefHeight="269.0" prefWidth="357.0" styleClass="frontPanel">
+<BorderPane fx:id="titleBar" styleClass="root" stylesheets="/GUI/view/login.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.LoginController">
+   <center>
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <Pane prefHeight="200.0" prefWidth="200.0" styleClass="imageContainer" />
-            <VBox alignment="TOP_CENTER" prefHeight="279.0" prefWidth="195.0">
+            <HBox prefHeight="269.0" prefWidth="357.0" styleClass="frontPanel">
                <children>
-                  <Label styleClass="companyLbl" text="BinaryBuddies Co.">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Label>
-                  <VBox alignment="CENTER">
+                  <Pane prefHeight="200.0" prefWidth="200.0" styleClass="imageContainer" />
+                  <VBox alignment="TOP_CENTER" prefHeight="279.0" prefWidth="195.0">
                      <children>
-                        <Label styleClass="welcomeLbl" text="Welcome" />
-                        <Label styleClass="easvLbl" text="EASV Bar Tickets" />
-                     </children>
-                     <VBox.margin>
-                        <Insets top="50.0" />
-                     </VBox.margin>
-                  </VBox>
-                  <VBox>
-                     <children>
-                        <VBox alignment="CENTER" VBox.vgrow="NEVER">
+                        <Label styleClass="companyLbl" text="BinaryBuddies Co.">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
-                           <children>
-                              <Label fx:id="errorMsgLabel" alignment="TOP_CENTER" contentDisplay="CENTER" textAlignment="CENTER" textFill="RED" />
-                           </children>
-                        </VBox>
+                        </Label>
                         <VBox alignment="CENTER">
                            <children>
-                              <VBox alignment="CENTER">
-                                 <children>
-                                    <Label styleClass="userPWLbl" text="Username:" />
-                                    <TextField id="userPWTxtField" fx:id="usernameField" alignment="CENTER" promptText="Username" />
-                                 </children>
-                              </VBox>
-                              <VBox alignment="CENTER">
-                                 <children>
-                                    <Label styleClass="userPWLbl" text="Password:" />
-                                    <PasswordField id="userPWTxtField" fx:id="passwordField" alignment="CENTER" promptText="Password" />
-                                 </children>
-                              </VBox>
+                              <Label styleClass="welcomeLbl" text="Welcome" />
+                              <Label styleClass="easvLbl" text="EASV Bar Tickets" />
                            </children>
-                        </VBox>
-                        <CheckBox fx:id="rememberCheckBox" mnemonicParsing="false" text="Remember Me">
                            <VBox.margin>
-                              <Insets top="5.0" />
+                              <Insets top="50.0" />
                            </VBox.margin>
-                        </CheckBox>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <VBox alignment="CENTER" VBox.vgrow="NEVER">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label fx:id="errorMsgLabel" alignment="TOP_CENTER" contentDisplay="CENTER" textAlignment="CENTER" textFill="RED" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label styleClass="userPWLbl" text="Username:" />
+                                          <TextField id="userPWTxtField" fx:id="usernameField" alignment="CENTER" promptText="Username" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label styleClass="userPWLbl" text="Password:" />
+                                          <PasswordField id="userPWTxtField" fx:id="passwordField" alignment="CENTER" promptText="Password" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                              <CheckBox fx:id="rememberCheckBox" mnemonicParsing="false" text="Remember Me">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </CheckBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="20.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="2.0" right="5.0" />
+                           </padding>
+                        </VBox>
+                        <HBox alignment="TOP_CENTER" spacing="15.0">
+                           <children>
+                              <Button fx:id="loginBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="loginBtn" text="Login" />
+                           </children>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Label fx:id="forgotPWLbl" text="Forgot Password?" />
                      </children>
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                     <padding>
-                        <Insets left="2.0" right="5.0" />
-                     </padding>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
                   </VBox>
-                  <HBox alignment="TOP_CENTER" spacing="15.0">
-                     <children>
-                        <Button fx:id="loginBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" styleClass="loginBtn" text="Login" />
-                     </children>
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <Label fx:id="forgotPWLbl" text="Forgot Password?" />
                </children>
-               <HBox.margin>
-                  <Insets left="5.0" />
-               </HBox.margin>
-            </VBox>
+               <VBox.margin>
+                  <Insets left="100.0" right="100.0" />
+               </VBox.margin>
+            </HBox>
          </children>
-         <VBox.margin>
-            <Insets left="100.0" right="100.0" />
-         </VBox.margin>
-      </HBox>
-   </children>
-</VBox>
+      </VBox>
+   </center>
+   <top>
+      <Button fx:id="closeButton" mnemonicParsing="false" styleClass="closeButton" text="X" BorderPane.alignment="TOP_RIGHT">
+         <BorderPane.margin>
+            <Insets right="2.0" />
+         </BorderPane.margin></Button>
+   </top>
+   <bottom>
+      <Button fx:id="secretButton" mnemonicParsing="false" styleClass="secretButton" BorderPane.alignment="CENTER" />
+   </bottom>
+</BorderPane>
