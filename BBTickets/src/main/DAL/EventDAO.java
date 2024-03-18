@@ -43,12 +43,30 @@ public class EventDAO {
     }
 
     public void deleteEvent(int Id) throws BBExceptions {
-        String sql = "DELETE FROM EventTable WHERE event_id = ?";
-        try(Connection con = connectionManager.getConnection();){
+        String sql = "DELETE EventTable FROM EventTable WHERE EventTable.event_id = ? ";
+        String sql2 = "DELETE FROM Tickets WHERE event_id = ? ";
+        String sql3 = "DELETE FROM EventCoordCon WHERE event_Id = ? ";
+        //INNER JOIN Tickets ON event_id = event_id
+        //INNER JOIN Tickets ON EventTable.event_id = Tickets.event_id
+        //"DELETE EventTable FROM EventTable JOIN Tickets ON EventTable.event_id = Tickets.event_id WHERE EventTable.event_id = ? "
+        try(Connection con = connectionManager.getConnection()){
+            con.setAutoCommit(false);
+
+            PreparedStatement pstmnt0 = con.prepareStatement(sql2);
+            pstmnt0.setString(1, String.valueOf(Id));
+
+            pstmnt0.executeUpdate();
+
             PreparedStatement pstmnt = con.prepareStatement(sql);
             pstmnt.setString(1, String.valueOf(Id));
 
+            PreparedStatement pstmnt2 = con.prepareStatement(sql3);
+            pstmnt2.setString(1, String.valueOf(Id));
+
+            pstmnt0.executeUpdate();
+            pstmnt2.executeUpdate();
             pstmnt.executeUpdate();
+            con.commit();
 
         }  catch (SQLException e) {
             throw new BBExceptions("Failed to get delete event", e);

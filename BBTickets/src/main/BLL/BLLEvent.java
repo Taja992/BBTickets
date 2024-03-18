@@ -15,7 +15,7 @@ public class BLLEvent {
         DAO.newEvent(event);
     }
 
-    public void DeleteEvent(int Id) throws BBExceptions {
+    public void deleteEvent(int Id) throws BBExceptions {
         DAO.deleteEvent(Id);
     }
 

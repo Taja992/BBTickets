@@ -5,10 +5,11 @@ import BE.User;
 import BLL.BLLEvent;
 import BLL.BLLUser;
 import Exceptions.BBExceptions;
+import GUI.model.EventModel;
+import GUI.model.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,16 +17,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDateTime;
-import java.util.ResourceBundle;
 
-public class AdminDashboardController implements Initializable {
+public class AdminDashboardController {
 
     @FXML
     private Button logoutBtn;
@@ -51,40 +49,31 @@ public class AdminDashboardController implements Initializable {
     private TableColumn<User, String> passwordColumn;
     @FXML
     private TableView<User> userList;
-    @FXML
-    private Button createUserBtn;
 
-    private Stage createUserStage;
-
-
-    private final BLLEvent bllEvent;
-    private final BLLUser bllUser;
+    private EventModel eventModel;
+    private UserModel userModel;
     private int userId;
 
     public AdminDashboardController(){
-        System.out.println("AdminDashboardController - Constructor");
-        bllEvent = new BLLEvent();
-        bllUser = new BLLUser();
+        eventModel = new EventModel();
+        userModel = new UserModel();
     }
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+    public void initialize() {
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("AdminDashboardController - initialize");
         logOut();
         loadEvents();
         loadUsers();
         setupEventTable();
         setupUserTable();
-        //createUserBtn.setOnAction(event -> openCreateUserWindow());
-    }
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public void loadEvents() {
         try {
             // Call getAllEvents from bllEvent and set the result as the items of eventList
-            eventList.getItems().setAll(bllEvent.getAllEvents());
+            eventList.getItems().setAll(eventModel.getAllEvents());
         } catch (BBExceptions e) {
             e.printStackTrace();
         }
@@ -93,7 +82,7 @@ public class AdminDashboardController implements Initializable {
     public void loadUsers() {
         try {
             // Call getAllEvents from bllEvent and set the result as the items of eventList
-            userList.getItems().setAll(bllUser.allUsers());
+            userList.getItems().setAll(userModel.getAllUsers());
         } catch (BBExceptions e) {
             e.printStackTrace();
         }
@@ -115,7 +104,6 @@ public class AdminDashboardController implements Initializable {
     }
 
     public void logOut(){
-        System.out.println("AdminDashboardController - logOut");
         logoutBtn.setOnAction(event -> {
             try {
                 // Load login.fxml
@@ -149,23 +137,8 @@ public class AdminDashboardController implements Initializable {
         //gets the selected item from the table and deletes it (does nothing if nothing is selected)
         BE.Event selected = eventList.getSelectionModel().getSelectedItem();
         if(selected != null){
-            bllEvent.DeleteEvent(selected.getEventId());
+            eventModel.deleteEvent(selected.getEventId());
             loadEvents(); //reloads the table so it updates with the item deleted
         }
     }
-    @FXML
-    private void openCreateUserWindow() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/createUser.fxml"));
-            Parent root = fxmlLoader.load();
-            createUserStage = new Stage(); // Set createUserStage here
-            createUserStage.initModality(Modality.APPLICATION_MODAL);
-            createUserStage.setTitle("Create User");
-            createUserStage.setScene(new Scene(root));
-            createUserStage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

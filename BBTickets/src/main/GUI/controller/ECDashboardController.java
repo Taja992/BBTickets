@@ -4,6 +4,7 @@ import BE.Event;
 import BLL.BLLEvent;
 import BLL.BLLUser;
 import Exceptions.BBExceptions;
+import GUI.model.EventModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -40,10 +41,8 @@ public class ECDashboardController {
     private TableColumn<Event, String> eventNotesColumn;
     @FXML
     private TableColumn<Event, String> locationGuidanceColumn;
-
-    private BLLEvent bllEvent;
-    private BLLUser bllUser;
     private int userId;
+    private EventModel eventModel;
 
     public void setUserId(int userId) {
         this.userId = userId;
@@ -51,8 +50,7 @@ public class ECDashboardController {
     }
 
     public void initialize() {
-        bllEvent = new BLLEvent();
-        bllUser = new BLLUser();
+        eventModel = new EventModel();
         setupLogoutButton();
         setupCreateEventButton();
         setupEventTable();
@@ -69,10 +67,15 @@ public class ECDashboardController {
         });
     }
 
+    public void refreshTable(){
+        eventList.getItems().clear();
+        eventTableForSpecificUser();
+    }
+
     private void eventTableForSpecificUser(){
         // Fetch the events for a specific user
         try {
-            List<Event> events = bllUser.getEventsForUser(userId);
+            List<Event> events = eventModel.getEventsForUser(userId);
             // Add the events to the TableView
             eventList.getItems().addAll(events);
         } catch (BBExceptions e) {
@@ -90,9 +93,11 @@ public class ECDashboardController {
     }
 
     public void deleteEvent(ActionEvent actionEvent) throws BBExceptions {
-        BE.Event selected = eventList.getSelectionModel().getSelectedItem();
+        Event selected = eventList.getSelectionModel().getSelectedItem();
         if(selected != null){
-            bllEvent.DeleteEvent(selected.getEventId());
+            System.out.println(selected.getEventType());
+            eventModel.deleteEvent(selected.getEventId());
+            refreshTable();
         }
     }
 
@@ -106,10 +111,22 @@ public class ECDashboardController {
 
     }
 
-    public void editEvent(ActionEvent actionEvent) throws BBExceptions {
+    public void editEvent(ActionEvent actionEvent) throws BBExceptions, IOException {
         BE.Event selected = eventList.getSelectionModel().getSelectedItem();
         if(selected != null){
-            bllEvent.manageEvent(selected);
+            System.out.println(selected.getEventType());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/manageEvent.fxml"));
+            Parent root = loader.load();
+
+            ManageEventController controller = loader.getController();
+            controller.setDashboard(this);
+            controller.setEvent(selected);
+
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
         }
     }
 
