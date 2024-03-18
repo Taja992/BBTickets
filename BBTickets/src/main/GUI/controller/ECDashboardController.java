@@ -2,6 +2,7 @@ package GUI.controller;
 
 import BE.Event;
 import BLL.BLLEvent;
+import BLL.BLLUser;
 import Exceptions.BBExceptions;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,8 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-import java.awt.*;
+import java.util.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
@@ -42,11 +42,21 @@ public class ECDashboardController {
     private TableColumn<Event, String> locationGuidanceColumn;
 
     private BLLEvent bllEvent;
+    private BLLUser bllUser;
+    private int userId;
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+        eventTableForSpecificUser();
+    }
 
     public void initialize() {
+        bllEvent = new BLLEvent();
+        bllUser = new BLLUser();
         setupLogoutButton();
         setupCreateEventButton();
         setupEventTable();
+
     }
 
     private void setupLogoutButton() {
@@ -57,6 +67,17 @@ public class ECDashboardController {
                 e.printStackTrace();
             }
         });
+    }
+
+    private void eventTableForSpecificUser(){
+        // Fetch the events for a specific user
+        try {
+            List<Event> events = bllUser.getEventsForUser(userId);
+            // Add the events to the TableView
+            eventList.getItems().addAll(events);
+        } catch (BBExceptions e) {
+            e.printStackTrace();
+        }
     }
 
     public void setupEventTable() {

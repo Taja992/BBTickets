@@ -51,10 +51,14 @@ public class AdminDashboardController {
 
     private final BLLEvent bllEvent;
     private final BLLUser bllUser;
+    private int userId;
 
     public AdminDashboardController(){
         bllEvent = new BLLEvent();
         bllUser = new BLLUser();
+    }
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
     public void initialize() {
         logOut();
