@@ -6,30 +6,38 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
 public class CreateUserController {
 
     @FXML
+    private RadioButton roleAdmin;
+    @FXML
+    private RadioButton roleEC;
+    @FXML
     private TextField usernameField;
     @FXML
     private TextField passwordField;
-    @FXML
-    private RadioButton Admin;
-    @FXML
-    private RadioButton EventCoordinator;
     @FXML
     private Button createUserBtn;
     @FXML
     private Button cancelCreateUserBtn;
     private Stage createUserStage;
+    private ToggleGroup toggleGroup;
 
+public void initialize() {
+    ToggleGroup toggleGroup = new ToggleGroup();
+    roleAdmin.setToggleGroup(toggleGroup);
+    roleEC.setToggleGroup(toggleGroup);
 
+    }
     @FXML
     private void createUser(ActionEvent actionEvent) {
 
         String username = usernameField.getText();
         String password = passwordField.getText();
+
 
 
         // Handle creating the user here

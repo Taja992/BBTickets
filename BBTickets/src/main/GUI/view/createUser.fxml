@@ -10,12 +10,12 @@
         <HBox prefHeight="26.0" prefWidth="218.0" spacing="10">
             <children>
                 <Label text="Role:" />
-            <RadioButton mnemonicParsing="false" text="Admin">
+            <RadioButton fx:id="roleAdmin" mnemonicParsing="false" text="Admin">
                <HBox.margin>
                   <Insets left="30.0" />
                </HBox.margin>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" text="Event Coordinator" />
+            <RadioButton fx:id="roleEC" mnemonicParsing="false" text="Event Coordinator" />
             </children>
         </HBox>
         <HBox spacing="10">
