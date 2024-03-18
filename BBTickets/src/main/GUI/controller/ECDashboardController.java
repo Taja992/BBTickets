@@ -41,9 +41,6 @@ public class ECDashboardController {
     private TableColumn<Event, String> eventNotesColumn;
     @FXML
     private TableColumn<Event, String> locationGuidanceColumn;
-
-    private BLLEvent bllEvent;
-    private BLLUser bllUser;
     private int userId;
     private EventModel eventModel;
 
@@ -53,8 +50,7 @@ public class ECDashboardController {
     }
 
     public void initialize() {
-        bllEvent = new BLLEvent();
-        bllUser = new BLLUser();
+        eventModel = new EventModel();
         setupLogoutButton();
         setupCreateEventButton();
         setupEventTable();
