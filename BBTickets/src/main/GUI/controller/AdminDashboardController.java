@@ -8,6 +8,7 @@ import Exceptions.BBExceptions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,13 +16,16 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.ResourceBundle;
 
-public class AdminDashboardController {
+public class AdminDashboardController implements Initializable {
 
     @FXML
     private Button logoutBtn;
@@ -47,6 +51,10 @@ public class AdminDashboardController {
     private TableColumn<User, String> passwordColumn;
     @FXML
     private TableView<User> userList;
+    @FXML
+    private Button createUserBtn;
+
+    private Stage createUserStage;
 
 
     private final BLLEvent bllEvent;
@@ -54,18 +62,23 @@ public class AdminDashboardController {
     private int userId;
 
     public AdminDashboardController(){
+        System.out.println("AdminDashboardController - Constructor");
         bllEvent = new BLLEvent();
         bllUser = new BLLUser();
     }
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-    public void initialize() {
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("AdminDashboardController - initialize");
         logOut();
         loadEvents();
         loadUsers();
         setupEventTable();
         setupUserTable();
+        //createUserBtn.setOnAction(event -> openCreateUserWindow());
+    }
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public void loadEvents() {
@@ -102,6 +115,7 @@ public class AdminDashboardController {
     }
 
     public void logOut(){
+        System.out.println("AdminDashboardController - logOut");
         logoutBtn.setOnAction(event -> {
             try {
                 // Load login.fxml
@@ -139,4 +153,19 @@ public class AdminDashboardController {
             loadEvents(); //reloads the table so it updates with the item deleted
         }
     }
+    @FXML
+    private void openCreateUserWindow() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/createUser.fxml"));
+            Parent root = fxmlLoader.load();
+            createUserStage = new Stage(); // Set createUserStage here
+            createUserStage.initModality(Modality.APPLICATION_MODAL);
+            createUserStage.setTitle("Create User");
+            createUserStage.setScene(new Scene(root));
+            createUserStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
