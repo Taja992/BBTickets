@@ -1,9 +1,11 @@
 package DAL;
 
+import BE.Event;
 import BE.User;
 import Exceptions.BBExceptions;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,8 +41,9 @@ public class UserDAO {
             statement.setString(2, password);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
+                int userId = resultSet.getInt("user_id");
                 int user_type = resultSet.getInt("user_type");
-                User user = new User(user_type, password, username);
+                User user = new User(userId, user_type, password, username);
                 return user;
             } else {
                 return null;
@@ -49,6 +52,7 @@ public class UserDAO {
             throw new BBExceptions("Failed to retrieve user", e);
         }
     }
+
 
     public List<User> allUsers() throws BBExceptions {
         List<User> allUsers = new ArrayList<>();
@@ -60,10 +64,11 @@ public class UserDAO {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
+                int userID = resultSet.getInt("user_id");
                 int user_type = resultSet.getInt("user_type");
                 String password = resultSet.getString("password");
                 String username = resultSet.getString("username");
-                User user = new User(user_type, password, username);
+                User user = new User(userID, user_type, password, username);
                 allUsers.add(user);
             }
         } catch (SQLException e) {
@@ -71,6 +76,39 @@ public class UserDAO {
         }
 
         return allUsers;
+    }
+
+    public List<Event> getEventsForUser(int userId) throws BBExceptions {
+        List<Event> userEvents = new ArrayList<>();
+        String sql = "SELECT E.* FROM EventTable E INNER JOIN EventCoordCon ECC ON E.event_id = ECC.event_Id WHERE ECC.user_Id = ?";
+
+        try {
+            Connection connection = connectionManager.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int eventId = resultSet.getInt("event_id");
+                String eventType = resultSet.getString("event_type");
+                String eventLocation = resultSet.getString("event_location");
+                Timestamp startTimestamp = resultSet.getTimestamp("event_start_time");
+                //check for null
+                LocalDateTime eventStartTime = startTimestamp != null ? startTimestamp.toLocalDateTime() : null;
+                Timestamp endTimestamp = resultSet.getTimestamp("event_ending_time");
+                //check for null
+                LocalDateTime eventEndingTime = endTimestamp != null ? endTimestamp.toLocalDateTime() : null;
+                String eventNotes = resultSet.getString("event_notes");
+                String locationGuidance = resultSet.getString("location_guidance");
+
+                Event event = new Event(eventId, eventType, eventLocation, eventStartTime, eventEndingTime, eventNotes, locationGuidance);
+                userEvents.add(event);
+            }
+        } catch (SQLException e) {
+            throw new BBExceptions("Failed to retrieve events for user", e);
+        }
+
+        return userEvents;
     }
 
 

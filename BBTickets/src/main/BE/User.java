@@ -1,12 +1,17 @@
 package BE;
 
 public class User {
+
+
+
+    private int userId;
     private int user_type;
     private String password;
     private String username;
     private String roleName;
 
-    public User(Integer user_type, String password, String username) {
+    public User(Integer userID, Integer user_type, String password, String username) {
+        this.userId = userID;
         this.user_type = user_type;
         this.password = password;
         this.username = username;
@@ -26,6 +31,14 @@ public class User {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getRoleName() {
