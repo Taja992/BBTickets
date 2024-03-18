@@ -12,6 +12,10 @@ public class UserModel {
         bllUser = new BLLUser();
     }
 
+    public void newUser(User user) throws BBExceptions {
+        bllUser.newUser(user);
+    }
+
     public List<User> getAllUsers() throws BBExceptions {
         return bllUser.allUsers();
     }
