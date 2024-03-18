@@ -32,17 +32,7 @@ public class BLLUser {
     }
 
     public List<Event> getEventsForUser(int userId) throws BBExceptions {
-        List<Event> events = userDAO.getEventsForUser(userId);
-        // Check if the list is empty
-        if (events.isEmpty()) {
-            System.out.println("List is empty for UserID: " + userId);
-        } else {
-            // Print the events to the console
-            for (Event event : events) {
-                System.out.println(event);
-            }
-        }
-        return events;
+        return userDAO.getEventsForUser(userId);
     }
 }
 
