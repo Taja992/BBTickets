@@ -96,7 +96,7 @@ public class ECDashboardController {
         Event selected = eventList.getSelectionModel().getSelectedItem();
         if(selected != null){
             System.out.println(selected.getEventType());
-            bllEvent.DeleteEvent(selected.getEventId());
+            eventModel.deleteEvent(selected.getEventId());
             refreshTable();
         }
     }
