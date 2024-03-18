@@ -69,6 +69,11 @@ public class ECDashboardController {
         });
     }
 
+    public void refreshTable(){
+        eventList.getItems().clear();
+        eventTableForSpecificUser();
+    }
+
     private void eventTableForSpecificUser(){
         // Fetch the events for a specific user
         try {
@@ -92,7 +97,9 @@ public class ECDashboardController {
     public void deleteEvent(ActionEvent actionEvent) throws BBExceptions {
         BE.Event selected = eventList.getSelectionModel().getSelectedItem();
         if(selected != null){
+            System.out.println(selected.getEventType());
             bllEvent.DeleteEvent(selected.getEventId());
+            refreshTable();
         }
     }
 
@@ -106,10 +113,22 @@ public class ECDashboardController {
 
     }
 
-    public void editEvent(ActionEvent actionEvent) throws BBExceptions {
+    public void editEvent(ActionEvent actionEvent) throws BBExceptions, IOException {
         BE.Event selected = eventList.getSelectionModel().getSelectedItem();
         if(selected != null){
-            bllEvent.manageEvent(selected);
+            System.out.println(selected.getEventType());
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/manageEvent.fxml"));
+            Parent root = loader.load();
+
+            ManageEventController controller = loader.getController();
+            controller.setDashboard(this);
+            controller.setEvent(selected);
+
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
         }
     }
 
