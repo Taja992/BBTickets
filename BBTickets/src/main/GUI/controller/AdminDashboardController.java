@@ -5,6 +5,8 @@ import BE.User;
 import BLL.BLLEvent;
 import BLL.BLLUser;
 import Exceptions.BBExceptions;
+import GUI.model.EventModel;
+import GUI.model.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,19 +50,19 @@ public class AdminDashboardController {
     @FXML
     private TableView<User> userList;
 
-
-    private final BLLEvent bllEvent;
-    private final BLLUser bllUser;
+    private EventModel eventModel;
+    private UserModel userModel;
     private int userId;
 
     public AdminDashboardController(){
-        bllEvent = new BLLEvent();
-        bllUser = new BLLUser();
+        eventModel = new EventModel();
+        userModel = new UserModel();
     }
     public void setUserId(int userId) {
         this.userId = userId;
     }
     public void initialize() {
+
         logOut();
         loadEvents();
         loadUsers();
@@ -71,7 +73,7 @@ public class AdminDashboardController {
     public void loadEvents() {
         try {
             // Call getAllEvents from bllEvent and set the result as the items of eventList
-            eventList.getItems().setAll(bllEvent.getAllEvents());
+            eventList.getItems().setAll(eventModel.getAllEvents());
         } catch (BBExceptions e) {
             e.printStackTrace();
         }
@@ -80,7 +82,7 @@ public class AdminDashboardController {
     public void loadUsers() {
         try {
             // Call getAllEvents from bllEvent and set the result as the items of eventList
-            userList.getItems().setAll(bllUser.allUsers());
+            userList.getItems().setAll(userModel.getAllUsers());
         } catch (BBExceptions e) {
             e.printStackTrace();
         }
@@ -135,7 +137,7 @@ public class AdminDashboardController {
         //gets the selected item from the table and deletes it (does nothing if nothing is selected)
         BE.Event selected = eventList.getSelectionModel().getSelectedItem();
         if(selected != null){
-            bllEvent.DeleteEvent(selected.getEventId());
+            eventModel.deleteEvent(selected.getEventId());
             loadEvents(); //reloads the table so it updates with the item deleted
         }
     }
