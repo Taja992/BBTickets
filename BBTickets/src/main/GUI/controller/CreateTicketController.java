@@ -16,6 +16,8 @@ public class CreateTicketController {
     private TextField eventIDField;
     @FXML
     private TextField priceField;
+
+    // BLL needs to be changed to TicketModel
     private BLLTicket bllTicket = new BLLTicket();
 
     public void closeWindow(ActionEvent actionEvent) {

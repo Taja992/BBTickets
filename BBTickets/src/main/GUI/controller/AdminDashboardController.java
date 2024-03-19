@@ -2,8 +2,6 @@ package GUI.controller;
 
 import BE.Event;
 import BE.User;
-import BLL.BLLEvent;
-import BLL.BLLUser;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
 import GUI.model.UserModel;
@@ -50,17 +48,20 @@ public class AdminDashboardController {
     @FXML
     private TableView<User> userList;
 
+
     private EventModel eventModel;
     private UserModel userModel;
     private int userId;
 
-    public AdminDashboardController(){
+    public AdminDashboardController() {
         eventModel = new EventModel();
         userModel = new UserModel();
     }
+
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
     public void initialize() {
 
         logOut();
@@ -103,7 +104,7 @@ public class AdminDashboardController {
         passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
     }
 
-    public void logOut(){
+    public void logOut() {
         logoutBtn.setOnAction(event -> {
             try {
                 // Load login.fxml
@@ -136,9 +137,31 @@ public class AdminDashboardController {
     public void deleteEvent(ActionEvent actionEvent) throws BBExceptions {
         //gets the selected item from the table and deletes it (does nothing if nothing is selected)
         BE.Event selected = eventList.getSelectionModel().getSelectedItem();
-        if(selected != null){
+        if (selected != null) {
             eventModel.deleteEvent(selected.getEventId());
             loadEvents(); //reloads the table so it updates with the item deleted
+        }
+    }
+
+    @FXML
+    public void openCreateUserWindow(ActionEvent actionEvent) {
+        try {
+            // Load createEvent.fxml
+            Parent root = FXMLLoader.load(getClass().getResource("/GUI/view/createUser.fxml"));
+
+            // Create a new stage for the create event screen
+            Stage createEventStage = new Stage();
+            createEventStage.initStyle(StageStyle.DECORATED);
+
+            // Create a new scene with the loaded parent and set it on the stage
+            Scene scene = new Scene(root);
+            createEventStage.setTitle("Create Event");
+            createEventStage.setScene(scene);
+
+            // Show the create event stage
+            createEventStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

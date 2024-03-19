@@ -29,6 +29,8 @@ public class ManageEventController {
     private Spinner eventMinuteSpinner;
 
     ECDashboardController controller;
+
+    //This needs to be changed to use the model instead of BLL
     private BLLEvent bllEvent = new BLLEvent();
 
     public void setId(int Id){
