@@ -1,15 +1,12 @@
 package GUI.controller;
 
 import BE.Event;
-import BLL.BLLEvent;
-import BLL.BLLUser;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

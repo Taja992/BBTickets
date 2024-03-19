@@ -18,6 +18,7 @@ public class BLLUser {
         return userDAO.getUser(username, password);
     }
 
+    //this code needs to be moved to UserModel at some point -> public List<User> getAllUsers() throws BBExceptions
     public List<User> allUsers() throws BBExceptions {
         List<User> allUsers = userDAO.allUsers();
         for (User user : allUsers) {

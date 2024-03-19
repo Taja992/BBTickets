@@ -28,6 +28,8 @@ public class LoginController {
     public Label errorMsgLabel;
     public Label forgotPWLbl;
 
+    //BLL should be changed to UserModel
+
     private BLLUser bllUser;
 
     public TextField usernameField;

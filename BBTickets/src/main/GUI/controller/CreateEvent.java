@@ -33,6 +33,8 @@ public class CreateEvent {
     private TextField locationGuidanceField;
     @FXML
     private Button addEvent;
+
+    //BLL needs to be switched to EventModel
     private final BLLEvent bllEvent;
 
     public CreateEvent(){
