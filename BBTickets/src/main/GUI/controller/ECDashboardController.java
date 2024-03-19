@@ -49,7 +49,6 @@ public class ECDashboardController {
     public void initialize() {
         eventModel = new EventModel();
         setupLogoutButton();
-        setupCreateEventButton();
         setupEventTable();
 
     }
@@ -127,15 +126,6 @@ public class ECDashboardController {
         }
     }
 
-    private void setupCreateEventButton() {
-        createEventBtn.setOnAction(event -> {
-            try {
-                loadNewScene("/GUI/view/createEvent.fxml", createEventBtn);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-    }
 
     private void loadNewScene(String fxmlPath, Button button) throws IOException {
         // Load fxml file
@@ -157,5 +147,26 @@ public class ECDashboardController {
 
         // Show the new stage
         newStage.show();
+    }
+
+    public void createEventBtn(ActionEvent actionEvent) {
+        try {
+            // Load createEvent.fxml
+            Parent root = FXMLLoader.load(getClass().getResource("/GUI/view/createEvent.fxml"));
+
+            // Create a new stage for the create event screen
+            Stage createEventStage = new Stage();
+            createEventStage.initStyle(StageStyle.DECORATED);
+
+            // Create a new scene with the loaded parent and set it on the stage
+            Scene scene = new Scene(root);
+            createEventStage.setTitle("Create Event");
+            createEventStage.setScene(scene);
+
+            // Show the create event stage
+            createEventStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
