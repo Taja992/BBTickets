@@ -1,7 +1,7 @@
 package GUI.controller;
 
 import BE.User;
-import BLL.UserBLL;
+import GUI.model.UserModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,9 +26,7 @@ public class LoginController {
     public Label errorMsgLabel;
     public Label forgotPWLbl;
 
-    //BLL should be changed to UserModel
-
-    private UserBLL userBLL;
+    private UserModel userModel;
 
     public TextField usernameField;
     public PasswordField passwordField;
@@ -37,7 +35,7 @@ public class LoginController {
     private Preferences prefs;
 
     public LoginController() {
-        userBLL = new UserBLL();
+        userModel = new UserModel();
 
         // Get the preferences for this user node
         prefs = Preferences.userNodeForPackage(LoginController.class);
@@ -95,7 +93,7 @@ public class LoginController {
             String password = passwordField.getText();
 
             try {
-                User user = userBLL.getUser(username, password);
+                User user = userModel.getUser(username, password);
                 if (user != null) {
                     handleSuccessfulLogin(user, username, password);
                 } else {

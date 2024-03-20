@@ -73,7 +73,7 @@ public class AdminDashboardController {
 
     public void loadEvents() {
         try {
-            // Call getAllEvents from bllEvent and set the result as the items of eventList
+            // Call getAllEvents from eventModel and set the result as the items of eventList
             eventList.getItems().setAll(eventModel.getAllEvents());
         } catch (BBExceptions e) {
             e.printStackTrace();
@@ -82,7 +82,7 @@ public class AdminDashboardController {
 
     public void loadUsers() {
         try {
-            // Call getAllEvents from bllEvent and set the result as the items of eventList
+            // Call getAllEvents from eventModel and set the result as the items of eventList
             userList.getItems().setAll(userModel.getAllUsers());
         } catch (BBExceptions e) {
             e.printStackTrace();

@@ -31,4 +31,8 @@ public class EventModel {
         eventBLL.manageEvent(event);
     }
 
+    public void newEvent(Event event) throws BBExceptions {
+        eventBLL.newEvent(event);
+    }
+
 }

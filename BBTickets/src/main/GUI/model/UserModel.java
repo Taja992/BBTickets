@@ -15,8 +15,10 @@ public class UserModel {
     public void newUser(User user) throws BBExceptions {
         userBLL.newUser(user);
     }
-
     public List<User> getAllUsers() throws BBExceptions {
         return userBLL.allUsers();
+    }
+    public User getUser(String username, String password) throws BBExceptions {
+        return userBLL.getUser(username, password);
     }
 }
