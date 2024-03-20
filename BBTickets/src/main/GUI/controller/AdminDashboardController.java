@@ -5,6 +5,7 @@ import BE.User;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
 import GUI.model.UserModel;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +21,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class AdminDashboardController {
 
@@ -32,9 +34,9 @@ public class AdminDashboardController {
     @FXML
     private TableColumn<Event, String> eventLocationColumn;
     @FXML
-    private TableColumn<Event, LocalDateTime> eventStartTimeColumn;
+    private TableColumn<Event, String> eventStartTimeColumn;
     @FXML
-    private TableColumn<Event, LocalDateTime> eventEndTimeColumn;
+    private TableColumn<Event, String> eventEndTimeColumn;
     @FXML
     private TableColumn<Event, String> eventNotesColumn;
     @FXML
@@ -90,10 +92,18 @@ public class AdminDashboardController {
     }
 
     public void setupEventTable() {
+        eventStartTimeColumn.setCellValueFactory(data -> {
+            Event event = data.getValue();
+            return new SimpleStringProperty(formatDateTime(event.getEventStartTime()));
+        });
+
+        eventEndTimeColumn.setCellValueFactory(data -> {
+            Event event = data.getValue();
+            return new SimpleStringProperty(formatDateTime(event.getEventEndingTime()));
+        });
+
         eventTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventType"));
         eventLocationColumn.setCellValueFactory(new PropertyValueFactory<>("eventLocation"));
-        eventStartTimeColumn.setCellValueFactory(new PropertyValueFactory<>("eventStartTime"));
-        eventEndTimeColumn.setCellValueFactory(new PropertyValueFactory<>("eventEndingTime"));
         eventNotesColumn.setCellValueFactory(new PropertyValueFactory<>("eventNotes"));
         locationGuidanceColumn.setCellValueFactory(new PropertyValueFactory<>("locationGuidance"));
     }
@@ -164,4 +174,13 @@ public class AdminDashboardController {
             e.printStackTrace();
         }
     }
+
+    private String formatDateTime(LocalDateTime dateTime) {
+        if (dateTime == null) {
+            return "";
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy  '⏰'HH:mm");
+        return formatter.format(dateTime);
+    }
+
 }
