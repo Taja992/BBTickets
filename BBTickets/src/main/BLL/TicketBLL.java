@@ -2,7 +2,7 @@ package BLL;
 
 import DAL.TicketDAO;
 
-public class BLLTicket {
+public class TicketBLL {
 
     private TicketDAO DAO = new TicketDAO();
 

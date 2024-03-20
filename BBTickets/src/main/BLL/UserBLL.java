@@ -7,7 +7,7 @@ import Exceptions.BBExceptions;
 
 import java.util.List;
 
-public class BLLUser {
+public class UserBLL {
     UserDAO userDAO = new UserDAO();
 
     public void newUser(User user) throws BBExceptions {

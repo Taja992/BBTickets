@@ -1,22 +1,22 @@
 package GUI.model;
 
 import BE.User;
-import BLL.BLLUser;
+import BLL.UserBLL;
 import Exceptions.BBExceptions;
 import java.util.List;
 
 public class UserModel {
-    private BLLUser bllUser;
+    private UserBLL userBLL;
 
     public UserModel() {
-        bllUser = new BLLUser();
+        userBLL = new UserBLL();
     }
 
     public void newUser(User user) throws BBExceptions {
-        bllUser.newUser(user);
+        userBLL.newUser(user);
     }
 
     public List<User> getAllUsers() throws BBExceptions {
-        return bllUser.allUsers();
+        return userBLL.allUsers();
     }
 }

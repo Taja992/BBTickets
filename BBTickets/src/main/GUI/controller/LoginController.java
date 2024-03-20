@@ -1,15 +1,13 @@
 package GUI.controller;
 
 import BE.User;
-import BLL.BLLUser;
+import BLL.UserBLL;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -30,7 +28,7 @@ public class LoginController {
 
     //BLL should be changed to UserModel
 
-    private BLLUser bllUser;
+    private UserBLL userBLL;
 
     public TextField usernameField;
     public PasswordField passwordField;
@@ -39,7 +37,7 @@ public class LoginController {
     private Preferences prefs;
 
     public LoginController() {
-        bllUser = new BLLUser();
+        userBLL = new UserBLL();
 
         // Get the preferences for this user node
         prefs = Preferences.userNodeForPackage(LoginController.class);
@@ -97,7 +95,7 @@ public class LoginController {
             String password = passwordField.getText();
 
             try {
-                User user = bllUser.getUser(username, password);
+                User user = userBLL.getUser(username, password);
                 if (user != null) {
                     handleSuccessfulLogin(user, username, password);
                 } else {
