@@ -23,8 +23,6 @@ public class ECDashboardController {
     @FXML
     private Button logoutBtn;
     @FXML
-    private Button createEventBtn;
-    @FXML
     private TableView<Event> eventList;
     @FXML
     private TableColumn<Event, String> eventTypeColumn;
