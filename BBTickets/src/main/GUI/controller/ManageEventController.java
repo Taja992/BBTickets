@@ -1,7 +1,7 @@
 package GUI.controller;
 
 import BE.Event;
-import BLL.BLLEvent;
+import BLL.EventBLL;
 import Exceptions.BBExceptions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,7 +9,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -31,7 +30,7 @@ public class ManageEventController {
     ECDashboardController controller;
 
     //This needs to be changed to use the model instead of BLL
-    private BLLEvent bllEvent = new BLLEvent();
+    private EventBLL eventBLL = new EventBLL();
 
     public void setId(int Id){
         eventIdField.setText(String.valueOf(Id));
@@ -57,7 +56,7 @@ public class ManageEventController {
         LocalDateTime startTime = LocalDateTime.of(eventStartDatePicker.getValue(), LocalTime.of(hour, minute));
 
         Event event = new Event(eventID,type,eventLocationField.getText(), startTime);
-        bllEvent.manageEvent(event);
+        eventBLL.manageEvent(event);
         controller.refreshTable();
     }
 }

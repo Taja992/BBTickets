@@ -1,34 +1,34 @@
 package GUI.model;
 
-import BLL.BLLEvent;
-import BLL.BLLUser;
+import BLL.EventBLL;
+import BLL.UserBLL;
 import Exceptions.BBExceptions;
 import BE.Event;
 import java.util.List;
 
 public class EventModel {
-    private BLLEvent bllEvent;
-    private BLLUser bllUser;
+    private EventBLL eventBLL;
+    private UserBLL userBLL;
 
     public EventModel() {
-        bllEvent = new BLLEvent();
-        bllUser = new BLLUser();
+        eventBLL = new EventBLL();
+        userBLL = new UserBLL();
     }
 
     public List<Event> getAllEvents() throws BBExceptions {
-        return bllEvent.getAllEvents();
+        return eventBLL.getAllEvents();
     }
 
     public List<Event> getEventsForUser(int userId) throws BBExceptions {
-        return bllUser.getEventsForUser(userId);
+        return userBLL.getEventsForUser(userId);
     }
 
     public void deleteEvent(int eventId) throws BBExceptions {
-        bllEvent.deleteEvent(eventId);
+        eventBLL.deleteEvent(eventId);
     }
 
     public void manageEvent(Event event) throws BBExceptions {
-        bllEvent.manageEvent(event);
+        eventBLL.manageEvent(event);
     }
 
 }

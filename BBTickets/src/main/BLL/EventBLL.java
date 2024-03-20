@@ -3,11 +3,10 @@ package BLL;
 import BE.Event;
 import DAL.EventDAO;
 import Exceptions.BBExceptions;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import java.util.List;
 
-public class BLLEvent {
+public class EventBLL {
 
     EventDAO DAO = new EventDAO();
 
