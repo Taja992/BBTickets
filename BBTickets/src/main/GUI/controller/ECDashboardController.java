@@ -3,6 +3,7 @@ package GUI.controller;
 import BE.Event;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -14,6 +15,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -29,9 +32,9 @@ public class ECDashboardController {
     @FXML
     private TableColumn<Event, String> eventLocationColumn;
     @FXML
-    private TableColumn<Event, LocalDateTime> eventStartTimeColumn;
+    private TableColumn<Event, String> eventStartTimeColumn;
     @FXML
-    private TableColumn<Event, LocalDateTime> eventEndTimeColumn;
+    private TableColumn<Event, String> eventEndTimeColumn;
     @FXML
     private TableColumn<Event, String> eventNotesColumn;
     @FXML
@@ -78,10 +81,18 @@ public class ECDashboardController {
     }
 
     public void setupEventTable() {
+        eventStartTimeColumn.setCellValueFactory(data -> {
+            Event event = data.getValue();
+            return new SimpleStringProperty(formatDateTime(event.getEventStartTime()));
+        });
+
+        eventEndTimeColumn.setCellValueFactory(data -> {
+            Event event = data.getValue();
+            return new SimpleStringProperty(formatDateTime(event.getEventEndingTime()));
+        });
+
         eventTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventType"));
         eventLocationColumn.setCellValueFactory(new PropertyValueFactory<>("eventLocation"));
-        eventStartTimeColumn.setCellValueFactory(new PropertyValueFactory<>("eventStartTime"));
-        eventEndTimeColumn.setCellValueFactory(new PropertyValueFactory<>("eventEndingTime"));
         eventNotesColumn.setCellValueFactory(new PropertyValueFactory<>("eventNotes"));
         locationGuidanceColumn.setCellValueFactory(new PropertyValueFactory<>("locationGuidance"));
     }
@@ -166,5 +177,13 @@ public class ECDashboardController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private String formatDateTime(LocalDateTime dateTime) {
+        if (dateTime == null) {
+            return "";
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy  '⏰'HH:mm");
+        return formatter.format(dateTime);
     }
 }
