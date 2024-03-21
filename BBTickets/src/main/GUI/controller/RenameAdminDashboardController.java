@@ -28,6 +28,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class RenameAdminDashboardController {
+    public Button createUserBtn;
     @FXML
     private BorderPane mainBp;
     @FXML
@@ -189,5 +190,27 @@ public class RenameAdminDashboardController {
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy  '⏰'HH:mm");
         return formatter.format(dateTime);
+    }
+
+    @FXML
+    public void createUserBtn(ActionEvent actionEvent) {/*
+        try {
+            // Load createEvent.fxml
+            Parent root = FXMLLoader.load(getClass().getResource("/GUI/view/createUser.fxml"));
+
+            // Create a new stage for the create event screen
+            Stage createEventStage = new Stage();
+            createEventStage.initStyle(StageStyle.DECORATED);
+
+            // Create a new scene with the loaded parent and set it on the stage
+            Scene scene = new Scene(root);
+            createEventStage.setTitle("Create Event");
+            createEventStage.setScene(scene);
+
+            // Show the create event stage
+            createEventStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
     }
 }

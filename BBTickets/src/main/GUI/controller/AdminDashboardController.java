@@ -176,7 +176,7 @@ public class AdminDashboardController {
 
     private String formatDateTime(LocalDateTime dateTime) {
         if (dateTime == null) {
-            return "";
+            return "Beginning of day :)";
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy  '⏰'HH:mm");
         return formatter.format(dateTime);

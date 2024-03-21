@@ -88,6 +88,7 @@
                         <Button mnemonicParsing="false" onAction="#createTicket" text="Assign Tickets to Events" />
                         <Button mnemonicParsing="false" onAction="#assignCoordinator" text="Assign Coordinators" />
                         <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logoutBtn" text="Log Out" />
+                  <Button fx:id="createUserBtn" mnemonicParsing="false" onAction="#createUserBtn" text="Create User" />
                     </children>
                 </HBox>
             </bottom>
