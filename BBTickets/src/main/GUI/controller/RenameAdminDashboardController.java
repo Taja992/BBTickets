@@ -6,11 +6,13 @@ import Exceptions.BBExceptions;
 import GUI.model.EventModel;
 import GUI.model.UserModel;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
@@ -21,19 +23,43 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class RenameAdminDashboardController {
-    public BorderPane mainBp;
-    public VBox eventListVbox;
-    public ListView<BE.Event> eventListLv;
-    public ListView<String> userListLv;
-    public BorderPane nestedBp;
-    public HBox userWindowHbox;
-    public VBox eventWindowVbox;
-    public HBox bottomHbox;
-    public Button createEventBtn;
-    public Button logoutBtn;
+    @FXML
+    private BorderPane mainBp;
+    @FXML
+    private VBox eventListVbox;
+    @FXML
+    private ListView<BE.Event> eventListLv;
+    @FXML
+    private ListView<String> userListLv;
+    @FXML
+    private BorderPane nestedBp;
+    @FXML
+    private HBox userWindowHbox;
+    @FXML
+    private VBox eventWindowVbox;
+    @FXML
+    private HBox bottomHbox;
+    @FXML
+    private Button createEventBtn;
+    @FXML
+    private Button logoutBtn;
+    @FXML
+    private Label eventTypeLbl;
+    @FXML
+    private Label eventLocationLbl;
+    @FXML
+    private Label eventStartLbl;
+    @FXML
+    private Label eventEndLbl;
+    @FXML
+    private Label eventNotesLbl;
+    @FXML
+    private Label eventDirLbl;
     private EventModel eventModel;
     private UserModel userModel;
     private int userId;
@@ -49,6 +75,7 @@ public class RenameAdminDashboardController {
     public void initialize() {
         setupEventListView();
         loadUsers();
+        eventListObserver();
     }
 
     public void logoutBtn(ActionEvent actionEvent) {
@@ -126,6 +153,7 @@ public class RenameAdminDashboardController {
             e.printStackTrace();
         }
     }
+
     private void loadUsers() {
         try {
             List<User> users = userModel.getAllUsers();
@@ -135,5 +163,31 @@ public class RenameAdminDashboardController {
         } catch (BBExceptions e) {
             e.printStackTrace();
         }
+    }
+
+    private void eventInfo(Event event){
+        Event selected = eventListLv.getSelectionModel().getSelectedItem();
+        eventTypeLbl.setText(selected.getEventType());
+        eventLocationLbl.setText(selected.getEventLocation());
+        eventStartLbl.setText(formatDateTime(selected.getEventStartTime()));
+        eventEndLbl.setText(formatDateTime(selected.getEventEndingTime()));
+        eventNotesLbl.setText(selected.getEventNotes());
+        eventDirLbl.setText(selected.getLocationGuidance());
+    }
+
+    private void eventListObserver(){
+        eventListLv.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                // Call eventInfo method whenever a new event is selected
+                eventInfo(newValue);
+            }
+        });
+    }
+    private String formatDateTime(LocalDateTime dateTime) {
+        if (dateTime == null) {
+            return "";
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy  '⏰'HH:mm");
+        return formatter.format(dateTime);
     }
 }
