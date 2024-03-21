@@ -55,13 +55,16 @@ public class ECDashboardController {
     }
 
     private void setupLogoutButton() {
-        logoutBtn.setOnAction(event -> {
-            try {
-                loadNewScene("/GUI/view/login.fxml", logoutBtn);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        logoutBtn.setOnAction(this::handleLogoutButtonClick);
+    }
+
+    @FXML
+    private void handleLogoutButtonClick(ActionEvent event) {
+        try {
+            loadNewScene("/GUI/view/login.fxml", logoutBtn);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void refreshTable(){
@@ -81,20 +84,22 @@ public class ECDashboardController {
     }
 
     public void setupEventTable() {
-        eventStartTimeColumn.setCellValueFactory(data -> {
-            Event event = data.getValue();
-            return new SimpleStringProperty(formatDateTime(event.getEventStartTime()));
-        });
-
-        eventEndTimeColumn.setCellValueFactory(data -> {
-            Event event = data.getValue();
-            return new SimpleStringProperty(formatDateTime(event.getEventEndingTime()));
-        });
-
+        eventStartTimeColumn.setCellValueFactory(this::getEventStartTime);
+        eventEndTimeColumn.setCellValueFactory(this::getEventEndTime);
         eventTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventType"));
         eventLocationColumn.setCellValueFactory(new PropertyValueFactory<>("eventLocation"));
         eventNotesColumn.setCellValueFactory(new PropertyValueFactory<>("eventNotes"));
         locationGuidanceColumn.setCellValueFactory(new PropertyValueFactory<>("locationGuidance"));
+    }
+
+    private SimpleStringProperty getEventStartTime(TableColumn.CellDataFeatures<Event, String> data) {
+        Event event = data.getValue();
+        return new SimpleStringProperty(formatDateTime(event.getEventStartTime()));
+    }
+
+    private SimpleStringProperty getEventEndTime(TableColumn.CellDataFeatures<Event, String> data) {
+        Event event = data.getValue();
+        return new SimpleStringProperty(formatDateTime(event.getEventEndingTime()));
     }
 
     public void deleteEvent(ActionEvent actionEvent) throws BBExceptions {
