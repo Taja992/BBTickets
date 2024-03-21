@@ -15,6 +15,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -77,6 +80,7 @@ public class RenameAdminDashboardController {
         setupEventListView();
         loadUsers();
         eventListObserver();
+       // clickAndDrag();
     }
 
     public void logoutBtn(ActionEvent actionEvent) {
@@ -148,7 +152,6 @@ public class RenameAdminDashboardController {
 
     private void loadEventsToListView() {
         try {
-            // Call getAllEvents from eventModel and set the result as the items of eventListLstV
             eventListLv.getItems().setAll(eventModel.getAllEvents());
         } catch (BBExceptions e) {
             e.printStackTrace();
@@ -213,4 +216,53 @@ public class RenameAdminDashboardController {
             e.printStackTrace();
         }*/
     }
+
+    /*
+    private void clickAndDrag() {
+        setupUserListDrag();
+        setupEventListDragOver();
+        setupEventListDragDropped();
+    }
+
+    private void setupUserListDrag() {
+        userListLv.setOnDragDetected(event -> {
+            String selectedUser = userListLv.getSelectionModel().getSelectedItem();
+
+            if (selectedUser != null) {
+                Dragboard db = userListLv.startDragAndDrop(TransferMode.ANY);
+                ClipboardContent content = new ClipboardContent();
+                content.putString(selectedUser);
+                db.setContent(content);
+                event.consume();
+            }
+        });
+    }
+
+    private void setupEventListDragOver() {
+        eventListLv.setOnDragOver(event -> {
+            if (event.getGestureSource() != eventListLv && event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+            }
+            event.consume();
+        });
+    }
+
+    private void setupEventListDragDropped() {
+        eventListLv.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+
+            if (db.hasString()) {
+                Event selectedEvent = eventListLv.getSelectionModel().getSelectedItem();
+                String user = db.getString();
+
+                // TODO: Assign the user to the event
+
+                success = true;
+            }
+
+            event.setDropCompleted(success);
+            event.consume();
+        });
+    } */
 }
