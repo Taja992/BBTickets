@@ -110,6 +110,4 @@ public class UserDAO {
 
         return userEvents;
     }
-
-
 }

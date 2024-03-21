@@ -1,0 +1,47 @@
+.mainBp {
+    -fx-background-color: #FF6347; /* Tomato */
+}
+
+.eventListVbox {
+    -fx-background-color: #ADD8E6; /* LightBlue */
+}
+
+.eventListLstV {
+    -fx-background-color: #90EE90; /* LightGreen */
+}
+
+.nestedBp {
+    -fx-background-color: #FFB6C1; /* LightPink */
+}
+
+.userWindowHbox {
+    -fx-background-color: #F0E68C; /* Khaki */
+}
+
+.tempUser1 {
+    -fx-background-color: #D8BFD8; /* Thistle */
+}
+
+.tempUser2 {
+    -fx-background-color: #FFD700; /* Gold */
+}
+
+.tempUser3 {
+    -fx-background-color: #E6E6FA; /* Lavender */
+}
+
+.tempUser4 {
+    -fx-background-color: #F5DEB3; /* Wheat */
+}
+
+.eventWindowVbox {
+    -fx-background-color: #6a6779; /* PaleTurquoise */
+}
+
+.bottomHbox {
+    -fx-background-color: #DB7093; /* PaleVioletRed */
+}
+
+.userListLv {
+    -fx-background-color: #984a4a;
+}
