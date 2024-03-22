@@ -35,6 +35,10 @@ public class UserBLL {
     public List<Event> getEventsForUser(int userId) throws BBExceptions {
         return userDAO.getEventsForUser(userId);
     }
+
+    public List<User> getUsersForEvent(int eventId) throws BBExceptions {
+        return userDAO.getUsersForEvent(eventId);
+    }
 }
 
 

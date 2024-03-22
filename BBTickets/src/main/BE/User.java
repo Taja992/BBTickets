@@ -23,6 +23,11 @@ public class User {
         this.username = username;
     }
 
+    public User(int userId, String username) {
+        this.userId = userId;
+        this.username = username;
+    }
+
     public int getUser_type() {return user_type;}
 
     public int setUser_type(int user_type) {return this.user_type = user_type;}
