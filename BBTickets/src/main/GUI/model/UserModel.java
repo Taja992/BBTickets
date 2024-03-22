@@ -21,4 +21,7 @@ public class UserModel {
     public User getUser(String username, String password) throws BBExceptions {
         return userBLL.getUser(username, password);
     }
+    public List<User> getUsersForEvent(int eventId) throws BBExceptions {
+        return userBLL.getUsersForEvent(eventId);
+    }
 }
