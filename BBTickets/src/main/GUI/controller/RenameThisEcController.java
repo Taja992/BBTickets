@@ -101,17 +101,7 @@ public class RenameThisEcController {
             }
         });
     }
-
-    private SimpleStringProperty getEventStartTime(TableColumn.CellDataFeatures<Event, String> data) {
-        Event event = data.getValue();
-        return new SimpleStringProperty(formatDateTime(event.getEventStartTime()));
-    }
-
-    private SimpleStringProperty getEventEndTime(TableColumn.CellDataFeatures<Event, String> data) {
-        Event event = data.getValue();
-        return new SimpleStringProperty(formatDateTime(event.getEventEndingTime()));
-    }
-
+    
     public void deleteEvent(ActionEvent actionEvent) throws BBExceptions {
         Event selected = eventList.getSelectionModel().getSelectedItem();
         if(selected != null){
