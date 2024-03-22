@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -166,12 +167,35 @@ public class LoginController {
                 stage.setTitle("Event Coordinator Dashboard");
             }
             Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT);
+            stage.initStyle(StageStyle.TRANSPARENT);
             stage.setScene(scene);
-            stage.initStyle(StageStyle.DECORATED);
+          //  stage.initStyle(StageStyle.DECORATED);
             stage.show();
+
+            windowControls(stage, scene);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void windowControls(Stage primaryStage, Scene scene){
+        BorderPane mainBp = (BorderPane) scene.lookup("#mainBp");
+        Button closeBtn = (Button) scene.lookup("#closeBtn");
+
+        // Add functionality to move the window around
+        mainBp.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        mainBp.setOnMouseDragged(event -> {
+            primaryStage.setX(event.getScreenX() - xOffset);
+            primaryStage.setY(event.getScreenY() - yOffset);
+        });
+
+        // Add functionality to close the window
+        closeBtn.setOnAction(event -> primaryStage.close());
     }
 
     private void closeLoginWindow() {
