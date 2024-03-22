@@ -156,7 +156,7 @@ public class RenameAdminDashboardController {
         }
     }
 
-    private void loadUsers() {
+    public void loadUsers() {
         try {
             List<User> users = userModel.getAllUsers();
             for (User user : users) {
@@ -194,7 +194,7 @@ public class RenameAdminDashboardController {
     }
 
     @FXML
-    public void createUserBtn(ActionEvent actionEvent) {/*
+    public void createUserBtn(ActionEvent actionEvent) {
         try {
             // Load createEvent.fxml
             Parent root = FXMLLoader.load(getClass().getResource("/GUI/view/createUser.fxml"));
@@ -212,7 +212,7 @@ public class RenameAdminDashboardController {
             createEventStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
 
