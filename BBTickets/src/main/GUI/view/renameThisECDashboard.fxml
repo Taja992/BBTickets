@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="mainBp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1095.0" styleClass="mainBp" stylesheets="/GUI/view/renameThisECDashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="mainBp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1095.0" styleClass="mainBp" stylesheets="/GUI/view/renameThisECDashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.RenameThisEcController">
    <left>
       <VBox fx:id="eventListVbox" styleClass="eventListVbox" BorderPane.alignment="CENTER">
          <children>
             <Label text="Event List" />
-            <ListView fx:id="eventListLstV" prefHeight="797.0" prefWidth="200.0" styleClass="eventListLstV" />
+            <ListView fx:id="eventList" prefHeight="797.0" prefWidth="200.0" styleClass="eventListLstV" />
          </children>
       </VBox>
    </left>

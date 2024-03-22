@@ -3,7 +3,10 @@ package GUI.controller;
 import BE.Event;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
+import com.sun.tools.javac.Main;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -12,6 +15,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -21,37 +26,28 @@ import java.util.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class ECDashboardController {
+public class RenameThisEcController {
 
+    public VBox eventWindowVbox;
     @FXML
     private Button logoutBtn;
+
     @FXML
-    private TableView<Event> eventList;
-    @FXML
-    private TableColumn<Event, String> eventTypeColumn;
-    @FXML
-    private TableColumn<Event, String> eventLocationColumn;
-    @FXML
-    private TableColumn<Event, String> eventStartTimeColumn;
-    @FXML
-    private TableColumn<Event, String> eventEndTimeColumn;
-    @FXML
-    private TableColumn<Event, String> eventNotesColumn;
-    @FXML
-    private TableColumn<Event, String> locationGuidanceColumn;
+    private ListView<Event> eventList;
+
     private int userId;
     private EventModel eventModel;
 
     public void setUserId(int userId) {
         this.userId = userId;
-        eventTableForSpecificUser();
+        eventListForSpecificUser();
     }
 
     public void initialize() {
         eventModel = new EventModel();
         setupLogoutButton();
-        setupEventTable();
-
+        setupEventList();
+        setupEventList();
     }
 
     private void setupLogoutButton() {
@@ -69,27 +65,41 @@ public class ECDashboardController {
 
     public void refreshTable(){
         eventList.getItems().clear();
-        eventTableForSpecificUser();
+        eventListForSpecificUser();
     }
 
-    private void eventTableForSpecificUser(){
+    private void eventListForSpecificUser(){
         // Fetch the events for a specific user
         try {
             List<Event> events = eventModel.getEventsForUser(userId);
-            // Add the events to the TableView
-            eventList.getItems().addAll(events);
+            // Add the events to the ListView
+            ObservableList<Event> observableList = FXCollections.observableArrayList(events);
+            eventList.setItems(observableList);
         } catch (BBExceptions e) {
             e.printStackTrace();
         }
     }
 
-    public void setupEventTable() {
-        eventStartTimeColumn.setCellValueFactory(this::getEventStartTime);
-        eventEndTimeColumn.setCellValueFactory(this::getEventEndTime);
-        eventTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventType"));
-        eventLocationColumn.setCellValueFactory(new PropertyValueFactory<>("eventLocation"));
-        eventNotesColumn.setCellValueFactory(new PropertyValueFactory<>("eventNotes"));
-        locationGuidanceColumn.setCellValueFactory(new PropertyValueFactory<>("locationGuidance"));
+    public void setupEventList() {
+        eventList.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(Event event, boolean empty) {
+                super.updateItem(event, empty);
+
+                if (empty || event == null) {
+                    setText(null);
+                } else {
+                    String eventDetails = String.format("Start Time: %s, End Time: %s, Type: %s, Location: %s, Notes: %s, Guidance: %s",
+                            formatDateTime(event.getEventStartTime()),
+                            formatDateTime(event.getEventEndingTime()),
+                            event.getEventType(),
+                            event.getEventLocation(),
+                            event.getEventNotes(),
+                            event.getLocationGuidance());
+                    setText(eventDetails);
+                }
+            }
+        });
     }
 
     private SimpleStringProperty getEventStartTime(TableColumn.CellDataFeatures<Event, String> data) {
@@ -190,5 +200,11 @@ public class ECDashboardController {
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy  '⏰'HH:mm");
         return formatter.format(dateTime);
+    }
+
+    public void assignCoordinator(ActionEvent actionEvent) {
+    }
+
+    public void logoutBtn(ActionEvent actionEvent) {
     }
 }
