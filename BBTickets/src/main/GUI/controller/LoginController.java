@@ -151,9 +151,9 @@ public class LoginController {
         try {
             FXMLLoader loader;
             if (user.getUser_type() == 1) {
-                loader = new FXMLLoader(getClass().getResource("/GUI/view/adminDashboard.fxml"));
+                loader = new FXMLLoader(getClass().getResource("/GUI/view/renameAdminDashboard.fxml"));
                 root = loader.load();
-                AdminDashboardController controller = loader.getController();
+                RenameAdminDashboardController controller = loader.getController();
                 controller.setUserId(user.getUserId());
                 System.out.println("Admin dashboard opened!");
                 stage.setTitle("Admin Dashboard");
