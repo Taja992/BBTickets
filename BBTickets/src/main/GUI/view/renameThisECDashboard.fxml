@@ -92,4 +92,7 @@
          </bottom>
       </BorderPane>
    </center>
+   <top>
+      <Button fx:id="closeBtn" mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />
+   </top>
 </BorderPane>

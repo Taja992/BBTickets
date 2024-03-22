@@ -29,6 +29,7 @@ import java.util.List;
 
 public class RenameAdminDashboardController {
     public Button createUserBtn;
+    public Button closeBtn;
     @FXML
     private BorderPane mainBp;
     @FXML

@@ -33,6 +33,11 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        windowControls(primaryStage, scene);
+
+    }
+
+    public void windowControls(Stage primaryStage, Scene scene){
         BorderPane titleBar = (BorderPane) scene.lookup("#titleBar");
         Button closeButton = (Button) scene.lookup("#closeButton");
 
@@ -49,16 +54,6 @@ public class Main extends Application {
 
         // Add functionality to close the window
         closeButton.setOnAction(event -> primaryStage.close());
-
-
-        // Test database connection
-       /* try {
-            ConnectionManager connectionManager = new ConnectionManager();
-            Connection connection = connectionManager.getConnection();
-            System.out.println("Connected to database successfully!");
-            connection.close();
-        } catch (SQLException e) {
-            System.out.println("Failed to connect to database: " + e.getMessage());
-        }*/
     }
+
 }
