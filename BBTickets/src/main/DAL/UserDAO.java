@@ -111,5 +111,28 @@ public class UserDAO {
         return userEvents;
     }
 
+    public List<User> getUsersForEvent(int eventId) throws BBExceptions {
+        List<User> eventUsers = new ArrayList<>();
+        String sql = "SELECT U.* FROM [User] U INNER JOIN EventCoordCon ECC ON U.user_id = ECC.user_Id WHERE ECC.event_Id = ?";
 
+        try {
+            Connection connection = connectionManager.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, eventId);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int userId = resultSet.getInt("user_id");
+                String username = resultSet.getString("username");
+                // Add other user fields as needed
+
+                User user = new User(userId, username);
+                eventUsers.add(user);
+            }
+        } catch (SQLException e) {
+            throw new BBExceptions("Failed to retrieve users for event", e);
+        }
+
+        return eventUsers;
+    }
 }

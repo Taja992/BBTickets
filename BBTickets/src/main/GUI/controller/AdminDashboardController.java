@@ -2,11 +2,10 @@ package GUI.controller;
 
 import BE.Event;
 import BE.User;
-import BLL.BLLEvent;
-import BLL.BLLUser;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
 import GUI.model.UserModel;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +21,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class AdminDashboardController {
 
@@ -34,9 +34,9 @@ public class AdminDashboardController {
     @FXML
     private TableColumn<Event, String> eventLocationColumn;
     @FXML
-    private TableColumn<Event, LocalDateTime> eventStartTimeColumn;
+    private TableColumn<Event, String> eventStartTimeColumn;
     @FXML
-    private TableColumn<Event, LocalDateTime> eventEndTimeColumn;
+    private TableColumn<Event, String> eventEndTimeColumn;
     @FXML
     private TableColumn<Event, String> eventNotesColumn;
     @FXML
@@ -50,17 +50,20 @@ public class AdminDashboardController {
     @FXML
     private TableView<User> userList;
 
+
     private EventModel eventModel;
     private UserModel userModel;
     private int userId;
 
-    public AdminDashboardController(){
+    public AdminDashboardController() {
         eventModel = new EventModel();
         userModel = new UserModel();
     }
+
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
     public void initialize() {
 
         logOut();
@@ -72,7 +75,7 @@ public class AdminDashboardController {
 
     public void loadEvents() {
         try {
-            // Call getAllEvents from bllEvent and set the result as the items of eventList
+            // Call getAllEvents from eventModel and set the result as the items of eventList
             eventList.getItems().setAll(eventModel.getAllEvents());
         } catch (BBExceptions e) {
             e.printStackTrace();
@@ -81,7 +84,7 @@ public class AdminDashboardController {
 
     public void loadUsers() {
         try {
-            // Call getAllEvents from bllEvent and set the result as the items of eventList
+            // Call getAllEvents from eventModel and set the result as the items of eventList
             userList.getItems().setAll(userModel.getAllUsers());
         } catch (BBExceptions e) {
             e.printStackTrace();
@@ -89,10 +92,18 @@ public class AdminDashboardController {
     }
 
     public void setupEventTable() {
+        eventStartTimeColumn.setCellValueFactory(data -> {
+            Event event = data.getValue();
+            return new SimpleStringProperty(formatDateTime(event.getEventStartTime()));
+        });
+
+        eventEndTimeColumn.setCellValueFactory(data -> {
+            Event event = data.getValue();
+            return new SimpleStringProperty(formatDateTime(event.getEventEndingTime()));
+        });
+
         eventTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventType"));
         eventLocationColumn.setCellValueFactory(new PropertyValueFactory<>("eventLocation"));
-        eventStartTimeColumn.setCellValueFactory(new PropertyValueFactory<>("eventStartTime"));
-        eventEndTimeColumn.setCellValueFactory(new PropertyValueFactory<>("eventEndingTime"));
         eventNotesColumn.setCellValueFactory(new PropertyValueFactory<>("eventNotes"));
         locationGuidanceColumn.setCellValueFactory(new PropertyValueFactory<>("locationGuidance"));
     }
@@ -103,7 +114,7 @@ public class AdminDashboardController {
         passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
     }
 
-    public void logOut(){
+    public void logOut() {
         logoutBtn.setOnAction(event -> {
             try {
                 // Load login.fxml
@@ -129,16 +140,48 @@ public class AdminDashboardController {
                 e.printStackTrace();
             }
         });
-
     }
 
 
     public void deleteEvent(ActionEvent actionEvent) throws BBExceptions {
         //gets the selected item from the table and deletes it (does nothing if nothing is selected)
         BE.Event selected = eventList.getSelectionModel().getSelectedItem();
-        if(selected != null){
+        if (selected != null) {
             eventModel.deleteEvent(selected.getEventId());
             loadEvents(); //reloads the table so it updates with the item deleted
         }
     }
+
+    @FXML
+    public void openCreateUserWindow(ActionEvent actionEvent) {
+        try {
+            // Load createEvent.fxml
+            Parent root = FXMLLoader.load(getClass().getResource("/GUI/view/createUser.fxml"));
+
+            // Create a new stage for the create event screen
+            Stage createEventStage = new Stage();
+            createEventStage.initStyle(StageStyle.DECORATED);
+
+            // Create a new scene with the loaded parent and set it on the stage
+            Scene scene = new Scene(root);
+            createEventStage.setTitle("Create Event");
+            createEventStage.setScene(scene);
+
+            // Show the create event stage
+            createEventStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String formatDateTime(LocalDateTime dateTime) {
+        if (dateTime == null) {
+            return "Beginning of day :)";
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy  '⏰'HH:mm");
+        return formatter.format(dateTime);
+    }
+
+
+
 }

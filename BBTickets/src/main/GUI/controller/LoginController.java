@@ -1,15 +1,16 @@
 package GUI.controller;
 
 import BE.User;
-import BLL.BLLUser;
+import GUI.model.UserModel;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -28,7 +29,7 @@ public class LoginController {
     public Label errorMsgLabel;
     public Label forgotPWLbl;
 
-    private BLLUser bllUser;
+    private UserModel userModel;
 
     public TextField usernameField;
     public PasswordField passwordField;
@@ -37,37 +38,42 @@ public class LoginController {
     private Preferences prefs;
 
     public LoginController() {
-        bllUser = new BLLUser();
+        userModel = new UserModel();
 
         // Get the preferences for this user node
         prefs = Preferences.userNodeForPackage(LoginController.class);
     }
 
     public void initialize() {
-        windowMovement();
+        setupWindowMovement();
         loadSavedCredentials();
         setupForgotPasswordLabel();
         setupLoginButton();
     }
 
-    private void windowMovement(){
-        // Add functionality to move the window around
-        titleBar.setOnMousePressed(event -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
+    private void setupWindowMovement() {
+        titleBar.setOnMousePressed(this::handleMousePressed);
+        titleBar.setOnMouseDragged(this::handleMouseDragged);
+        closeButton.setOnAction(this::handleCloseButton);
+    }
 
-        titleBar.setOnMouseDragged(event -> {
-            Stage stage = (Stage) titleBar.getScene().getWindow();
-            stage.setX(event.getScreenX() - xOffset);
-            stage.setY(event.getScreenY() - yOffset);
-        });
+    @FXML
+    private void handleMousePressed(MouseEvent event) {
+        xOffset = event.getSceneX();
+        yOffset = event.getSceneY();
+    }
 
-        // Add functionality to close the window
-        closeButton.setOnAction(event -> {
-            Stage stage = (Stage) closeButton.getScene().getWindow();
-            stage.close();
-        });
+    @FXML
+    private void handleMouseDragged(MouseEvent event) {
+        Stage stage = (Stage) titleBar.getScene().getWindow();
+        stage.setX(event.getScreenX() - xOffset);
+        stage.setY(event.getScreenY() - yOffset);
+    }
+
+    @FXML
+    private void handleCloseButton(ActionEvent event) {
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
     }
 
     private void loadSavedCredentials() {
@@ -83,28 +89,36 @@ public class LoginController {
         }
     }
 
+    // Handle the forgot password label click
     private void setupForgotPasswordLabel() {
-        forgotPWLbl.setOnMouseClicked(event -> {
-            errorMsgLabel.setText("Too bad;(");
-        });
+        forgotPWLbl.setOnMouseClicked(this::handleForgotPasswordLabelClick);
     }
 
-    private void setupLoginButton() {
-        loginBtn.setOnAction(event -> {
-            String username = usernameField.getText();
-            String password = passwordField.getText();
+    @FXML
+    private void handleForgotPasswordLabelClick(MouseEvent event) {
+        errorMsgLabel.setText("Too bad;(");
+    }
+    // Handle the login button click
 
-            try {
-                User user = bllUser.getUser(username, password);
-                if (user != null) {
-                    handleSuccessfulLogin(user, username, password);
-                } else {
-                    handleFailedLogin();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+    private void setupLoginButton() {
+        loginBtn.setOnAction(this::handleLoginButtonClick);
+    }
+
+    @FXML
+    private void handleLoginButtonClick(ActionEvent event) {
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+
+        try {
+            User user = userModel.getUser(username, password);
+            if (user != null) {
+                handleSuccessfulLogin(user, username, password);
+            } else {
+                handleFailedLogin();
             }
-        });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void handleSuccessfulLogin(User user, String username, String password) {
@@ -138,9 +152,9 @@ public class LoginController {
         try {
             FXMLLoader loader;
             if (user.getUser_type() == 1) {
-                loader = new FXMLLoader(getClass().getResource("/GUI/view/adminDashboard.fxml"));
+                loader = new FXMLLoader(getClass().getResource("/GUI/view/renameAdminDashboard.fxml"));
                 root = loader.load();
-                AdminDashboardController controller = loader.getController();
+                RenameAdminDashboardController controller = loader.getController();
                 controller.setUserId(user.getUserId());
                 System.out.println("Admin dashboard opened!");
                 stage.setTitle("Admin Dashboard");
@@ -153,12 +167,35 @@ public class LoginController {
                 stage.setTitle("Event Coordinator Dashboard");
             }
             Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT);
+            stage.initStyle(StageStyle.TRANSPARENT);
             stage.setScene(scene);
-            stage.initStyle(StageStyle.DECORATED);
+          //  stage.initStyle(StageStyle.DECORATED);
             stage.show();
+
+            windowControls(stage, scene);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void windowControls(Stage primaryStage, Scene scene){
+        BorderPane mainBp = (BorderPane) scene.lookup("#mainBp");
+        Button closeBtn = (Button) scene.lookup("#closeBtn");
+
+        // Add functionality to move the window around
+        mainBp.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        mainBp.setOnMouseDragged(event -> {
+            primaryStage.setX(event.getScreenX() - xOffset);
+            primaryStage.setY(event.getScreenY() - yOffset);
+        });
+
+        // Add functionality to close the window
+        closeBtn.setOnAction(event -> primaryStage.close());
     }
 
     private void closeLoginWindow() {

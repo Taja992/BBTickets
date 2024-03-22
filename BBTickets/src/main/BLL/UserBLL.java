@@ -7,7 +7,7 @@ import Exceptions.BBExceptions;
 
 import java.util.List;
 
-public class BLLUser {
+public class UserBLL {
     UserDAO userDAO = new UserDAO();
 
     public void newUser(User user) throws BBExceptions {
@@ -18,6 +18,7 @@ public class BLLUser {
         return userDAO.getUser(username, password);
     }
 
+    //this code needs to be moved to UserModel at some point -> public List<User> getAllUsers() throws BBExceptions
     public List<User> allUsers() throws BBExceptions {
         List<User> allUsers = userDAO.allUsers();
         for (User user : allUsers) {
@@ -33,6 +34,10 @@ public class BLLUser {
 
     public List<Event> getEventsForUser(int userId) throws BBExceptions {
         return userDAO.getEventsForUser(userId);
+    }
+
+    public List<User> getUsersForEvent(int eventId) throws BBExceptions {
+        return userDAO.getUsersForEvent(eventId);
     }
 }
 

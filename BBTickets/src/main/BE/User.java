@@ -10,10 +10,21 @@ public class User {
     private String username;
     private String roleName;
 
+    ///why?
     public User(Integer userID, Integer user_type, String password, String username) {
         this.userId = userID;
         this.user_type = user_type;
         this.password = password;
+        this.username = username;
+    }
+    public User(Integer user_type, String password, String username) {
+        this.user_type = user_type;
+        this.password = password;
+        this.username = username;
+    }
+
+    public User(int userId, String username) {
+        this.userId = userId;
         this.username = username;
     }
 

@@ -1,18 +1,27 @@
 package GUI.model;
 
 import BE.User;
-import BLL.BLLUser;
+import BLL.UserBLL;
 import Exceptions.BBExceptions;
 import java.util.List;
 
 public class UserModel {
-    private BLLUser bllUser;
+    private UserBLL userBLL;
 
     public UserModel() {
-        bllUser = new BLLUser();
+        userBLL = new UserBLL();
     }
 
+    public void newUser(User user) throws BBExceptions {
+        userBLL.newUser(user);
+    }
     public List<User> getAllUsers() throws BBExceptions {
-        return bllUser.allUsers();
+        return userBLL.allUsers();
+    }
+    public User getUser(String username, String password) throws BBExceptions {
+        return userBLL.getUser(username, password);
+    }
+    public List<User> getUsersForEvent(int eventId) throws BBExceptions {
+        return userBLL.getUsersForEvent(eventId);
     }
 }

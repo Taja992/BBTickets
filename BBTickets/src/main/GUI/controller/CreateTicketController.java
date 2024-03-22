@@ -1,6 +1,8 @@
 package GUI.controller;
 
-import BLL.BLLTicket;
+
+import GUI.model.TicketModel;
+import GUI.model.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -16,7 +18,8 @@ public class CreateTicketController {
     private TextField eventIDField;
     @FXML
     private TextField priceField;
-    private BLLTicket bllTicket = new BLLTicket();
+
+    private TicketModel ticketModel = new TicketModel();
 
     public void closeWindow(ActionEvent actionEvent) {
         // Get the current stage from the action event and close it
@@ -32,7 +35,7 @@ public class CreateTicketController {
             int customerId = Integer.parseInt(customerIDField.getText());
             double price = Double.parseDouble(priceField.getText());
 
-            bllTicket.createTicket(eventType, eventId, customerId, price);
+            ticketModel.createTicket(eventType, eventId, customerId, price);
         }
 
     }

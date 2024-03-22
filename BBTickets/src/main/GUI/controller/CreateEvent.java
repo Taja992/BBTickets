@@ -1,8 +1,8 @@
 package GUI.controller;
 
 import BE.Event;
-import BLL.BLLEvent;
 import Exceptions.BBExceptions;
+import GUI.model.EventModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -33,10 +33,11 @@ public class CreateEvent {
     private TextField locationGuidanceField;
     @FXML
     private Button addEvent;
-    private final BLLEvent bllEvent;
+
+    private final EventModel eventModel;
 
     public CreateEvent(){
-        bllEvent = new BLLEvent();
+        eventModel = new EventModel();
     }
 
     public void initialize() {
@@ -63,7 +64,7 @@ public class CreateEvent {
         Event event = new Event(eventType, eventLocation, eventStartTime, eventEndingTime, eventNotes, locationGuidance);
 
         try {
-            bllEvent.newEvent(event);
+            eventModel.newEvent(event);
             // Get the current stage from the action event and close it
             Node source = (Node) actionEvent.getSource();
             Stage stage = (Stage) source.getScene().getWindow();

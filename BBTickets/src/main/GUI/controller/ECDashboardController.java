@@ -1,15 +1,13 @@
 package GUI.controller;
 
 import BE.Event;
-import BLL.BLLEvent;
-import BLL.BLLUser;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,6 +15,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -26,17 +26,15 @@ public class ECDashboardController {
     @FXML
     private Button logoutBtn;
     @FXML
-    private Button createEventBtn;
-    @FXML
     private TableView<Event> eventList;
     @FXML
     private TableColumn<Event, String> eventTypeColumn;
     @FXML
     private TableColumn<Event, String> eventLocationColumn;
     @FXML
-    private TableColumn<Event, LocalDateTime> eventStartTimeColumn;
+    private TableColumn<Event, String> eventStartTimeColumn;
     @FXML
-    private TableColumn<Event, LocalDateTime> eventEndTimeColumn;
+    private TableColumn<Event, String> eventEndTimeColumn;
     @FXML
     private TableColumn<Event, String> eventNotesColumn;
     @FXML
@@ -52,19 +50,21 @@ public class ECDashboardController {
     public void initialize() {
         eventModel = new EventModel();
         setupLogoutButton();
-        setupCreateEventButton();
         setupEventTable();
 
     }
 
     private void setupLogoutButton() {
-        logoutBtn.setOnAction(event -> {
-            try {
-                loadNewScene("/GUI/view/login.fxml", logoutBtn);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        logoutBtn.setOnAction(this::handleLogoutButtonClick);
+    }
+
+    @FXML
+    private void handleLogoutButtonClick(ActionEvent event) {
+        try {
+            loadNewScene("/GUI/view/login.fxml", logoutBtn);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void refreshTable(){
@@ -84,12 +84,22 @@ public class ECDashboardController {
     }
 
     public void setupEventTable() {
+        eventStartTimeColumn.setCellValueFactory(this::getEventStartTime);
+        eventEndTimeColumn.setCellValueFactory(this::getEventEndTime);
         eventTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventType"));
         eventLocationColumn.setCellValueFactory(new PropertyValueFactory<>("eventLocation"));
-        eventStartTimeColumn.setCellValueFactory(new PropertyValueFactory<>("eventStartTime"));
-        eventEndTimeColumn.setCellValueFactory(new PropertyValueFactory<>("eventEndingTime"));
         eventNotesColumn.setCellValueFactory(new PropertyValueFactory<>("eventNotes"));
         locationGuidanceColumn.setCellValueFactory(new PropertyValueFactory<>("locationGuidance"));
+    }
+
+    private SimpleStringProperty getEventStartTime(TableColumn.CellDataFeatures<Event, String> data) {
+        Event event = data.getValue();
+        return new SimpleStringProperty(formatDateTime(event.getEventStartTime()));
+    }
+
+    private SimpleStringProperty getEventEndTime(TableColumn.CellDataFeatures<Event, String> data) {
+        Event event = data.getValue();
+        return new SimpleStringProperty(formatDateTime(event.getEventEndingTime()));
     }
 
     public void deleteEvent(ActionEvent actionEvent) throws BBExceptions {
@@ -130,15 +140,6 @@ public class ECDashboardController {
         }
     }
 
-    private void setupCreateEventButton() {
-        createEventBtn.setOnAction(event -> {
-            try {
-                loadNewScene("/GUI/view/createEvent.fxml", createEventBtn);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-    }
 
     private void loadNewScene(String fxmlPath, Button button) throws IOException {
         // Load fxml file
@@ -160,5 +161,34 @@ public class ECDashboardController {
 
         // Show the new stage
         newStage.show();
+    }
+
+    public void createEventBtn(ActionEvent actionEvent) {
+        try {
+            // Load createEvent.fxml
+            Parent root = FXMLLoader.load(getClass().getResource("/GUI/view/createEvent.fxml"));
+
+            // Create a new stage for the create event screen
+            Stage createEventStage = new Stage();
+            createEventStage.initStyle(StageStyle.DECORATED);
+
+            // Create a new scene with the loaded parent and set it on the stage
+            Scene scene = new Scene(root);
+            createEventStage.setTitle("Create Event");
+            createEventStage.setScene(scene);
+
+            // Show the create event stage
+            createEventStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String formatDateTime(LocalDateTime dateTime) {
+        if (dateTime == null) {
+            return "";
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy  '⏰'HH:mm");
+        return formatter.format(dateTime);
     }
 }

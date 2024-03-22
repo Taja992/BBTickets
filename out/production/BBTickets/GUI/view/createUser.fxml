@@ -1,14 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="GUI.view.CreateUser"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0" spacing="10" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.CreateUserController">
+    <children>
+        <Label text="Create User" />
+        <HBox prefHeight="26.0" prefWidth="218.0" spacing="10">
+            <children>
+                <Label text="Role:" />
+            <RadioButton fx:id="roleAdmin" mnemonicParsing="false" text="Admin">
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+            </RadioButton>
+            <RadioButton fx:id="roleEC" mnemonicParsing="false" text="Event Coordinator" />
+            </children>
+        </HBox>
+        <HBox spacing="10">
+            <children>
+                <Label text="Username:" />
+                <TextField fx:id="usernameField" prefHeight="26.0" prefWidth="153.0" promptText="Enter Username" />
+            </children>
+        </HBox>
+        <HBox spacing="10">
+            <children>
+                <Label text="Password:" />
+                <TextField fx:id="passwordField" prefHeight="26.0" prefWidth="158.0" promptText="Enter Password" />
+            </children>
+        </HBox>
+        <HBox spacing="10">
+            <children>
+                <Button fx:id="createUserBtn" onAction="#createUser" text="Create" />
+                <Button fx:id="cancelCreateUserBtn" onAction="#cancelCreateUser" text="Cancel" />
+            </children>
+        </HBox>
+    </children>
+</VBox>
