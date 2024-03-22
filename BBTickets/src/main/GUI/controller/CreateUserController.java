@@ -30,7 +30,6 @@ public class CreateUserController {
     private Stage createUserStage;
     private ToggleGroup toggleGroup;
     private UserModel userModel;
-    private AdminDashboardController adminDashboard;
     public CreateUserController(){
         userModel = new UserModel();
     }
@@ -60,7 +59,6 @@ public void initialize() {
         // You might need to modify this part based on how you're creating users
         User newUser = new User(userType, password, username);
         userModel.newUser(newUser);
-        adminDashboard.loadUsers();
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
