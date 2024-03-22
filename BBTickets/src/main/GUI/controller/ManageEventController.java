@@ -71,7 +71,7 @@ public class ManageEventController {
             String guidance = locationGuidanceField.getText();
 
             Event event = new Event(eventID,type,eventLocationField.getText(), startTime, endTime, notes, guidance);
-            bllEvent.manageEvent(event);
+            eventModel.manageEvent(event);
             controller.refreshTable();
         }
 
