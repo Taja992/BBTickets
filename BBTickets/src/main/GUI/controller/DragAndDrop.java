@@ -1,57 +1,74 @@
 package GUI.controller;
 
 import BE.Event;
+import BE.User;
+import Exceptions.BBExceptions;
+import GUI.model.EventModel;
 import javafx.scene.control.ListView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.HBox;
 
 public class DragAndDrop {
 
-    private ListView<String> userListLv;
+    private ListView<User> userListLv;
     private ListView<Event> eventListLv;
+    private HBox userWindowHbox;
+    private EventModel eventModel;
+    private EventHelper eventHelper;
 
-    public DragAndDrop(ListView<String> userListLv, ListView<Event> eventListLv) {
+    public DragAndDrop(ListView<User> userListLv, ListView<Event> eventListLv, HBox userWindowHbox, EventHelper eventHelper) {
         this.userListLv = userListLv;
         this.eventListLv = eventListLv;
+        this.userWindowHbox = userWindowHbox;
+        this.eventHelper = eventHelper;
         setupUserListDrag();
-        setupEventListDragOver();
-        setupEventListDragDropped();
+        setupUserWindowDragOver();
+        setupUserWindowDragDropped();
+        eventModel = new EventModel();
     }
 
     private void setupUserListDrag() {
         userListLv.setOnDragDetected(event -> {
-            String selectedUser = userListLv.getSelectionModel().getSelectedItem();
+            User selectedUser = userListLv.getSelectionModel().getSelectedItem();
 
             if (selectedUser != null) {
                 Dragboard db = userListLv.startDragAndDrop(TransferMode.ANY);
                 ClipboardContent content = new ClipboardContent();
-                content.putString(selectedUser);
+                content.putString(String.valueOf(selectedUser));
                 db.setContent(content);
                 event.consume();
             }
         });
     }
 
-    private void setupEventListDragOver() {
-        eventListLv.setOnDragOver(event -> {
-            if (event.getGestureSource() != eventListLv && event.getDragboard().hasString()) {
+    private void setupUserWindowDragOver() {
+        userWindowHbox.setOnDragOver(event -> {
+            if (event.getGestureSource() != userWindowHbox && event.getDragboard().hasString()) {
                 event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
             }
             event.consume();
         });
     }
 
-    private void setupEventListDragDropped() {
-        eventListLv.setOnDragDropped(event -> {
+    private void setupUserWindowDragDropped() {
+        userWindowHbox.setOnDragDropped(event -> {
             Dragboard db = event.getDragboard();
             boolean success = false;
 
             if (db.hasString()) {
                 Event selectedEvent = eventListLv.getSelectionModel().getSelectedItem();
-                String user = db.getString();
+                User selectedUser = userListLv.getSelectionModel().getSelectedItem();
+                int userId = selectedUser.getUserId();
+                int eventId = selectedEvent.getEventId();
 
-                // TODO: Assign the user to the event
+                try {
+                    eventModel.assignUserToEvent(userId, eventId);
+                    eventHelper.refreshUserWindowHbox(selectedEvent);
+                } catch (BBExceptions e) {
+                    throw new RuntimeException(e);
+                }
 
                 success = true;
             }

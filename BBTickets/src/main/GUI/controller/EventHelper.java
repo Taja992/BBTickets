@@ -142,4 +142,17 @@ public class EventHelper {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy  '⏰'HH:mm");
         return formatter.format(dateTime);
     }
+
+    public void refreshUserWindowHbox(Event event) {
+        userWindowHbox.getChildren().clear();
+
+        try {
+            List<User> users = userModel.getUsersForEvent(event.getEventId());
+            for (User user : users) {
+                addUserToHbox(user);
+            }
+        } catch (BBExceptions | URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -35,4 +35,8 @@ public class EventModel {
         eventBLL.newEvent(event);
     }
 
+    public void assignUserToEvent(int userId, int eventId) throws BBExceptions {
+        eventBLL.assignUserToEvent(userId, eventId);
+    }
+
 }
