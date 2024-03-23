@@ -92,6 +92,10 @@
       </BorderPane>
    </center>
    <top>
-      <Button fx:id="closeBtn" mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />
+      <Button fx:id="closeBtn" mnemonicParsing="false" styleClass="closeBtn" BorderPane.alignment="TOP_RIGHT">
+         <BorderPane.margin>
+            <Insets bottom="3.0" right="2.0" top="-5.0" />
+         </BorderPane.margin>
+      </Button>
    </top>
 </BorderPane>
