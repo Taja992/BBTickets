@@ -15,7 +15,7 @@
       <VBox fx:id="eventListVbox" styleClass="eventListVbox" BorderPane.alignment="CENTER">
          <children>
             <Label text="Event List" />
-            <ListView fx:id="eventList" prefHeight="797.0" prefWidth="200.0" styleClass="eventListLstV" />
+            <ListView fx:id="eventListLv" prefHeight="797.0" prefWidth="200.0" styleClass="eventListLstV" />
          </children>
       </VBox>
    </left>
@@ -62,13 +62,12 @@
          <center>
             <VBox fx:id="eventWindowVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="eventWindowVbox">
                <children>
-                  <Label text="Some Cool Event Name" />
-                  <Label text="Event Type" />
-                  <Label text="Event Location" />
-                  <Label text="Event Start Time" />
-                  <Label text="Event End Time" />
-                  <Label text="Event Notes" />
-                  <Label text="Directions" />
+                  <Label fx:id="eventTypeLbl" text="Some Cool Event Name" />
+                  <Label fx:id="eventLocationLbl" text="Event Location" />
+                  <Label fx:id="eventStartLbl" text="Event Start Time" />
+                  <Label fx:id="eventEndLbl" text="Event End Time" />
+                  <Label fx:id="eventNotesLbl" text="Event Notes" />
+                  <Label fx:id="eventDirLbl" text="Directions" />
                </children>
                <opaqueInsets>
                   <Insets />

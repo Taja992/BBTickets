@@ -3,6 +3,7 @@ package GUI.controller;
 import BE.Event;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
+import GUI.model.UserModel;
 import com.sun.tools.javac.Main;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -16,6 +17,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -29,25 +32,43 @@ import java.time.LocalDateTime;
 public class RenameThisEcController {
 
     public VBox eventWindowVbox;
+    public BorderPane mainBp;
+    public VBox eventListVbox;
+    public BorderPane nestedBp;
+    public HBox userWindowHbox;
+    public HBox bottomHbox;
+    public Button createEventBtn;
+    public Button closeBtn;
+    public Label eventTypeLbl;
+    public Label eventLocationLbl;
+    public Label eventStartLbl;
+    public Label eventEndLbl;
+    public Label eventNotesLbl;
+    public Label eventDirLbl;
+    public ListView<BE.Event> eventListLv;
     @FXML
     private Button logoutBtn;
 
-    @FXML
-    private ListView<Event> eventList;
-
     private int userId;
     private EventModel eventModel;
+    private UserModel userModel;
+    private EventHelper eventHelper;
 
     public void setUserId(int userId) {
         this.userId = userId;
         eventListForSpecificUser();
     }
 
+    public RenameThisEcController() {
+        eventModel = new EventModel();
+        userModel = new UserModel();}
+
     public void initialize() {
+        this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
         eventModel = new EventModel();
         setupLogoutButton();
         setupEventList();
-        setupEventList();
+        eventHelper.eventListObserver();
     }
 
     private void setupLogoutButton() {
@@ -64,7 +85,7 @@ public class RenameThisEcController {
     }
 
     public void refreshTable(){
-        eventList.getItems().clear();
+        eventListLv.getItems().clear();
         eventListForSpecificUser();
     }
 
@@ -74,14 +95,14 @@ public class RenameThisEcController {
             List<Event> events = eventModel.getEventsForUser(userId);
             // Add the events to the ListView
             ObservableList<Event> observableList = FXCollections.observableArrayList(events);
-            eventList.setItems(observableList);
+            eventListLv.setItems(observableList);
         } catch (BBExceptions e) {
             e.printStackTrace();
         }
     }
 
     public void setupEventList() {
-        eventList.setCellFactory(param -> new ListCell<>() {
+        eventListLv.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Event event, boolean empty) {
                 super.updateItem(event, empty);
@@ -89,21 +110,15 @@ public class RenameThisEcController {
                 if (empty || event == null) {
                     setText(null);
                 } else {
-                    String eventDetails = String.format("Start Time: %s, End Time: %s, Type: %s, Location: %s, Notes: %s, Guidance: %s",
-                            formatDateTime(event.getEventStartTime()),
-                            formatDateTime(event.getEventEndingTime()),
-                            event.getEventType(),
-                            event.getEventLocation(),
-                            event.getEventNotes(),
-                            event.getLocationGuidance());
-                    setText(eventDetails);
+                    // Set the text of the cell to the eventType of the Event
+                    setText(String.valueOf(event.getEventType()));
                 }
             }
         });
     }
     
     public void deleteEvent(ActionEvent actionEvent) throws BBExceptions {
-        Event selected = eventList.getSelectionModel().getSelectedItem();
+        Event selected = eventListLv.getSelectionModel().getSelectedItem();
         if(selected != null){
             System.out.println(selected.getEventType());
             eventModel.deleteEvent(selected.getEventId());
@@ -122,7 +137,7 @@ public class RenameThisEcController {
     }
 
     public void editEvent(ActionEvent actionEvent) throws BBExceptions, IOException {
-        BE.Event selected = eventList.getSelectionModel().getSelectedItem();
+        BE.Event selected = eventListLv.getSelectionModel().getSelectedItem();
         if(selected != null){
             System.out.println(selected.getEventType());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/manageEvent.fxml"));

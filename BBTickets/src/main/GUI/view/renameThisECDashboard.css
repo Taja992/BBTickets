@@ -1,43 +1,72 @@
+* {
+    -fx-font-family: "Segoe UI";
+    -fx-background-radius: 15; /* Rounded corners */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 0); /* Shadow */
+    -fx-padding: 10; /* Padding */
+    -fx-font-size: 14px; /* Default font size */
+    -fx-text-fill: #EEE; /* Lighter font color */
+}
+
 .mainBp {
-    -fx-background-color: #FF6347; /* Tomato */
+    -fx-background-color: rgb(136, 136, 136); /* White */
 }
 
-.eventListVbox {
-    -fx-background-color: #ADD8E6; /* LightBlue */
+.eventListVbox, .eventListLstV, .nestedBp, .userWindowHbox, .tempUser1, .tempUser2, .tempUser3, .tempUser4, .eventWindowVbox, .bottomHbox, .userListLv {
+    -fx-background-color: rgba(0, 0, 0, 0.5); /* Black */
 }
 
-.eventListLstV {
-    -fx-background-color: #90EE90; /* LightGreen */
+.userListLv {
+    -fx-font-weight: bold; /* Make the user list stand out */
 }
 
-.nestedBp {
-    -fx-background-color: #FFB6C1; /* LightPink */
+/* ListView styles */
+.list-view {
+    -fx-padding: 5; /* Less padding for ListView */
 }
 
-.userWindowHbox {
-    -fx-background-color: #F0E68C; /* Khaki */
+/* ListView cell styles */
+.list-view .list-cell {
+    -fx-background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0); /* No shadow */
 }
 
-.tempUser1 {
-    -fx-background-color: #D8BFD8; /* Thistle */
+.list-view .list-cell:selected {
+    -fx-background-color: rgba(200, 200, 200, 0.5); /* Lighter color when selected */
 }
 
-.tempUser2 {
-    -fx-background-color: #FFD700; /* Gold */
+/* Button styles */
+.button {
+    -fx-background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    -fx-padding: 5; /* Less padding for buttons */
 }
 
-.tempUser3 {
-    -fx-background-color: #E6E6FA; /* Lavender */
+.button:hover {
+    -fx-background-color: rgba(200, 200, 200, 0.5); /* Lighter color when hovered */
 }
 
-.tempUser4 {
-    -fx-background-color: #F5DEB3; /* Wheat */
+/* ScrollBar styles */
+.list-view .scroll-bar {
+    -fx-pref-width: 10; /* Narrower scrollbar */
+    -fx-background-radius: 5; /* Rounded corners for scrollbar */
 }
 
-.eventWindowVbox {
-    -fx-background-color: #6a6779; /* PaleTurquoise */
+.list-view .scroll-bar .track {
+    -fx-background-color: transparent; /* Hide scrollbar track */
 }
 
-.bottomHbox {
-    -fx-background-color: #DB7093; /* PaleVioletRed */
+.closeBtn {
+    -fx-background-color: rgba(246, 113, 113, 0.5); /* Semi-transparent red */
+    -fx-text-fill: #EEE; /* Lighter font color */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-padding: 5; /* Padding */
+    -fx-background-radius: 1000; /* High value to make it circular */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 0); /* Shadow */
+    -fx-min-width: 17px; /* Same width and height */
+    -fx-min-height: 17px; /* Same width and height */
+    -fx-max-width: 17px; /* Same width and height */
+    -fx-max-height: 17px; /* Same width and height */
+}
+
+.closeBtn:hover {
+    -fx-background-color: rgba(252, 82, 82, 0.7); /* Darker red when hovered */
 }
