@@ -99,7 +99,7 @@ public class EventHelper {
         Circle circle = new Circle(40);
         String imagePath = getRandomImagePath();
         if (imagePath != null) {
-            Image image = new Image(imagePath, 80, 80, true, true);
+            Image image = new Image(imagePath, 80, 80, false, true);
             ImagePattern imagePattern = new ImagePattern(image);
             circle.setFill(imagePattern);
         } else {
