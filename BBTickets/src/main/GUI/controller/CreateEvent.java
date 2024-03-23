@@ -15,7 +15,8 @@ import java.time.LocalTime;
 
 public class CreateEvent {
 
-    public CheckBox assignToSelfChkBox;
+    @FXML
+    private CheckBox assignToSelfChkBox;
     @FXML
     private TextField eventTypeField;
     @FXML
