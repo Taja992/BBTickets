@@ -187,6 +187,7 @@ public class RenameThisEcController {
             // Get the controller and set the user ID
             CreateEvent controller = loader.getController();
             controller.setUserId(userId);
+            controller.setRenameThisEcController(this);
 
             // Create a new stage for the create event screen
             Stage createEventStage = new Stage();
