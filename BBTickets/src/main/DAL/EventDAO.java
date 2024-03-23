@@ -111,4 +111,19 @@ public class EventDAO {
         return allEvents;
     }
 
+    public void assignUserToEvent(int userId, int eventId) throws BBExceptions {
+        String sql = "INSERT INTO EventCoordCon (user_Id, event_Id) VALUES (?, ?)";
+
+        try (Connection connection = connectionManager.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, userId);
+            statement.setInt(2, eventId);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new BBExceptions("Failed to assign user to event", e);
+        }
+    }
+
 }

@@ -25,4 +25,8 @@ public class EventBLL {
     public List<Event> getAllEvents() throws BBExceptions {
         return DAO.getAllEvents();
     }
+
+    public void assignUserToEvent(int userId, int eventId) throws BBExceptions {
+        DAO.assignUserToEvent(userId, eventId);
+    }
 }

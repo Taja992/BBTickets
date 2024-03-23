@@ -46,7 +46,7 @@ public class RenameAdminDashboardController {
     @FXML
     private ListView<BE.Event> eventListLv;
     @FXML
-    private ListView<String> userListLv;
+    private ListView<User> userListLv;
     @FXML
     private BorderPane nestedBp;
     @FXML
@@ -88,8 +88,9 @@ public class RenameAdminDashboardController {
         this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
         setupEventListView();
         loadUsers();
+        listViewcell();
         eventHelper.eventListObserver();
-        DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv);
+        DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
     }
 
     public void logoutBtn(ActionEvent actionEvent) {
@@ -171,12 +172,25 @@ public class RenameAdminDashboardController {
     public void loadUsers() {
         try {
             List<User> users = userModel.getAllUsers();
-            for (User user : users) {
-                userListLv.getItems().add(user.getUsername());
-            }
+            userListLv.getItems().setAll(users);
         } catch (BBExceptions e) {
             e.printStackTrace();
         }
+    }
+
+    private void listViewcell(){
+        userListLv.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(User item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getUsername());
+                }
+            }
+        });
     }
 
     private String formatDateTime(LocalDateTime dateTime) {
@@ -208,98 +222,5 @@ public class RenameAdminDashboardController {
             e.printStackTrace();
         }
     }
-
-    //////////////////////////////////////////////////////////////////////////
-    ///////////////////////Event and User Link////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////
-
-    //This uses the selected event and shows the info on the main event window
-//    private void eventInfo(Event event){
-//        Event selected = eventListLv.getSelectionModel().getSelectedItem();
-//        eventTypeLbl.setText(selected.getEventType());
-//        eventLocationLbl.setText(selected.getEventLocation());
-//        eventStartLbl.setText(formatDateTime(selected.getEventStartTime()));
-//        eventEndLbl.setText(formatDateTime(selected.getEventEndingTime()));
-//        eventNotesLbl.setText(selected.getEventNotes());
-//        eventDirLbl.setText(selected.getLocationGuidance());
-//    }
-//
-//    //This watches the event list for what has been selected
-//    private void eventListObserver() {
-//        eventListLv.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-//            if (newValue != null) {
-//                handleEventSelection(newValue);
-//            }
-//        });
-//    }
-//
-//    //This Applies the event to the eventInfo as well as populates the userbox showing which
-//    //users are responsible for the event
-//    private void handleEventSelection(Event newValue) {
-//        eventInfo(newValue);
-//        userWindowHbox.getChildren().clear();
-//
-//        try {
-//            List<User> users = userModel.getUsersForEvent(newValue.getEventId());
-//            for (User user : users) {
-//                addUserToHbox(user);
-//            }
-//        } catch (BBExceptions e) {
-//            e.printStackTrace();
-//        } catch (URISyntaxException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    //This is just styling for the top box it creates a Vbox for each user, adds a circle and label containing their name
-//    private void addUserToHbox(User user) throws URISyntaxException {
-//        VBox vbox = new VBox();
-//        vbox.setAlignment(Pos.CENTER);
-//        Circle circle = createCircleForUser();
-//        Label label = createLabelForUser(user);
-//        vbox.getChildren().addAll(circle, label);
-//        userWindowHbox.getChildren().add(vbox);
-//    }
-//
-//    //These adds the profile pic(random image atm) to the user
-//    private Circle createCircleForUser() throws URISyntaxException {
-//        Circle circle = new Circle(40);
-//        String imagePath = getRandomImagePath();
-//        if (imagePath != null) {
-//            Image image = new Image(imagePath, 80, 80, true, true);
-//            ImagePattern imagePattern = new ImagePattern(image);
-//            circle.setFill(imagePattern);
-//        } else {
-//            circle.setFill(Color.TEAL);
-//        }
-//        return circle;
-//    }
-//
-//    //This is the formatting for the username label
-//    private Label createLabelForUser(User user) {
-//        Label label = new Label(user.getUsername());
-//        label.setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
-//        return label;
-//    }
-//
-//
-//    //This gets the contents of the userImages folder inside the resources folder
-//    //Can be later swapped with a way to link profile pic
-//    private String getRandomImagePath() throws URISyntaxException {
-//        URL url = getClass().getClassLoader().getResource("userImages");
-//        if (url == null) {
-//            return null;
-//        }
-//
-//        File folder = new File(url.toURI());
-//        File[] listOfFiles = folder.listFiles();
-//        if (listOfFiles == null || listOfFiles.length == 0) {
-//            return null; // Return null if no files are found
-//        }
-//
-//        //returns a random photo file string to apply
-//        int randomIndex = new Random().nextInt(listOfFiles.length);
-//        return listOfFiles[randomIndex].toURI().toString();
-//    }
 
 }
