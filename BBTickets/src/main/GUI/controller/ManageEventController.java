@@ -35,7 +35,7 @@ public class ManageEventController {
     @FXML
     private TextField locationGuidanceField;
 
-    ECDashboardController controller;
+    RenameThisEcController controller;
 
     //This needs to be changed to use the model instead of BLL
     private EventModel eventModel = new EventModel();
@@ -54,7 +54,7 @@ public class ManageEventController {
         }
     }
 
-    public void setDashboard(ECDashboardController controller){
+    public void setDashboard(RenameThisEcController controller){
         this.controller = controller;
     }
 

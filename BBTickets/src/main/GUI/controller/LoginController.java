@@ -45,7 +45,6 @@ public class LoginController {
     }
 
     public void initialize() {
-        setupWindowMovement();
         loadSavedCredentials();
         setupForgotPasswordLabel();
         setupLoginButton();
@@ -159,9 +158,9 @@ public class LoginController {
                 System.out.println("Admin dashboard opened!");
                 stage.setTitle("Admin Dashboard");
             } else if ((user.getUser_type() == 0)) {
-                loader = new FXMLLoader(getClass().getResource("/GUI/view/ecDashboard.fxml"));
+                loader = new FXMLLoader(getClass().getResource("/GUI/view/renameThisEcDashboard.fxml"));
                 root = loader.load();
-                ECDashboardController controller = loader.getController();
+                RenameThisEcController controller = loader.getController();
                 controller.setUserId(user.getUserId());
                 System.out.println("EC dashboard opened!");
                 stage.setTitle("Event Coordinator Dashboard");
