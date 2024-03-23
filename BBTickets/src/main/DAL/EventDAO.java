@@ -20,11 +20,11 @@ public class EventDAO {
         connectionManager = new ConnectionManager();
     }
 
-    public void newEvent(Event event) throws BBExceptions {
+    public int newEvent(Event event) throws BBExceptions {
         String sql = "INSERT INTO EventTable (event_type, event_location, event_start_time, event_ending_time, event_notes, location_guidance) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = connectionManager.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, event.getEventType());
             statement.setString(2, event.getEventLocation());
             statement.setTimestamp(3, Timestamp.valueOf(event.getEventStartTime()));
@@ -36,7 +36,19 @@ public class EventDAO {
             statement.setString(5, event.getEventNotes());
             statement.setString(6, event.getLocationGuidance());
 
-            statement.executeUpdate();
+            int affectedRows = statement.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating event failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Creating event failed, no ID obtained.");
+                }
+            }
         } catch (SQLException e) {
             throw new BBExceptions("Failed to insert event", e);
         }
