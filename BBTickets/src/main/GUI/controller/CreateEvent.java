@@ -15,6 +15,7 @@ import java.time.LocalTime;
 
 public class CreateEvent {
 
+    public CheckBox assignToSelfChkBox;
     @FXML
     private TextField eventTypeField;
     @FXML
@@ -34,10 +35,16 @@ public class CreateEvent {
     @FXML
     private Button addEvent;
 
+    private int userId;
+
     private final EventModel eventModel;
 
     public CreateEvent(){
         eventModel = new EventModel();
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public void initialize() {
@@ -62,9 +69,16 @@ public class CreateEvent {
 
 
         Event event = new Event(eventType, eventLocation, eventStartTime, eventEndingTime, eventNotes, locationGuidance);
-
         try {
-            eventModel.newEvent(event);
+            int eventId = eventModel.newEvent(event);
+
+            if (assignToSelfChkBox.isSelected()) {
+                try {
+                    eventModel.assignUserToEvent(userId, eventId);
+                } catch (BBExceptions e) {
+                    throw new RuntimeException(e);
+                }
+            }
             // Get the current stage from the action event and close it
             Node source = (Node) actionEvent.getSource();
             Stage stage = (Stage) source.getScene().getWindow();

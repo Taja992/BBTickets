@@ -10,8 +10,8 @@ public class EventBLL {
 
     EventDAO DAO = new EventDAO();
 
-    public void newEvent(Event event) throws BBExceptions {
-        DAO.newEvent(event);
+    public int newEvent(Event event) throws BBExceptions {
+        return DAO.newEvent(event);
     }
 
     public void deleteEvent(int Id) throws BBExceptions {

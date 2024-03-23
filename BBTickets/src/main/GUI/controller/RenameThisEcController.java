@@ -181,7 +181,12 @@ public class RenameThisEcController {
     public void createEventBtn(ActionEvent actionEvent) {
         try {
             // Load createEvent.fxml
-            Parent root = FXMLLoader.load(getClass().getResource("/GUI/view/createEvent.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/createEvent.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller and set the user ID
+            CreateEvent controller = loader.getController();
+            controller.setUserId(userId);
 
             // Create a new stage for the create event screen
             Stage createEventStage = new Stage();

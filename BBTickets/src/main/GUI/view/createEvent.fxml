@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Spinner?>
@@ -9,9 +10,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="299.0" stylesheets="/GUI/view/createEvent.css" prefWidth="321.0" spacing="10" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.CreateEvent">
+<VBox alignment="CENTER" prefHeight="299.0" prefWidth="321.0" spacing="10" stylesheets="/GUI/view/createEvent.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.CreateEvent">
     <children>
-        <Label text="Event Type:" />
+        <Label text="Event Name:" />
         <TextField fx:id="eventTypeField" promptText="Event Type">
             <VBox.margin>
                 <Insets top="5.0" />
@@ -20,6 +21,7 @@
         <TextField fx:id="eventLocationField" promptText="Event Location" />
         <Label text="Start Date:" />
         <DatePicker fx:id="eventStartDatePicker" promptText="Start Date" />
+      <CheckBox fx:id="assignToSelfChkBox" mnemonicParsing="false" text="Assign Event to Self" />
         <Label text="Event Time:" />
         <HBox alignment="CENTER" spacing="10">
             <children>
