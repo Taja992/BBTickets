@@ -71,11 +71,11 @@ public class CreateEvent {
 
         Event event = new Event(eventType, eventLocation, eventStartTime, eventEndingTime, eventNotes, locationGuidance);
         try {
-            eventModel.newEvent(event);
+            int eventId = eventModel.newEvent(event);
 
             if (assignToSelfChkBox.isSelected()) {
                 try {
-                    eventModel.assignUserToEvent(userId, event.getEventId());
+                    eventModel.assignUserToEvent(userId, eventId);
                 } catch (BBExceptions e) {
                     throw new RuntimeException(e);
                 }
