@@ -3,7 +3,11 @@ package GUI.controller;
 import BE.Event;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
+import GUI.model.UserModel;
+import com.sun.tools.javac.Main;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -12,6 +16,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -21,37 +29,46 @@ import java.util.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class ECDashboardController {
+public class RenameThisEcController {
 
+    public VBox eventWindowVbox;
+    public BorderPane mainBp;
+    public VBox eventListVbox;
+    public BorderPane nestedBp;
+    public HBox userWindowHbox;
+    public HBox bottomHbox;
+    public Button createEventBtn;
+    public Button closeBtn;
+    public Label eventTypeLbl;
+    public Label eventLocationLbl;
+    public Label eventStartLbl;
+    public Label eventEndLbl;
+    public Label eventNotesLbl;
+    public Label eventDirLbl;
+    public ListView<BE.Event> eventListLv;
     @FXML
     private Button logoutBtn;
-    @FXML
-    private TableView<Event> eventList;
-    @FXML
-    private TableColumn<Event, String> eventTypeColumn;
-    @FXML
-    private TableColumn<Event, String> eventLocationColumn;
-    @FXML
-    private TableColumn<Event, String> eventStartTimeColumn;
-    @FXML
-    private TableColumn<Event, String> eventEndTimeColumn;
-    @FXML
-    private TableColumn<Event, String> eventNotesColumn;
-    @FXML
-    private TableColumn<Event, String> locationGuidanceColumn;
+
     private int userId;
     private EventModel eventModel;
+    private UserModel userModel;
+    private EventHelper eventHelper;
 
     public void setUserId(int userId) {
         this.userId = userId;
-        eventTableForSpecificUser();
+        eventListForSpecificUser();
     }
 
+    public RenameThisEcController() {
+        eventModel = new EventModel();
+        userModel = new UserModel();}
+
     public void initialize() {
+        this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
         eventModel = new EventModel();
         setupLogoutButton();
-        setupEventTable();
-
+        setupEventList();
+        eventHelper.eventListObserver();
     }
 
     private void setupLogoutButton() {
@@ -68,42 +85,40 @@ public class ECDashboardController {
     }
 
     public void refreshTable(){
-        eventList.getItems().clear();
-        eventTableForSpecificUser();
+        eventListLv.getItems().clear();
+        eventListForSpecificUser();
     }
 
-    private void eventTableForSpecificUser(){
+    private void eventListForSpecificUser(){
         // Fetch the events for a specific user
         try {
             List<Event> events = eventModel.getEventsForUser(userId);
-            // Add the events to the TableView
-            eventList.getItems().addAll(events);
+            // Add the events to the ListView
+            ObservableList<Event> observableList = FXCollections.observableArrayList(events);
+            eventListLv.setItems(observableList);
         } catch (BBExceptions e) {
             e.printStackTrace();
         }
     }
 
-    public void setupEventTable() {
-        eventStartTimeColumn.setCellValueFactory(this::getEventStartTime);
-        eventEndTimeColumn.setCellValueFactory(this::getEventEndTime);
-        eventTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventType"));
-        eventLocationColumn.setCellValueFactory(new PropertyValueFactory<>("eventLocation"));
-        eventNotesColumn.setCellValueFactory(new PropertyValueFactory<>("eventNotes"));
-        locationGuidanceColumn.setCellValueFactory(new PropertyValueFactory<>("locationGuidance"));
-    }
+    public void setupEventList() {
+        eventListLv.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(Event event, boolean empty) {
+                super.updateItem(event, empty);
 
-    private SimpleStringProperty getEventStartTime(TableColumn.CellDataFeatures<Event, String> data) {
-        Event event = data.getValue();
-        return new SimpleStringProperty(formatDateTime(event.getEventStartTime()));
+                if (empty || event == null) {
+                    setText(null);
+                } else {
+                    // Set the text of the cell to the eventType of the Event
+                    setText(String.valueOf(event.getEventType()));
+                }
+            }
+        });
     }
-
-    private SimpleStringProperty getEventEndTime(TableColumn.CellDataFeatures<Event, String> data) {
-        Event event = data.getValue();
-        return new SimpleStringProperty(formatDateTime(event.getEventEndingTime()));
-    }
-
+    
     public void deleteEvent(ActionEvent actionEvent) throws BBExceptions {
-        Event selected = eventList.getSelectionModel().getSelectedItem();
+        Event selected = eventListLv.getSelectionModel().getSelectedItem();
         if(selected != null){
             System.out.println(selected.getEventType());
             eventModel.deleteEvent(selected.getEventId());
@@ -122,7 +137,7 @@ public class ECDashboardController {
     }
 
     public void editEvent(ActionEvent actionEvent) throws BBExceptions, IOException {
-        BE.Event selected = eventList.getSelectionModel().getSelectedItem();
+        BE.Event selected = eventListLv.getSelectionModel().getSelectedItem();
         if(selected != null){
             System.out.println(selected.getEventType());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/manageEvent.fxml"));
@@ -190,5 +205,11 @@ public class ECDashboardController {
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy  '⏰'HH:mm");
         return formatter.format(dateTime);
+    }
+
+    public void assignCoordinator(ActionEvent actionEvent) {
+    }
+
+    public void logoutBtn(ActionEvent actionEvent) {
     }
 }
