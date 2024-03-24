@@ -23,10 +23,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class CreateTicketController implements Initializable {
-    public TableView<Customer> custTbl;
-    public TableColumn<Customer, String> nameCol;
-    public TableColumn<Customer, String> emailCol;
-
 
     /*
     @FXML
@@ -69,10 +65,6 @@ public class CreateTicketController implements Initializable {
         customerLv.getItems().clear();
         customerLv.getItems().addAll(custModel.getAllCustomers());
 
-        nameCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("customerName"));
-        emailCol.setCellValueFactory(new PropertyValueFactory<Customer, String>("customerEmail"));
-
-        custTbl.getItems().addAll(custModel.getAllCustomers());
     }
 
     public void addTicket(ActionEvent actionEvent) {
