@@ -120,7 +120,6 @@ public class RenameThisEcController {
     public void deleteEvent(ActionEvent actionEvent) throws BBExceptions {
         Event selected = eventListLv.getSelectionModel().getSelectedItem();
         if(selected != null){
-            System.out.println(selected.getEventType());
             eventModel.deleteEvent(selected.getEventId());
             refreshTable();
         }
@@ -139,7 +138,6 @@ public class RenameThisEcController {
     public void editEvent(ActionEvent actionEvent) throws BBExceptions, IOException {
         BE.Event selected = eventListLv.getSelectionModel().getSelectedItem();
         if(selected != null){
-            System.out.println(selected.getEventType());
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/manageEvent.fxml"));
             Parent root = loader.load();
 
