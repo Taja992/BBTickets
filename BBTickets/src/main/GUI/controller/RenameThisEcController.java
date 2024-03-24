@@ -4,8 +4,6 @@ import BE.Event;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
 import GUI.model.UserModel;
-import com.sun.tools.javac.Main;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,8 +13,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -127,12 +123,20 @@ public class RenameThisEcController {
     }
 
     public void createTicket(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/CreateTicketTemp.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
+        if(eventListLv.getSelectionModel().getSelectedItem() != null){
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/createTicket.fxml"));
+            Parent root = loader.load();
+
+            CreateTicketController control = loader.getController();
+            control.setEvent(eventListLv.getSelectionModel().getSelectedItem());
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        } else {
+            //maybe we could print some error screen here
+        }
 
     }
 
