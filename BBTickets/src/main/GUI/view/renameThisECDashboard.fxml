@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="mainBp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1095.0" styleClass="mainBp" stylesheets="/GUI/view/renameThisECDashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.RenameThisEcController">
+<BorderPane fx:id="mainBp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1095.0" styleClass="mainBp" stylesheets="/GUI/view/renameThisECDashboard.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.RenameThisEcController">
    <left>
       <VBox fx:id="eventListVbox" styleClass="eventListVbox" BorderPane.alignment="CENTER">
          <children>
@@ -86,6 +86,8 @@
                   <Button mnemonicParsing="false" onAction="#createTicket" text="Assign Tickets to Events" />
                   <Button mnemonicParsing="false" onAction="#assignCoordinator" text="Assign Coordinators" />
                   <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logoutBtn" text="Log Out" />
+                  <Button fx:id="logoutBtn1" layoutX="511.0" layoutY="10.0" mnemonicParsing="false" onAction="#logoutBtn" text="Edit User" />
+                  <Button fx:id="logoutBtn11" layoutX="570.0" layoutY="10.0" mnemonicParsing="false" onAction="#logoutBtn" text="Create User" />
                </children>
             </HBox>
          </bottom>

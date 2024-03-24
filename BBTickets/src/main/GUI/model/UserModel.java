@@ -15,6 +15,9 @@ public class UserModel {
     public void newUser(User user) throws BBExceptions {
         userBLL.newUser(user);
     }
+    public void updateUser(User user) throws BBExceptions {
+        userBLL.updateUser(user);
+    }
     public List<User> getAllUsers() throws BBExceptions {
         return userBLL.allUsers();
     }

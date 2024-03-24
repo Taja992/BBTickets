@@ -31,6 +31,22 @@ public class UserDAO {
         }
     }
 
+    public void updateUser(User user) throws BBExceptions {
+        String sql = "UPDATE [User] SET user_type = ?, password = ?, username = ? WHERE user_id = ?";
+
+        try {
+            Connection connection = connectionManager.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, user.getUser_type());
+            statement.setString(2, user.getPassword());
+            statement.setString(3, user.getUsername());
+            statement.setInt(4, user.getUserId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new BBExceptions("Failed to update user", e);
+        }
+    }
+
     public User getUser(String username, String password) throws BBExceptions {
         String sql = "SELECT * FROM [User] WHERE username = ? AND password = ?";
 

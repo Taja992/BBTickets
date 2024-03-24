@@ -7,11 +7,12 @@ import GUI.model.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import java.io.IOException;
 
 public class CreateUserController {
 
@@ -27,19 +28,40 @@ public class CreateUserController {
     private Button createUserBtn;
     @FXML
     private Button cancelCreateUserBtn;
+    @FXML
+    private ListView<User> userListLv;
     private Stage createUserStage;
     private ToggleGroup toggleGroup;
     private UserModel userModel;
-    public CreateUserController(){
+    private boolean editMode = false;
+    private User userToEdit;
+
+    public CreateUserController() {
         userModel = new UserModel();
     }
 
-public void initialize() {
-    ToggleGroup toggleGroup = new ToggleGroup();
-    roleAdmin.setToggleGroup(toggleGroup);
-    roleEC.setToggleGroup(toggleGroup);
+    public void initialize() {
+        ToggleGroup toggleGroup = new ToggleGroup();
+        roleAdmin.setToggleGroup(toggleGroup);
+        roleEC.setToggleGroup(toggleGroup);
+
 
     }
+
+    public void initEditMode(User userToEdit) {
+        this.userToEdit = userToEdit;
+        this.editMode = true;
+
+        // Fill the text fields with the user's data
+        usernameField.setText(userToEdit.getUsername());
+        passwordField.setText(userToEdit.getPassword());
+        if (userToEdit.getUser_type() == 1) {
+            roleAdmin.setSelected(true);
+        } else {
+            roleEC.setSelected(true);
+        }
+    }
+
     @FXML
     private void createUser(ActionEvent actionEvent) throws BBExceptions {
         int userType;
@@ -55,19 +77,29 @@ public void initialize() {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        // Handle creating the user here
-        // You might need to modify this part based on how you're creating users
-        User newUser = new User(userType, password, username);
-        userModel.newUser(newUser);
+        if (editMode) {
+            // Update the existing user
+            userToEdit.setUsername(username);
+            userToEdit.setPassword(password);
+            userToEdit.setUser_type(userType);
+            userModel.updateUser(userToEdit);
+        } else {
+            // Create a new user
+            User newUser = new User(userType, password, username);
+            userModel.newUser(newUser);
+        }
+
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
     }
+
+
 
     public void cancelCreateUser(ActionEvent actionEvent) {
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
-
     }
+
 }
