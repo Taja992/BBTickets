@@ -36,4 +36,8 @@ public class UserBLL {
     public List<User> getUsersForEvent(int eventId) throws BBExceptions {
         return userDAO.getUsersForEvent(eventId);
     }
+
+    public void deleteUser(User selectedUser) throws BBExceptions {
+        userDAO.deleteUser(selectedUser);
+    }
 }

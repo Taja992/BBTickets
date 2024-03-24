@@ -92,6 +92,17 @@ public class CreateUserController {
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
+
+        if (renameAdminDashboardController != null) {
+            renameAdminDashboardController.refreshUserList();
+        }
+    }
+
+
+    private RenameAdminDashboardController renameAdminDashboardController;
+
+    public void setRenameAdminDashboardController(RenameAdminDashboardController renameAdminDashboardController) {
+        this.renameAdminDashboardController = renameAdminDashboardController;
     }
 
 

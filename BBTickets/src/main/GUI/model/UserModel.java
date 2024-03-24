@@ -27,4 +27,9 @@ public class UserModel {
     public List<User> getUsersForEvent(int eventId) throws BBExceptions {
         return userBLL.getUsersForEvent(eventId);
     }
+
+    public void deleteUser(User selectedUser) throws BBExceptions{
+        userBLL.deleteUser(selectedUser);
+
+    }
 }

@@ -151,4 +151,17 @@ public class UserDAO {
 
         return eventUsers;
     }
+
+    public void deleteUser(User selectedUser) throws BBExceptions {
+        String sql = "DELETE FROM [User] WHERE user_id = ?";
+
+        try {
+            Connection connection = connectionManager.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, selectedUser.getUserId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
