@@ -88,10 +88,9 @@ public class RenameThisEcController {
     private void eventListForSpecificUser(){
         // Fetch the events for a specific user
         try {
-            List<Event> events = eventModel.getEventsForUser(userId);
+            ObservableList<Event> events = eventModel.getEventsForUser(userId);
             // Add the events to the ListView
-            ObservableList<Event> observableList = FXCollections.observableArrayList(events);
-            eventListLv.setItems(observableList);
+            eventListLv.setItems(events);
         } catch (BBExceptions e) {
             e.printStackTrace();
         }

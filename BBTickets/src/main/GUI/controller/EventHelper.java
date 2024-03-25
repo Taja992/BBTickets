@@ -74,13 +74,11 @@ public class EventHelper {
         userWindowHbox.getChildren().clear();
 
         try {
-            List<User> users = userModel.getUsersForEvent(newValue.getEventId());
+            ObservableList<User> users = userModel.getUsersForEvent(newValue.getEventId());
             for (User user : users) {
                 addUserToHbox(user);
             }
-        } catch (BBExceptions e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
+        } catch (BBExceptions | URISyntaxException e) {
             throw new RuntimeException(e);
         }
     }
@@ -120,7 +118,7 @@ public class EventHelper {
     //This gets the contents of the userImages folder inside the resources folder
     //Can be later swapped with a way to link profile pic
     private String getRandomImagePath() throws URISyntaxException {
-        URL url = getClass().getClassLoader().getResource("userImages");
+        URL url = getClass().getClassLoader().getResource("/userImages");
         if (url == null) {
             return null;
         }

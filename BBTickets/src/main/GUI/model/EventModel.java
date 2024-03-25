@@ -16,6 +16,7 @@ public class EventModel {
     private UserBLL userBLL;
 
     private ObservableList<Event> allEvents = FXCollections.observableArrayList();
+    private Map<Integer, ObservableList<Event>> eventsForUser = new HashMap<>();
 
     public EventModel() {
         eventBLL = new EventBLL();
@@ -29,8 +30,11 @@ public class EventModel {
         return allEvents;
     }
 
-    public List<Event> getEventsForUser(int userId) throws BBExceptions {
-        return userBLL.getEventsForUser(userId);
+    public ObservableList<Event> getEventsForUser(int userId) throws BBExceptions {
+        if (!eventsForUser.containsKey(userId)) {
+            eventsForUser.put(userId, FXCollections.observableArrayList(userBLL.getEventsForUser(userId)));
+        }
+        return eventsForUser.get(userId);
     }
 
 
