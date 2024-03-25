@@ -72,7 +72,7 @@ public class AdminDashboardController {
     }
 
     public void initialize() {
-        this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
+        this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
         setupEventListView();
         userListLv.setItems(userModel.getAllUsers());
         listViewcell();
@@ -83,17 +83,17 @@ public class AdminDashboardController {
 
     public void rightClickMenu() {
 
-        ContextMenu contextMenu = new ContextMenu();
+        ContextMenu userlistContextMenu = new ContextMenu();
         MenuItem editItem = new MenuItem("Edit user");
         editItem.setOnAction(e -> editUser());
-        contextMenu.getItems().add(editItem);
+        userlistContextMenu.getItems().add(editItem);
 
         MenuItem deleteItem = new MenuItem("Delete user");
         deleteItem.setOnAction(e -> deleteUser());
-        contextMenu.getItems().add(deleteItem);
+        userlistContextMenu.getItems().add(deleteItem);
 
 
-        userListLv.setContextMenu(contextMenu);
+        userListLv.setContextMenu(userlistContextMenu);
     }
 
     public void logoutBtn(ActionEvent actionEvent) {
@@ -211,6 +211,9 @@ public class AdminDashboardController {
     }
 
 
+    private void removeUserFromEvent() {
+
+    }
     private void editUser() {
         User selectedUser = userListLv.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {

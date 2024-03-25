@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -24,42 +25,46 @@
     <center>
         <BorderPane fx:id="nestedBp" prefHeight="200.0" prefWidth="200.0" styleClass="nestedBp" BorderPane.alignment="CENTER">
             <top>
-                <HBox fx:id="userWindowHbox" prefHeight="162.0" prefWidth="895.0" spacing="10.0" styleClass="userWindowHbox" BorderPane.alignment="CENTER_LEFT">
-                    <children>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="tempUser1">
-                            <HBox.margin>
-                                <Insets left="5.0" top="5.0" />
-                            </HBox.margin>
-                            <image>
-                                <Image url="@../../../../../../../../../../../Pictures/Pictures/51321776_p0.jpg" />
-                            </image>
-                        </ImageView>
-                        <ImageView fitHeight="153.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="tempUser2">
-                            <HBox.margin>
-                                <Insets top="5.0" />
-                            </HBox.margin>
-                            <image>
-                                <Image url="@../../../../../../../../../../../Pictures/Pictures/Kitz/60799959_p0.jpg" />
-                            </image>
-                        </ImageView>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="tempUser3">
-                            <HBox.margin>
-                                <Insets top="5.0" />
-                            </HBox.margin>
-                            <image>
-                                <Image url="@../../../../../../../../../../../Pictures/Pictures/Kitz/61162586_p0.png" />
-                            </image>
-                        </ImageView>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="tempUser4">
-                            <HBox.margin>
-                                <Insets top="5.0" />
-                            </HBox.margin>
-                            <image>
-                                <Image url="@../../../../../../../../../../../Pictures/Pictures/Kitz/61144338_p0.png" />
-                            </image>
-                        </ImageView>
-                    </children>
-                </HBox>
+            <ScrollPane maxWidth="900.0" BorderPane.alignment="CENTER_LEFT">
+               <content>
+                      <HBox fx:id="userWindowHbox" prefHeight="162.0" prefWidth="895.0" spacing="10.0" styleClass="userWindowHbox">
+                          <children>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="tempUser1">
+                                  <HBox.margin>
+                                      <Insets left="5.0" top="5.0" />
+                                  </HBox.margin>
+                                  <image>
+                                      <Image url="@../../../../../../../../../../../Pictures/Pictures/51321776_p0.jpg" />
+                                  </image>
+                              </ImageView>
+                              <ImageView fitHeight="153.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="tempUser2">
+                                  <HBox.margin>
+                                      <Insets top="5.0" />
+                                  </HBox.margin>
+                                  <image>
+                                      <Image url="@../../../../../../../../../../../Pictures/Pictures/Kitz/60799959_p0.jpg" />
+                                  </image>
+                              </ImageView>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="tempUser3">
+                                  <HBox.margin>
+                                      <Insets top="5.0" />
+                                  </HBox.margin>
+                                  <image>
+                                      <Image url="@../../../../../../../../../../../Pictures/Pictures/Kitz/61162586_p0.png" />
+                                  </image>
+                              </ImageView>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="tempUser4">
+                                  <HBox.margin>
+                                      <Insets top="5.0" />
+                                  </HBox.margin>
+                                  <image>
+                                      <Image url="@../../../../../../../../../../../Pictures/Pictures/Kitz/61144338_p0.png" />
+                                  </image>
+                              </ImageView>
+                          </children>
+                      </HBox>
+               </content>
+            </ScrollPane>
             </top>
             <center>
                 <VBox fx:id="eventWindowVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="eventWindowVbox">
