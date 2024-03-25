@@ -93,9 +93,7 @@ public class CreateUserController {
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
 
-        if (renameAdminDashboardController != null) {
-            renameAdminDashboardController.refreshUserList();
-        }
+
     }
 
 
