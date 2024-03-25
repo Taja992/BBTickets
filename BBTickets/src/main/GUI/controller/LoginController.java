@@ -155,14 +155,12 @@ public class LoginController {
                 root = loader.load();
                 RenameAdminDashboardController controller = loader.getController();
                 controller.setUserId(user.getUserId());
-                System.out.println("Admin dashboard opened!");
                 stage.setTitle("Admin Dashboard");
             } else if ((user.getUser_type() == 0)) {
                 loader = new FXMLLoader(getClass().getResource("/GUI/view/renameThisEcDashboard.fxml"));
                 root = loader.load();
                 RenameThisEcController controller = loader.getController();
                 controller.setUserId(user.getUserId());
-                System.out.println("EC dashboard opened!");
                 stage.setTitle("Event Coordinator Dashboard");
             }
             Scene scene = new Scene(root);

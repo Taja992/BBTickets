@@ -15,7 +15,8 @@ import java.time.LocalTime;
 
 public class CreateEvent {
 
-    public CheckBox assignToSelfChkBox;
+    @FXML
+    private CheckBox assignToSelfChkBox;
     @FXML
     private TextField eventTypeField;
     @FXML
@@ -35,6 +36,8 @@ public class CreateEvent {
     @FXML
     private Button addEvent;
 
+    private RenameThisEcController renameThisEcController;
+
     private int userId;
 
     private final EventModel eventModel;
@@ -50,6 +53,10 @@ public class CreateEvent {
     public void initialize() {
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0, 15);
         eventMinuteSpinner.setValueFactory(valueFactory);
+    }
+
+    public void setRenameThisEcController(RenameThisEcController renameThisEcController) {
+        this.renameThisEcController = renameThisEcController;
     }
 
     public void addEvent(ActionEvent actionEvent) {
@@ -75,10 +82,14 @@ public class CreateEvent {
             if (assignToSelfChkBox.isSelected()) {
                 try {
                     eventModel.assignUserToEvent(userId, eventId);
+                    if (renameThisEcController != null) {
+                        renameThisEcController.refreshTable();
+                    }
                 } catch (BBExceptions e) {
                     throw new RuntimeException(e);
                 }
             }
+
             // Get the current stage from the action event and close it
             Node source = (Node) actionEvent.getSource();
             Stage stage = (Stage) source.getScene().getWindow();

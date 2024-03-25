@@ -12,10 +12,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -76,6 +73,8 @@ public class RenameAdminDashboardController {
     private EventHelper eventHelper;
     private int userId;
 
+
+
     public RenameAdminDashboardController() {
         eventModel = new EventModel();
         userModel = new UserModel();
@@ -91,6 +90,17 @@ public class RenameAdminDashboardController {
         listViewcell();
         eventHelper.eventListObserver();
         DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
+
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem editItem = new MenuItem("Edit user");
+        editItem.setOnAction(e -> editUser());
+        contextMenu.getItems().add(editItem);
+
+        MenuItem deleteItem = new MenuItem("Delete user");
+        deleteItem.setOnAction(e -> deleteUser());
+        contextMenu.getItems().add(deleteItem);
+
+        userListLv.setContextMenu(contextMenu);
     }
 
     public void logoutBtn(ActionEvent actionEvent) {
@@ -204,22 +214,53 @@ public class RenameAdminDashboardController {
     @FXML
     public void createUserBtn(ActionEvent actionEvent) {
         try {
-            // Load createEvent.fxml
-            Parent root = FXMLLoader.load(getClass().getResource("/GUI/view/createUser.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/createUser.fxml"));
+            Parent root = loader.load();
 
-            // Create a new stage for the create event screen
-            Stage createEventStage = new Stage();
-            createEventStage.initStyle(StageStyle.DECORATED);
+            CreateUserController controller = loader.getController();
+            controller.setRenameAdminDashboardController(this);
 
-            // Create a new scene with the loaded parent and set it on the stage
-            Scene scene = new Scene(root);
-            createEventStage.setTitle("Create Event");
-            createEventStage.setScene(scene);
-
-            // Show the create event stage
-            createEventStage.show();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void refreshUserList() {
+        loadUsers();
+    }
+
+    private void editUser() {
+        User selectedUser = userListLv.getSelectionModel().getSelectedItem();
+        if (selectedUser != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/CreateUser.fxml"));
+                Parent root = loader.load();
+
+                CreateUserController controller = loader.getController();
+                controller.initEditMode(selectedUser);
+                controller.setRenameAdminDashboardController(this);
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void deleteUser() {
+        User selectedUser = userListLv.getSelectionModel().getSelectedItem();
+        if (selectedUser != null) {
+            try {
+                userModel.deleteUser(selectedUser);
+                loadUsers(); // Reload the users in userListLv
+            } catch (BBExceptions e) {
+                e.printStackTrace();
+            }
         }
     }
 

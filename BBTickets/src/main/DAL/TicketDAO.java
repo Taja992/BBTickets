@@ -15,11 +15,6 @@ public class TicketDAO {
 
         try(Connection con = connectionManager.getConnection()){
 
-            System.out.println(type);
-            System.out.println(customerId);
-            System.out.println(eventId);
-            System.out.println(price);
-
             PreparedStatement pstmnt = con.prepareStatement(sql);
             pstmnt.setString(1, type);
             pstmnt.setInt(2, customerId);
