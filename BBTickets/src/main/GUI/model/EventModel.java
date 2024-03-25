@@ -24,9 +24,7 @@ public class EventModel {
     }
 
     public ObservableList<Event> getAllEvents() throws BBExceptions {
-        if (allEvents.isEmpty()) {
-            allEvents.setAll(eventBLL.getAllEvents());
-        }
+        allEvents.setAll(eventBLL.getAllEvents());
         return allEvents;
     }
 

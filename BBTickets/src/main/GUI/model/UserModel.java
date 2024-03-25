@@ -50,9 +50,7 @@ public class UserModel {
 
 
     public ObservableList<User> getUsersForEvent(int eventId) throws BBExceptions {
-        if (!usersForEvent.containsKey(eventId)) {
-            usersForEvent.put(eventId, FXCollections.observableArrayList(userBLL.getUsersForEvent(eventId)));
-        }
+        usersForEvent.put(eventId, FXCollections.observableArrayList(userBLL.getUsersForEvent(eventId)));
         return usersForEvent.get(eventId);
     }
 
