@@ -250,7 +250,7 @@ public class RenameAdminDashboardController {
         if (selectedUser != null) {
             try {
                 userModel.deleteUser(selectedUser);
-                loadUsers(); // Reload the users in userListLv
+
             } catch (BBExceptions e) {
                 e.printStackTrace();
             }
