@@ -138,4 +138,19 @@ public class EventDAO {
         }
     }
 
+    public void removeUserFromEvent(int userId, int eventId) throws BBExceptions {
+        String sql = "DELETE FROM EventCoordCon WHERE user_id = ? AND event_Id = ?";
+
+        try(Connection cm = connectionManager.getConnection();
+        PreparedStatement pstmt = cm.prepareStatement(sql)) {
+
+            pstmt.setInt(1, userId);
+            pstmt.setInt(2, eventId);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new BBExceptions("Failed to remove user from event");
+        }
+    }
+
 }

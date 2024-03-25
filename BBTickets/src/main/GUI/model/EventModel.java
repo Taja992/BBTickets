@@ -54,4 +54,8 @@ public class EventModel {
         eventBLL.assignUserToEvent(userId, eventId);
     }
 
+    public void removeUserFromEvent(int userId, int eventId) throws BBExceptions {
+        eventBLL.removeUserFromEvent(userId, eventId);
+    }
+
 }

@@ -29,4 +29,8 @@ public class EventBLL {
     public void assignUserToEvent(int userId, int eventId) throws BBExceptions {
         DAO.assignUserToEvent(userId, eventId);
     }
+
+    public void removeUserFromEvent(int userId, int eventId) throws BBExceptions {
+        DAO.removeUserFromEvent(userId, eventId);
+    }
 }
