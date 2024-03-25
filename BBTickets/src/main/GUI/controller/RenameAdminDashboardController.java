@@ -24,10 +24,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -73,12 +70,11 @@ public class RenameAdminDashboardController {
     private EventHelper eventHelper;
     private int userId;
 
-
-
     public RenameAdminDashboardController() {
         eventModel = new EventModel();
         userModel = new UserModel();
     }
+
     public void setUserId(int userId) {
         this.userId = userId;
     }
@@ -86,7 +82,7 @@ public class RenameAdminDashboardController {
     public void initialize() {
         this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
         setupEventListView();
-        loadUsers();
+        userListLv.setItems(userModel.getAllUsers());
         listViewcell();
         eventHelper.eventListObserver();
         DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
@@ -172,7 +168,7 @@ public class RenameAdminDashboardController {
 
     private void loadEventsToListView() {
         try {
-            // Call getAllEvents from eventModel and set the result as the items of eventListLstV
+            // Call getAllEvents from eventModel and set the result as the items of eventListLv
             eventListLv.getItems().setAll(eventModel.getAllEvents());
         } catch (BBExceptions e) {
             e.printStackTrace();
@@ -180,12 +176,8 @@ public class RenameAdminDashboardController {
     }
 
     public void loadUsers() {
-        try {
-            List<User> users = userModel.getAllUsers();
-            userListLv.getItems().setAll(users);
-        } catch (BBExceptions e) {
-            e.printStackTrace();
-        }
+        List<User> users = userModel.getAllUsers();
+        userListLv.getItems().setAll(users);
     }
 
     private void listViewcell(){
@@ -228,9 +220,6 @@ public class RenameAdminDashboardController {
         }
     }
 
-    public void refreshUserList() {
-        loadUsers();
-    }
 
     private void editUser() {
         User selectedUser = userListLv.getSelectionModel().getSelectedItem();
@@ -257,7 +246,7 @@ public class RenameAdminDashboardController {
         if (selectedUser != null) {
             try {
                 userModel.deleteUser(selectedUser);
-                loadUsers(); // Reload the users in userListLv
+
             } catch (BBExceptions e) {
                 e.printStackTrace();
             }
