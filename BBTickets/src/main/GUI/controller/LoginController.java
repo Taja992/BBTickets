@@ -151,15 +151,15 @@ public class LoginController {
         try {
             FXMLLoader loader;
             if (user.getUser_type() == 1) {
-                loader = new FXMLLoader(getClass().getResource("/GUI/view/renameAdminDashboard.fxml"));
+                loader = new FXMLLoader(getClass().getResource("/GUI/view/AdminDashboard.fxml"));
                 root = loader.load();
-                RenameAdminDashboardController controller = loader.getController();
+                AdminDashboardController controller = loader.getController();
                 controller.setUserId(user.getUserId());
                 stage.setTitle("Admin Dashboard");
             } else if ((user.getUser_type() == 0)) {
-                loader = new FXMLLoader(getClass().getResource("/GUI/view/renameThisEcDashboard.fxml"));
+                loader = new FXMLLoader(getClass().getResource("/GUI/view/ECDashboard.fxml"));
                 root = loader.load();
-                RenameThisEcController controller = loader.getController();
+                EcDashboardController controller = loader.getController();
                 controller.setUserId(user.getUserId());
                 stage.setTitle("Event Coordinator Dashboard");
             }
