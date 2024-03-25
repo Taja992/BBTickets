@@ -1,57 +1,32 @@
-* {
+.root {
     -fx-font-family: "Segoe UI";
-    -fx-background-radius: 15; /* Rounded corners */
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 0); /* Shadow */
-    -fx-padding: 10; /* Padding */
-    -fx-font-size: 14px; /* Default font size */
-    -fx-text-fill: #EEE; /* Lighter font color */
-}
-
-.mainBp {
-    -fx-background-color: rgb(136, 136, 136); /* White */
+    -fx-background-color: #d1aafa;
+    -fx-text-fill: #333;
 }
 
 .eventListVbox, .eventListLstV, .nestedBp, .userWindowHbox, .tempUser1, .tempUser2, .tempUser3, .tempUser4, .eventWindowVbox, .bottomHbox, .userListLv {
-    -fx-background-color: rgba(0, 0, 0, 0.5); /* Black */
+    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-border-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-padding: 10;
 }
 
 .userListLv {
-    -fx-font-weight: bold; /* Make the user list stand out */
+    -fx-font-weight: bold;
 }
 
-/* ListView styles */
 .list-view {
-    -fx-padding: 5; /* Less padding for ListView */
+    -fx-padding: 5;
 }
 
-/* ListView cell styles */
 .list-view .list-cell {
-    -fx-background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0); /* No shadow */
+    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-border-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 0);
 }
 
 .list-view .list-cell:selected {
-    -fx-background-color: rgba(200, 200, 200, 0.5); /* Lighter color when selected */
-}
-
-/* Button styles */
-.button {
-    -fx-background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
-    -fx-padding: 5; /* Less padding for buttons */
-}
-
-.button:hover {
-    -fx-background-color: rgba(200, 200, 200, 0.5); /* Lighter color when hovered */
-}
-
-/* ScrollBar styles */
-.list-view .scroll-bar {
-    -fx-pref-width: 10; /* Narrower scrollbar */
-    -fx-background-radius: 5; /* Rounded corners for scrollbar */
-}
-
-.list-view .scroll-bar .track {
-    -fx-background-color: transparent; /* Hide scrollbar track */
+    -fx-background-color: rgba(240, 240, 240, 0.7);
 }
 
 .closeBtn {
