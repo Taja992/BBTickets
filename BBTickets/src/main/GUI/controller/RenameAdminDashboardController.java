@@ -24,10 +24,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -73,12 +70,11 @@ public class RenameAdminDashboardController {
     private EventHelper eventHelper;
     private int userId;
 
-
-
     public RenameAdminDashboardController() {
         eventModel = new EventModel();
         userModel = new UserModel();
     }
+
     public void setUserId(int userId) {
         this.userId = userId;
     }
@@ -86,7 +82,7 @@ public class RenameAdminDashboardController {
     public void initialize() {
         this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
         setupEventListView();
-        loadUsers();
+        userListLv.setItems(userModel.getAllUsers());
         listViewcell();
         eventHelper.eventListObserver();
         DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
@@ -228,9 +224,6 @@ public class RenameAdminDashboardController {
         }
     }
 
-    public void refreshUserList() {
-        loadUsers();
-    }
 
     private void editUser() {
         User selectedUser = userListLv.getSelectionModel().getSelectedItem();

@@ -85,12 +85,8 @@ public class AdminDashboardController {
     }
 
     public void loadUsers() {
-        try {
-            // Call getAllEvents from eventModel and set the result as the items of eventList
-            userList.getItems().setAll(userModel.getAllUsers());
-        } catch (BBExceptions e) {
-            e.printStackTrace();
-        }
+        // Call getAllEvents from eventModel and set the result as the items of eventList
+        userList.getItems().setAll(userModel.getAllUsers());
     }
 
     public void setupEventTable() {
