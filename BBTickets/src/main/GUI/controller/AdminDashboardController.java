@@ -78,6 +78,10 @@ public class AdminDashboardController {
         listViewcell();
         eventHelper.eventListObserver();
         DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
+        rightClickMenu();
+    }
+
+    public void rightClickMenu() {
 
         ContextMenu contextMenu = new ContextMenu();
         MenuItem editItem = new MenuItem("Edit user");
@@ -87,6 +91,7 @@ public class AdminDashboardController {
         MenuItem deleteItem = new MenuItem("Delete user");
         deleteItem.setOnAction(e -> deleteUser());
         contextMenu.getItems().add(deleteItem);
+
 
         userListLv.setContextMenu(contextMenu);
     }
