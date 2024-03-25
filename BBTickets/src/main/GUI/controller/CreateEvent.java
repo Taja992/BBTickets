@@ -90,6 +90,13 @@ public class CreateEvent {
                 }
             }
 
+            // Create and display the alert
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Event Created");
+            alert.setHeaderText(null);
+            alert.setContentText("The event was successfully created.");
+            alert.showAndWait();
+
             // Get the current stage from the action event and close it
             Node source = (Node) actionEvent.getSource();
             Stage stage = (Stage) source.getScene().getWindow();

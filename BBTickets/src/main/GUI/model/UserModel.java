@@ -3,6 +3,8 @@ package GUI.model;
 import BE.User;
 import BLL.UserBLL;
 import Exceptions.BBExceptions;
+import javafx.collections.ObservableList;
+
 import java.util.List;
 
 public class UserModel {
