@@ -3,12 +3,16 @@ package GUI.controller;
 import BE.Event;
 import BE.User;
 import Exceptions.BBExceptions;
+import GUI.model.EventModel;
 import GUI.model.UserModel;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -27,6 +31,7 @@ public class EventHelper {
     private ListView<Event> eventListLv;
     private HBox userWindowHbox;
     private UserModel userModel;
+    private EventModel eventModel;
     private Label eventTypeLbl;
     private Label eventLocationLbl;
     private Label eventStartLbl;
@@ -34,10 +39,11 @@ public class EventHelper {
     private Label eventNotesLbl;
     private Label eventDirLbl;
 
-    public EventHelper(ListView<BE.Event> eventListLv, HBox userWindowHbox, UserModel userModel, Label eventTypeLbl, Label eventLocationLbl, Label eventStartLbl, Label eventEndLbl, Label eventNotesLbl, Label eventDirLbl) {
+    public EventHelper(ListView<BE.Event> eventListLv, HBox userWindowHbox, UserModel userModel, EventModel eventModel, Label eventTypeLbl, Label eventLocationLbl, Label eventStartLbl, Label eventEndLbl, Label eventNotesLbl, Label eventDirLbl) {
         this.eventListLv = eventListLv;
         this.userWindowHbox = userWindowHbox;
         this.userModel = userModel;
+        this.eventModel = eventModel;
         this.eventTypeLbl = eventTypeLbl;
         this.eventLocationLbl = eventLocationLbl;
         this.eventStartLbl = eventStartLbl;
@@ -90,7 +96,29 @@ public class EventHelper {
         Circle circle = createCircleForUser();
         Label label = createLabelForUser(user);
         vbox.getChildren().addAll(circle, label);
+        rightClickMenu(circle, user);
         userWindowHbox.getChildren().add(vbox);
+    }
+
+    private void rightClickMenu(Circle circle, User user) {
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem removeUser = new MenuItem("Remove User");
+        removeUser.setOnAction(e -> {
+            try {
+                Event selectedEvent = eventListLv.getSelectionModel().getSelectedItem();
+                eventModel.removeUserFromEvent(user.getUserId(), selectedEvent.getEventId());
+                refreshUserWindowHbox(selectedEvent);
+            } catch (BBExceptions ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        contextMenu.getItems().add(removeUser);
+
+        circle.setOnMouseClicked(e -> {
+            if (e.getButton() == MouseButton.SECONDARY) {
+                contextMenu.show(circle, e.getScreenX(), e.getScreenY());
+            }
+        });
     }
 
     //These adds the profile pic(random image atm) to the user
