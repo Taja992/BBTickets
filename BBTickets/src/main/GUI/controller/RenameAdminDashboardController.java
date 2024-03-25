@@ -195,13 +195,6 @@ public class RenameAdminDashboardController {
         });
     }
 
-    private String formatDateTime(LocalDateTime dateTime) {
-        if (dateTime == null) {
-            return "";
-        }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy  '⏰'HH:mm");
-        return formatter.format(dateTime);
-    }
 
     @FXML
     public void createUserBtn(ActionEvent actionEvent) {
