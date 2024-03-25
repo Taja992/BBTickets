@@ -1,65 +1,72 @@
-.base {
-    -fx-background-color: #2b2b2b;
-
+* {
+    -fx-font-family: "Segoe UI";
+    -fx-background-radius: 15; /* Rounded corners */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 0); /* Shadow */
+    -fx-padding: 10; /* Padding */
+    -fx-font-size: 14px; /* Default font size */
+    -fx-text-fill: #EEE; /* Lighter font color */
 }
 
-.title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #ddd;
-    padding: 10px 0;
+.mainBp {
+    -fx-background-color: rgb(136, 136, 136); /* White */
 }
 
-.section-title {
-    font-size: 20px;
-    font-weight: bold;
-    color: #aaa;
-    padding: 10px 0;
+.eventListVbox, .eventListLstV, .nestedBp, .userWindowHbox, .tempUser1, .tempUser2, .tempUser3, .tempUser4, .eventWindowVbox, .bottomHbox, .userListLv {
+    -fx-background-color: rgba(0, 0, 0, 0.5); /* Black */
 }
 
-.table {
-    -fx-background-color: #3c3c3c;
-    -fx-border-color: #555;
-    -fx-border-width: 1px;
-    -fx-border-radius: 15px;
-    -fx-padding: 10px;
-    -fx-effect: dropshadow(three-pass-box, rgba(80, 80, 80, 0.8), 10, 0, 0, 0);
+.userListLv {
+    -fx-font-weight: bold; /* Make the user list stand out */
 }
 
-.table .column-header {
-    -fx-background-color: #555;
-    -fx-text-fill: #fff;
-    -fx-padding: 5px;
-    -fx-font-weight: bold;
+/* ListView styles */
+.list-view {
+    -fx-padding: 5; /* Less padding for ListView */
 }
 
-.button-group {
-    -fx-padding: 10px 0;
+/* ListView cell styles */
+.list-view .list-cell {
+    -fx-background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 0); /* No shadow */
 }
 
+.list-view .list-cell:selected {
+    -fx-background-color: rgba(200, 200, 200, 0.5); /* Lighter color when selected */
+}
+
+/* Button styles */
 .button {
-    -fx-background-color: #4a4a4a;
-    -fx-text-fill: #fff;
-    -fx-border-radius: 15px;
-    -fx-padding: 5px 10px;
+    -fx-background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    -fx-padding: 5; /* Less padding for buttons */
 }
 
 .button:hover {
-    -fx-background-color: #666;
+    -fx-background-color: rgba(200, 200, 200, 0.5); /* Lighter color when hovered */
 }
 
-.button:pressed {
-    -fx-background-color: #333;
+/* ScrollBar styles */
+.list-view .scroll-bar {
+    -fx-pref-width: 10; /* Narrower scrollbar */
+    -fx-background-radius: 5; /* Rounded corners for scrollbar */
 }
 
-.eventLbl {
-    -fx-text-fill: #fff;
+.list-view .scroll-bar .track {
+    -fx-background-color: transparent; /* Hide scrollbar track */
 }
 
-.userLbl {
-    -fx-text-fill: #fff;
+.closeBtn {
+    -fx-background-color: rgba(246, 113, 113, 0.5); /* Semi-transparent red */
+    -fx-text-fill: #EEE; /* Lighter font color */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-padding: 5; /* Padding */
+    -fx-background-radius: 1000; /* High value to make it circular */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 0); /* Shadow */
+    -fx-min-width: 17px; /* Same width and height */
+    -fx-min-height: 17px; /* Same width and height */
+    -fx-max-width: 17px; /* Same width and height */
+    -fx-max-height: 17px; /* Same width and height */
 }
 
-.adminDashLbl {
-    -fx-text-fill: #fff;
+.closeBtn:hover {
+    -fx-background-color: rgba(252, 82, 82, 0.7); /* Darker red when hovered */
 }

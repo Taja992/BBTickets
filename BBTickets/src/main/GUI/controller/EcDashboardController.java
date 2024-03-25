@@ -4,7 +4,6 @@ import BE.Event;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
 import GUI.model.UserModel;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,11 +20,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.time.format.DateTimeFormatter;
-import java.util.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class RenameThisEcController {
+public class EcDashboardController {
 
     public VBox eventWindowVbox;
     public BorderPane mainBp;
@@ -55,7 +53,7 @@ public class RenameThisEcController {
         eventListForSpecificUser();
     }
 
-    public RenameThisEcController() {
+    public EcDashboardController() {
         eventModel = new EventModel();
         userModel = new UserModel();}
 
