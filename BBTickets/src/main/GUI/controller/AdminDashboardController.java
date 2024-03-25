@@ -5,52 +5,61 @@ import BE.User;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
 import GUI.model.UserModel;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class AdminDashboardController {
-
+    public Button createUserBtn;
+    public Button closeBtn;
+    @FXML
+    private BorderPane mainBp;
+    @FXML
+    private VBox eventListVbox;
+    @FXML
+    private ListView<BE.Event> eventListLv;
+    @FXML
+    private ListView<User> userListLv;
+    @FXML
+    private BorderPane nestedBp;
+    @FXML
+    private HBox userWindowHbox;
+    @FXML
+    private VBox eventWindowVbox;
+    @FXML
+    private HBox bottomHbox;
+    @FXML
+    private Button createEventBtn;
     @FXML
     private Button logoutBtn;
     @FXML
-    private TableView<Event> eventList;
+    private Label eventTypeLbl;
     @FXML
-    private TableColumn<Event, String> eventTypeColumn;
+    private Label eventLocationLbl;
     @FXML
-    private TableColumn<Event, String> eventLocationColumn;
+    private Label eventStartLbl;
     @FXML
-    private TableColumn<Event, String> eventStartTimeColumn;
+    private Label eventEndLbl;
     @FXML
-    private TableColumn<Event, String> eventEndTimeColumn;
+    private Label eventNotesLbl;
     @FXML
-    private TableColumn<Event, String> eventNotesColumn;
-    @FXML
-    private TableColumn<Event, String> locationGuidanceColumn;
-    @FXML
-    private TableColumn<User, Integer> typeColumn;
-    @FXML
-    private TableColumn<User, String> usernameColumn;
-    @FXML
-    private TableColumn<User, String> passwordColumn;
-    @FXML
-    private TableView<User> userList;
-
-
+    private Label eventDirLbl;
     private EventModel eventModel;
     private UserModel userModel;
+    private EventHelper eventHelper;
     private int userId;
 
     public AdminDashboardController() {
@@ -63,123 +72,170 @@ public class AdminDashboardController {
     }
 
     public void initialize() {
+        this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
+        setupEventListView();
+        userListLv.setItems(userModel.getAllUsers());
+        listViewcell();
+        eventHelper.eventListObserver();
+        DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
 
-        logOut();
-        loadEvents();
-        loadUsers();
-        setupEventTable();
-        setupUserTable();
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem editItem = new MenuItem("Edit user");
+        editItem.setOnAction(e -> editUser());
+        contextMenu.getItems().add(editItem);
 
+        MenuItem deleteItem = new MenuItem("Delete user");
+        deleteItem.setOnAction(e -> deleteUser());
+        contextMenu.getItems().add(deleteItem);
 
+        userListLv.setContextMenu(contextMenu);
     }
 
-
-
-    public void loadEvents() {
+    public void logoutBtn(ActionEvent actionEvent) {
         try {
-            // Call getAllEvents from eventModel and set the result as the items of eventList
-            eventList.getItems().setAll(eventModel.getAllEvents());
+            // Load login.fxml
+            Parent root = FXMLLoader.load(getClass().getResource("/GUI/view/login.fxml"));
+
+            // Create a new stage for the login screen
+            Stage loginStage = new Stage();
+            loginStage.initStyle(StageStyle.TRANSPARENT);
+
+            // Create a new scene with the loaded parent and set it on the stage
+            Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT);
+            loginStage.setTitle("Ticket Interface");
+            loginStage.setScene(scene);
+
+            // Get the current stage and close it
+            Stage currentStage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+            currentStage.close();
+
+            // Show the login stage
+            loginStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void assignCoordinator(ActionEvent actionEvent) {
+    }
+
+    public void createTicket(ActionEvent actionEvent) {
+    }
+
+    public void deleteEvent(ActionEvent actionEvent)  throws BBExceptions {
+        //gets the selected item from the table and deletes it (does nothing if nothing is selected)
+        BE.Event selected = eventListLv.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            eventModel.deleteEvent(selected.getEventId());
+            loadEventsToListView(); //reloads the table so it updates with the item deleted
+        }
+    }
+
+    public void editEvent(ActionEvent actionEvent) {
+    }
+
+    public void createEventBtn(ActionEvent actionEvent) {
+    }
+
+    private void setupEventListView() {
+        // Set the cell factory of the ListView
+        eventListLv.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(Event item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    // Set the text of the cell to the eventType of the Event
+                    setText(String.valueOf(item.getEventType()));
+                }
+            }
+        });
+
+        // Load the events into the ListView
+        loadEventsToListView();
+    }
+
+    private void loadEventsToListView() {
+        try {
+            // Call getAllEvents from eventModel and set the result as the items of eventListLv
+            eventListLv.getItems().setAll(eventModel.getAllEvents());
         } catch (BBExceptions e) {
             e.printStackTrace();
         }
     }
 
     public void loadUsers() {
-        // Call getAllEvents from eventModel and set the result as the items of eventList
-        userList.getItems().setAll(userModel.getAllUsers());
+        List<User> users = userModel.getAllUsers();
+        userListLv.getItems().setAll(users);
     }
 
-    public void setupEventTable() {
-        eventStartTimeColumn.setCellValueFactory(data -> {
-            Event event = data.getValue();
-            return new SimpleStringProperty(formatDateTime(event.getEventStartTime()));
-        });
+    private void listViewcell(){
+        userListLv.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(User item, boolean empty) {
+                super.updateItem(item, empty);
 
-        eventEndTimeColumn.setCellValueFactory(data -> {
-            Event event = data.getValue();
-            return new SimpleStringProperty(formatDateTime(event.getEventEndingTime()));
-        });
-
-        eventTypeColumn.setCellValueFactory(new PropertyValueFactory<>("eventType"));
-        eventLocationColumn.setCellValueFactory(new PropertyValueFactory<>("eventLocation"));
-        eventNotesColumn.setCellValueFactory(new PropertyValueFactory<>("eventNotes"));
-        locationGuidanceColumn.setCellValueFactory(new PropertyValueFactory<>("locationGuidance"));
-    }
-
-    public void setupUserTable() {
-        typeColumn.setCellValueFactory(new PropertyValueFactory<>("roleName"));
-        usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
-        passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
-    }
-
-    public void logOut() {
-        logoutBtn.setOnAction(event -> {
-            try {
-                // Load login.fxml
-                Parent root = FXMLLoader.load(getClass().getResource("/GUI/view/login.fxml"));
-
-                // Create a new stage for the login screen
-                Stage loginStage = new Stage();
-                loginStage.initStyle(StageStyle.TRANSPARENT);
-
-                // Create a new scene with the loaded parent and set it on the stage
-                Scene scene = new Scene(root);
-                scene.setFill(Color.TRANSPARENT);
-                loginStage.setTitle("Ticket Interface");
-                loginStage.setScene(scene);
-
-                // Get the current stage and close it
-                Stage currentStage = (Stage) logoutBtn.getScene().getWindow();
-                currentStage.close();
-
-                // Show the login stage
-                loginStage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getUsername());
+                }
             }
         });
     }
 
 
-    public void deleteEvent(ActionEvent actionEvent) throws BBExceptions {
-        //gets the selected item from the table and deletes it (does nothing if nothing is selected)
-        BE.Event selected = eventList.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            eventModel.deleteEvent(selected.getEventId());
-            loadEvents(); //reloads the table so it updates with the item deleted
-        }
-    }
-
     @FXML
-    public void openCreateUserWindow(ActionEvent actionEvent) {
+    public void createUserBtn(ActionEvent actionEvent) {
         try {
-            // Load createEvent.fxml
-            Parent root = FXMLLoader.load(getClass().getResource("/GUI/view/createUser.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/createUser.fxml"));
+            Parent root = loader.load();
 
-            // Create a new stage for the create event screen
-            Stage createEventStage = new Stage();
-            createEventStage.initStyle(StageStyle.DECORATED);
+            CreateUserController controller = loader.getController();
+            controller.setRenameAdminDashboardController(this);
 
-            // Create a new scene with the loaded parent and set it on the stage
-            Scene scene = new Scene(root);
-            createEventStage.setTitle("Create Event");
-            createEventStage.setScene(scene);
-
-            // Show the create event stage
-            createEventStage.show();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private String formatDateTime(LocalDateTime dateTime) {
-        if (dateTime == null) {
-            return "Beginning of day :)";
+
+    private void editUser() {
+        User selectedUser = userListLv.getSelectionModel().getSelectedItem();
+        if (selectedUser != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/CreateUser.fxml"));
+                Parent root = loader.load();
+
+                CreateUserController controller = loader.getController();
+                controller.initEditMode(selectedUser);
+                controller.setRenameAdminDashboardController(this);
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy  '⏰'HH:mm");
-        return formatter.format(dateTime);
     }
 
+    private void deleteUser() {
+        User selectedUser = userListLv.getSelectionModel().getSelectedItem();
+        if (selectedUser != null) {
+            try {
+                userModel.deleteUser(selectedUser);
 
+            } catch (BBExceptions e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }

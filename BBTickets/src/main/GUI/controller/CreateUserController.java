@@ -2,17 +2,12 @@ package GUI.controller;
 
 import BE.User;
 import Exceptions.BBExceptions;
-import GUI.model.EventModel;
 import GUI.model.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
-import java.io.IOException;
 
 public class CreateUserController {
 
@@ -97,10 +92,10 @@ public class CreateUserController {
     }
 
 
-    private RenameAdminDashboardController renameAdminDashboardController;
+    private AdminDashboardController adminDashboardController;
 
-    public void setRenameAdminDashboardController(RenameAdminDashboardController renameAdminDashboardController) {
-        this.renameAdminDashboardController = renameAdminDashboardController;
+    public void setRenameAdminDashboardController(AdminDashboardController adminDashboardController) {
+        this.adminDashboardController = adminDashboardController;
     }
 
 

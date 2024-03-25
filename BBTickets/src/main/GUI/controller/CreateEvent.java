@@ -36,7 +36,7 @@ public class CreateEvent {
     @FXML
     private Button addEvent;
 
-    private RenameThisEcController renameThisEcController;
+    private EcDashboardController ecController;
 
     private int userId;
 
@@ -55,8 +55,8 @@ public class CreateEvent {
         eventMinuteSpinner.setValueFactory(valueFactory);
     }
 
-    public void setRenameThisEcController(RenameThisEcController renameThisEcController) {
-        this.renameThisEcController = renameThisEcController;
+    public void setRenameThisEcController(EcDashboardController ecController) {
+        this.ecController = ecController;
     }
 
     public void addEvent(ActionEvent actionEvent) {
@@ -82,8 +82,8 @@ public class CreateEvent {
             if (assignToSelfChkBox.isSelected()) {
                 try {
                     eventModel.assignUserToEvent(userId, eventId);
-                    if (renameThisEcController != null) {
-                        renameThisEcController.refreshTable();
+                    if (ecController != null) {
+                        ecController.refreshTable();
                     }
                 } catch (BBExceptions e) {
                     throw new RuntimeException(e);

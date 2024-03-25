@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" prefHeight="478.4" prefWidth="321.0" spacing="8.0" styleClass="mainBp" stylesheets="@renameThisECDashboard.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.CreateTicketController">
+<VBox alignment="TOP_CENTER" prefHeight="478.4" prefWidth="321.0" spacing="8.0" styleClass="mainBp" stylesheets="@ECDashboard.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.CreateTicketController">
    <children>
       <Label layoutX="128.0" layoutY="202.0" text="Who do you want to give this ticket to?">
          <VBox.margin>
