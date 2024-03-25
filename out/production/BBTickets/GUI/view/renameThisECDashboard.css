@@ -36,10 +36,10 @@
     -fx-padding: 5; /* Padding */
     -fx-background-radius: 1000; /* High value to make it circular */
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 0); /* Shadow */
-    -fx-min-width: 12px; /* Same width and height */
-    -fx-min-height: 12px; /* Same width and height */
-    -fx-max-width: 12px; /* Same width and height */
-    -fx-max-height: 12px; /* Same width and height */
+    -fx-min-width: 17px; /* Same width and height */
+    -fx-min-height: 17px; /* Same width and height */
+    -fx-max-width: 17px; /* Same width and height */
+    -fx-max-height: 17px; /* Same width and height */
 }
 
 .closeBtn:hover {
