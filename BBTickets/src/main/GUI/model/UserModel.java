@@ -6,16 +6,20 @@ import Exceptions.BBExceptions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserModel {
     private UserBLL userBLL;
     private ObservableList<User> allUsers;
+    private Map<Integer, ObservableList<User>> usersForEvent = new HashMap<>();
 
     public UserModel() {
         userBLL = new UserBLL();
         allUsers = FXCollections.observableArrayList();
         loadUsers();
+
     }
 
     private void loadUsers() {
@@ -44,8 +48,12 @@ public class UserModel {
         return userBLL.getUser(username, password);
     }
 
-    public List<User> getUsersForEvent(int eventId) throws BBExceptions {
-        return userBLL.getUsersForEvent(eventId);
+
+    public ObservableList<User> getUsersForEvent(int eventId) throws BBExceptions {
+        if (!usersForEvent.containsKey(eventId)) {
+            usersForEvent.put(eventId, FXCollections.observableArrayList(userBLL.getUsersForEvent(eventId)));
+        }
+        return usersForEvent.get(eventId);
     }
 
     public void deleteUser(User selectedUser) throws BBExceptions {

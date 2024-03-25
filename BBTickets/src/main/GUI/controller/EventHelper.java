@@ -4,6 +4,7 @@ import BE.Event;
 import BE.User;
 import Exceptions.BBExceptions;
 import GUI.model.UserModel;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -147,7 +148,7 @@ public class EventHelper {
         userWindowHbox.getChildren().clear();
 
         try {
-            List<User> users = userModel.getUsersForEvent(event.getEventId());
+            ObservableList<User> users = userModel.getUsersForEvent(event.getEventId());
             for (User user : users) {
                 addUserToHbox(user);
             }

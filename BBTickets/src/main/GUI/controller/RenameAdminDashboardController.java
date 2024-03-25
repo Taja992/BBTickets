@@ -168,7 +168,7 @@ public class RenameAdminDashboardController {
 
     private void loadEventsToListView() {
         try {
-            // Call getAllEvents from eventModel and set the result as the items of eventListLstV
+            // Call getAllEvents from eventModel and set the result as the items of eventListLv
             eventListLv.getItems().setAll(eventModel.getAllEvents());
         } catch (BBExceptions e) {
             e.printStackTrace();
@@ -176,12 +176,8 @@ public class RenameAdminDashboardController {
     }
 
     public void loadUsers() {
-        try {
-            List<User> users = userModel.getAllUsers();
-            userListLv.getItems().setAll(users);
-        } catch (BBExceptions e) {
-            e.printStackTrace();
-        }
+        List<User> users = userModel.getAllUsers();
+        userListLv.getItems().setAll(users);
     }
 
     private void listViewcell(){
