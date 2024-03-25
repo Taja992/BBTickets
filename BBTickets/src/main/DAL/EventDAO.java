@@ -25,16 +25,8 @@ public class EventDAO {
 
         try (Connection connection = connectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setString(1, event.getEventType());
-            statement.setString(2, event.getEventLocation());
-            statement.setTimestamp(3, Timestamp.valueOf(event.getEventStartTime()));
-            if (event.getEventEndingTime() != null) {
-                statement.setTimestamp(4, Timestamp.valueOf(event.getEventEndingTime()));
-            } else {
-                statement.setNull(4, Types.TIMESTAMP);
-            }
-            statement.setString(5, event.getEventNotes());
-            statement.setString(6, event.getLocationGuidance());
+
+            prepareStatementWithEventDetails(statement, event);
 
             int affectedRows = statement.executeUpdate();
 
@@ -42,15 +34,32 @@ public class EventDAO {
                 throw new SQLException("Creating event failed, no rows affected.");
             }
 
-            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    return generatedKeys.getInt(1);
-                } else {
-                    throw new SQLException("Creating event failed, no ID obtained.");
-                }
-            }
+            return getGeneratedKey(statement);
         } catch (SQLException e) {
             throw new BBExceptions("Failed to insert event", e);
+        }
+    }
+
+    private void prepareStatementWithEventDetails(PreparedStatement statement, Event event) throws SQLException {
+        statement.setString(1, event.getEventType());
+        statement.setString(2, event.getEventLocation());
+        statement.setTimestamp(3, Timestamp.valueOf(event.getEventStartTime()));
+        if (event.getEventEndingTime() != null) {
+            statement.setTimestamp(4, Timestamp.valueOf(event.getEventEndingTime()));
+        } else {
+            statement.setNull(4, Types.TIMESTAMP);
+        }
+        statement.setString(5, event.getEventNotes());
+        statement.setString(6, event.getLocationGuidance());
+    }
+
+    private int getGeneratedKey(PreparedStatement statement) throws SQLException {
+        try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+            if (generatedKeys.next()) {
+                return generatedKeys.getInt(1);
+            } else {
+                throw new SQLException("Creating event failed, no ID obtained.");
+            }
         }
     }
 

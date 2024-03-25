@@ -101,6 +101,7 @@ public class CreateEvent {
             Node source = (Node) actionEvent.getSource();
             Stage stage = (Stage) source.getScene().getWindow();
             stage.close();
+
         } catch (BBExceptions e) {
             e.printStackTrace();
         }

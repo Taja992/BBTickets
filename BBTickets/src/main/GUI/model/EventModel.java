@@ -29,9 +29,7 @@ public class EventModel {
     }
 
     public ObservableList<Event> getEventsForUser(int userId) throws BBExceptions {
-        if (!eventsForUser.containsKey(userId)) {
-            eventsForUser.put(userId, FXCollections.observableArrayList(userBLL.getEventsForUser(userId)));
-        }
+        eventsForUser.put(userId, FXCollections.observableArrayList(userBLL.getEventsForUser(userId)));
         return eventsForUser.get(userId);
     }
 
