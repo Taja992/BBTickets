@@ -78,7 +78,7 @@ public class CreateTicketController implements Initializable {
 
             }
 
-
+            //change type to be either VIP or Standard (or any other options)
             ticketModel.createTicket(selected.getEventType(), cust.getCustId(), selected.getEventId(), price);
         }
 
