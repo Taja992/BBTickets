@@ -17,6 +17,7 @@
 
 .list-view {
     -fx-padding: 5;
+    -fx-font-size: 18px;
 }
 
 .list-view .list-cell {
