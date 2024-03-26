@@ -87,11 +87,7 @@
             <bottom>
                 <HBox fx:id="bottomHbox" prefHeight="100.0" prefWidth="200.0" styleClass="bottomHbox" BorderPane.alignment="CENTER">
                     <children>
-                        <Button fx:id="createEventBtn" mnemonicParsing="false" onAction="#createEventBtn" text="Create Event" />
-                        <Button mnemonicParsing="false" onAction="#editEvent" text="Edit Event" />
                         <Button mnemonicParsing="false" onAction="#deleteEvent" text="Delete Event" />
-                        <Button mnemonicParsing="false" onAction="#createTicket" text="Assign Tickets to Events" />
-                        <Button mnemonicParsing="false" onAction="#assignCoordinator" text="Assign Coordinators" />
                         <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logoutBtn" text="Log Out" />
                   <Button fx:id="createUserBtn" mnemonicParsing="false" onAction="#createUserBtn" text="Create User" />
                     </children>
