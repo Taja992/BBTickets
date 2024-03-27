@@ -10,12 +10,21 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="mainBp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1095.0" styleClass="mainBp" stylesheets="/GUI/view/ECDashboard.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.EcDashboardController">
    <left>
       <VBox fx:id="eventListVbox" styleClass="eventListVbox" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Event List" />
+            <HBox alignment="CENTER">
+               <children>
+                  <Label text="Event List">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
             <ListView fx:id="eventListLv" prefHeight="797.0" prefWidth="200.0" styleClass="eventListLstV" />
          </children>
       </VBox>
@@ -63,12 +72,48 @@
          <center>
             <VBox fx:id="eventWindowVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="eventWindowVbox">
                <children>
-                  <Label fx:id="eventTypeLbl" text="Some Cool Event Name" />
-                  <Label fx:id="eventLocationLbl" text="Event Location" />
-                  <Label fx:id="eventStartLbl" text="Event Start Time" />
-                  <Label fx:id="eventEndLbl" text="Event End Time" />
-                  <Label fx:id="eventNotesLbl" text="Event Notes" />
-                  <Label fx:id="eventDirLbl" text="Directions" />
+                  <Label fx:id="eventTypeLbl" text="Some Cool Event Name">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="24.0" />
+                     </font></Label>
+                  <Label fx:id="eventLocationLbl" text="Event Location">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="24.0" />
+                     </font></Label>
+                  <Label fx:id="eventStartLbl" text="Event Start Time">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="24.0" />
+                     </font></Label>
+                  <Label fx:id="eventEndLbl" text="Event End Time">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="24.0" />
+                     </font></Label>
+                  <Label fx:id="eventNotesLbl" text="Event Notes">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="24.0" />
+                     </font></Label>
+                  <Label fx:id="eventDirLbl" text="Directions">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="24.0" />
+                     </font></Label>
                </children>
                <opaqueInsets>
                   <Insets />
@@ -136,7 +181,14 @@
                   </VBox>
                   <HBox alignment="TOP_CENTER" prefHeight="79.0" prefWidth="161.0">
                      <children>
-                        <MFXButton mnemonicParsing="false" onAction="#createTicket" text="Assign Tickets to Events" />
+                        <HBox>
+                           <children>
+                              <MFXButton mnemonicParsing="false" onAction="#createTicket" text="Assign Tickets to Events" />
+                           </children>
+                           <HBox.margin>
+                              <Insets top="8.0" />
+                           </HBox.margin>
+                        </HBox>
                      </children>
                      <HBox.margin>
                         <Insets left="10.0" />
