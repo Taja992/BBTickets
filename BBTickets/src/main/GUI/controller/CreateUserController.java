@@ -32,10 +32,11 @@ public class CreateUserController {
     private User userToEdit;
 
     public CreateUserController() {
-        userModel = new UserModel();
+        userModel = UserModel.getInstance();
     }
 
-    public void initialize() {
+
+        public void initialize() {
         ToggleGroup toggleGroup = new ToggleGroup();
         roleAdmin.setToggleGroup(toggleGroup);
         roleEC.setToggleGroup(toggleGroup);

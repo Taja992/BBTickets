@@ -63,9 +63,10 @@ public class AdminDashboardController {
     private int userId;
 
     public AdminDashboardController() {
+        userModel = UserModel.getInstance();
         eventModel = new EventModel();
-        userModel = new UserModel();
     }
+
 
     public void setUserId(int userId) {
         this.userId = userId;
@@ -210,6 +211,8 @@ public class AdminDashboardController {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/CreateUser.fxml"));
                 Parent root = loader.load();
+                CreateUserController controller = loader.getController();
+                controller.initEditMode(selectedUser);
 
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));

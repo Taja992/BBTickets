@@ -11,15 +11,22 @@ import java.util.List;
 import java.util.Map;
 
 public class UserModel {
+    private static UserModel instance = null;
     private UserBLL userBLL;
     private ObservableList<User> allUsers;
     private Map<Integer, ObservableList<User>> usersForEvent = new HashMap<>();
 
-    public UserModel() {
+    private UserModel() {
         userBLL = new UserBLL();
         allUsers = FXCollections.observableArrayList();
         loadUsers();
+    }
 
+    public static UserModel getInstance() {
+        if (instance == null) {
+            instance = new UserModel();
+        }
+        return instance;
     }
 
     private void loadUsers() {
@@ -36,12 +43,15 @@ public class UserModel {
 
     public void newUser(User user) throws BBExceptions {
         userBLL.newUser(user);
-        loadUsers();
+        allUsers.add(user);
     }
 
     public void updateUser(User user) throws BBExceptions {
         userBLL.updateUser(user);
-        loadUsers();
+        int index = allUsers.indexOf(user);
+        if (index != -1) {
+            allUsers.set(index, user); // Update the user in the ObservableList
+        }
     }
 
     public User getUser(String username, String password) throws BBExceptions {
@@ -56,6 +66,6 @@ public class UserModel {
 
     public void deleteUser(User selectedUser) throws BBExceptions {
         userBLL.deleteUser(selectedUser);
-        loadUsers();
+        allUsers.remove(selectedUser);
     }
 }

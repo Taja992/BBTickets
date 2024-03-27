@@ -38,7 +38,7 @@ public class LoginController {
     private Preferences prefs;
 
     public LoginController() {
-        userModel = new UserModel();
+        userModel = UserModel.getInstance();
 
         // Get the preferences for this user node
         prefs = Preferences.userNodeForPackage(LoginController.class);

@@ -55,7 +55,8 @@ public class EcDashboardController {
 
     public EcDashboardController() {
         eventModel = new EventModel();
-        userModel = new UserModel();}
+        userModel = UserModel.getInstance();
+    }
 
     public void initialize() {
         this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
