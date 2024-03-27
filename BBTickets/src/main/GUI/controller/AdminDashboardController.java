@@ -21,6 +21,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class AdminDashboardController {
     public Button createUserBtn;
@@ -113,7 +114,7 @@ public class AdminDashboardController {
             loginStage.setScene(scene);
 
             // Get the current stage and close it
-            Stage currentStage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+            Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             currentStage.close();
 
             // Show the login stage
@@ -124,8 +125,7 @@ public class AdminDashboardController {
     }
 
 
-
-    public void deleteEvent(ActionEvent actionEvent)  throws BBExceptions {
+    public void deleteEvent(ActionEvent actionEvent) throws BBExceptions {
         //gets the selected item from the table and deletes it (does nothing if nothing is selected)
         BE.Event selected = eventListLv.getSelectionModel().getSelectedItem();
         if (selected != null) {
@@ -169,7 +169,7 @@ public class AdminDashboardController {
         userListLv.getItems().setAll(users);
     }
 
-    private void listViewcell(){
+    private void listViewcell() {
         userListLv.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(User item, boolean empty) {
@@ -208,36 +208,49 @@ public class AdminDashboardController {
     private void editUser() {
         User selectedUser = userListLv.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/CreateUser.fxml"));
-                Parent root = loader.load();
-                CreateUserController controller = loader.getController();
-                controller.initEditMode(selectedUser);
 
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-                showErrorDialog("Edit User Error", "Failed to load user editing view: " + e.getMessage());
-            }
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/CreateUser.fxml"));
+                    Parent root = loader.load();
+                    CreateUserController controller = loader.getController();
+                    controller.initEditMode(selectedUser);
+
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    showErrorDialog("Edit User Error", "Failed to load user editing view: " + e.getMessage());
+                }
         }
     }
+
 
     private void deleteUser() {
         User selectedUser = userListLv.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
-            try {
-                userModel.deleteUser(selectedUser);
-            } catch (BBExceptions e) {
-                e.printStackTrace();
-                String errorMessage = "Failed to delete user " + selectedUser.getUsername() + ": " + e.getMessage();
-                showErrorDialog("Delete User Error", errorMessage);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("Delete User");
+            alert.setContentText("Are you sure you want to delete this user?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                // User chose OK, proceed with deletion
+                try {
+                    userModel.deleteUser(selectedUser);
+                } catch (BBExceptions e) {
+                    e.printStackTrace();
+                    String errorMessage = "Failed to delete user " + selectedUser.getUsername() + ": " + e.getMessage();
+                    showErrorDialog("Delete User Error", errorMessage);
+                }
+            } else {
+                // User chose Cancel or closed the dialog, do nothing
             }
         }
     }
 
-    private void showErrorDialog(String title, String message){
+    private void showErrorDialog(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);
