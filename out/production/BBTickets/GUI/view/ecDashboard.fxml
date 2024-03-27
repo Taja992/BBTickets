@@ -208,10 +208,13 @@
       </BorderPane>
    </center>
    <top>
-      <Button fx:id="closeBtn" mnemonicParsing="false" styleClass="closeBtn" BorderPane.alignment="TOP_RIGHT">
+      <HBox alignment="TOP_RIGHT" BorderPane.alignment="TOP_RIGHT">
          <BorderPane.margin>
-            <Insets bottom="3.0" right="2.0" top="-5.0" />
+            <Insets bottom="5.0" right="10.0" top="5.0" />
          </BorderPane.margin>
-      </Button>
+         <children>
+            <Button fx:id="closeBtn" minHeight="1.0" minWidth="3.0" mnemonicParsing="false" prefHeight="1.0" prefWidth="3.0" styleClass="closeBtn" />
+         </children>
+      </HBox>
    </top>
 </BorderPane>
