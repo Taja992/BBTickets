@@ -19,6 +19,7 @@ public class CreateUserController {
     private TextField usernameField;
     @FXML
     private TextField passwordField;
+
     @FXML
     private Button createUserBtn;
     @FXML
