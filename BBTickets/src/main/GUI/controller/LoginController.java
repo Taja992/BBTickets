@@ -38,7 +38,7 @@ public class LoginController {
     private Preferences prefs;
 
     public LoginController() {
-        userModel = UserModel.getInstance();
+        userModel = new UserModel();
 
         // Get the preferences for this user node
         prefs = Preferences.userNodeForPackage(LoginController.class);
@@ -167,7 +167,7 @@ public class LoginController {
             scene.setFill(Color.TRANSPARENT);
             stage.initStyle(StageStyle.TRANSPARENT);
             stage.setScene(scene);
-          //  stage.initStyle(StageStyle.DECORATED);
+            //  stage.initStyle(StageStyle.DECORATED);
             stage.show();
 
             windowControls(stage, scene);
