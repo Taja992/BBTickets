@@ -5,7 +5,6 @@ import BE.User;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
 import GUI.model.UserModel;
-import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,7 +21,6 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 public class AdminDashboardController {
     public Button createUserBtn;
@@ -84,7 +82,6 @@ public class AdminDashboardController {
         rightClickMenu();
     }
 
-
     public void rightClickMenu() {
 
         ContextMenu userlistContextMenu = new ContextMenu();
@@ -116,7 +113,7 @@ public class AdminDashboardController {
             loginStage.setScene(scene);
 
             // Get the current stage and close it
-            Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Stage currentStage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
             currentStage.close();
 
             // Show the login stage
@@ -127,7 +124,8 @@ public class AdminDashboardController {
     }
 
 
-    public void deleteEvent(ActionEvent actionEvent) throws BBExceptions {
+
+    public void deleteEvent(ActionEvent actionEvent)  throws BBExceptions {
         //gets the selected item from the table and deletes it (does nothing if nothing is selected)
         BE.Event selected = eventListLv.getSelectionModel().getSelectedItem();
         if (selected != null) {
@@ -166,8 +164,12 @@ public class AdminDashboardController {
         }
     }
 
+    public void loadUsers() {
+        List<User> users = userModel.getAllUsers();
+        userListLv.getItems().setAll(users);
+    }
 
-    private void listViewcell() {
+    private void listViewcell(){
         userListLv.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(User item, boolean empty) {
@@ -183,14 +185,11 @@ public class AdminDashboardController {
     }
 
 
+    @FXML
     public void createUserBtn(ActionEvent actionEvent) {
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/createUser.fxml"));
             Parent root = loader.load();
-
-            CreateUserController controller = loader.getController();
-            controller.setUserModel(userModel);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -202,13 +201,18 @@ public class AdminDashboardController {
     }
 
 
+    private void removeUserFromEvent() {
+
+    }
+
     private void editUser() {
         User selectedUser = userListLv.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
-
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/CreateUser.fxml"));
+                Parent root = loader.load();
                 CreateUserController controller = loader.getController();
-                controller.setUserModel(userModel);
-                controller.setUserToEdit(selectedUser);
+                controller.initEditMode(selectedUser);
 
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
@@ -220,16 +224,11 @@ public class AdminDashboardController {
         }
     }
 
-
     private void deleteUser() {
         User selectedUser = userListLv.getSelectionModel().getSelectedItem();
-        Event selectedEvent = eventListLv.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
             try {
                 userModel.deleteUser(selectedUser);
-                if (selectedEvent != null) {
-                    eventHelper.refreshUserWindowHbox(selectedEvent);
-                }
             } catch (BBExceptions e) {
                 e.printStackTrace();
                 String errorMessage = "Failed to delete user " + selectedUser.getUsername() + ": " + e.getMessage();
@@ -238,7 +237,7 @@ public class AdminDashboardController {
         }
     }
 
-    private void showErrorDialog(String title, String message) {
+    private void showErrorDialog(String title, String message){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(null);

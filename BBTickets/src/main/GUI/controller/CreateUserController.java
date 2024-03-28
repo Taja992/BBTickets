@@ -9,8 +9,6 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.util.Optional;
-
 public class CreateUserController {
 
     @FXML
@@ -70,20 +68,7 @@ public class CreateUserController {
             userToEdit.setUsername(username);
             userToEdit.setPassword(password);
             userToEdit.setUser_type(userType);
-
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation Dialog");
-            alert.setHeaderText("Edit User");
-            alert.setContentText("Are you sure you want to save changes to this user?");
-
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK){
-                // User chose OK, proceed with editing
-                userModel.updateUser(userToEdit);
-            } else {
-                // User chose Cancel or closed the dialog, do nothing
-                return;
-            }
+            userModel.updateUser(userToEdit);
         } else {
             // Create a new user
             User newUser = new User(userType, password, username);
@@ -96,6 +81,8 @@ public class CreateUserController {
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
+
+
     }
 
     public void cancelCreateUser(ActionEvent actionEvent) {
