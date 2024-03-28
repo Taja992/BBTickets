@@ -44,6 +44,7 @@ public class UserModel {
         loadUsers();
     }
 
+
     public User getUser(String username, String password) throws BBExceptions {
         return userBLL.getUser(username, password);
     }

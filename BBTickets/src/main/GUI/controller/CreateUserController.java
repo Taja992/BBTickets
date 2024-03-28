@@ -19,61 +19,51 @@ public class CreateUserController {
     private TextField usernameField;
     @FXML
     private TextField passwordField;
-
-    @FXML
-    private Button createUserBtn;
-    @FXML
-    private Button cancelCreateUserBtn;
-    @FXML
-    private ListView<User> userListLv;
-    private Stage createUserStage;
-    private ToggleGroup toggleGroup;
     private UserModel userModel;
-    private boolean editMode = false;
     private User userToEdit;
 
+
     public CreateUserController() {
-        userModel = new UserModel();
+    }
+
+    public void setUserModel(UserModel userModel) {
+        this.userModel = userModel;
+    }
+
+    public void setUserToEdit(User user) {
+        this.userToEdit = user;
+        usernameField.setText(user.getUsername());
+        passwordField.setText(user.getPassword());
+        if (user.getUser_type() == 1) {
+            roleAdmin.setSelected(true);
+        } else if (user.getUser_type() == 0) {
+            roleEC.setSelected(true);
+        }
     }
 
     public void initialize() {
         ToggleGroup toggleGroup = new ToggleGroup();
         roleAdmin.setToggleGroup(toggleGroup);
         roleEC.setToggleGroup(toggleGroup);
-
-
-    }
-
-    public void initEditMode(User userToEdit) {
-        this.userToEdit = userToEdit;
-        this.editMode = true;
-
-        // Fill the text fields with the user's data
-        usernameField.setText(userToEdit.getUsername());
-        passwordField.setText(userToEdit.getPassword());
-        if (userToEdit.getUser_type() == 1) {
-            roleAdmin.setSelected(true);
-        } else {
-            roleEC.setSelected(true);
-        }
     }
 
     @FXML
-    private void createUser(ActionEvent actionEvent) throws BBExceptions {
+    private void createUser(ActionEvent actionEvent) {
         int userType;
         if (roleAdmin.isSelected()) {
             userType = 1; // 1 for admin
         } else if (roleEC.isSelected()) {
             userType = 0; // 0 for event coordinator
         } else {
-            // Handle the case where no role is selected
+            showErrorDialog("You must select a role.");
             return;
         }
 
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        if (editMode) {
+        try {
+        if (userToEdit != null) {
             // Update the existing user
             userToEdit.setUsername(username);
             userToEdit.setPassword(password);
@@ -84,27 +74,27 @@ public class CreateUserController {
             User newUser = new User(userType, password, username);
             userModel.newUser(newUser);
         }
+    } catch (BBExceptions e) {
+            showErrorDialog("Failed to create or edit user.");
+        }
 
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
-
-
     }
-
-
-    private AdminDashboardController adminDashboardController;
-
-    public void setRenameAdminDashboardController(AdminDashboardController adminDashboardController) {
-        this.adminDashboardController = adminDashboardController;
-    }
-
-
 
     public void cancelCreateUser(ActionEvent actionEvent) {
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
+    }
+
+    private void showErrorDialog(String message){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 }

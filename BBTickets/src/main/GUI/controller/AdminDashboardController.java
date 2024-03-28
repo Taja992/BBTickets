@@ -5,6 +5,7 @@ import BE.User;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
 import GUI.model.UserModel;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -80,6 +81,7 @@ public class AdminDashboardController {
         DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
         rightClickMenu();
     }
+
 
     public void rightClickMenu() {
 
@@ -163,10 +165,6 @@ public class AdminDashboardController {
         }
     }
 
-    public void loadUsers() {
-        List<User> users = userModel.getAllUsers();
-        userListLv.getItems().setAll(users);
-    }
 
     private void listViewcell(){
         userListLv.setCellFactory(param -> new ListCell<>() {
@@ -184,11 +182,14 @@ public class AdminDashboardController {
     }
 
 
-    @FXML
     public void createUserBtn(ActionEvent actionEvent) {
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/createUser.fxml"));
             Parent root = loader.load();
+
+            CreateUserController controller = loader.getController();
+            controller.setUserModel(userModel);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -200,16 +201,16 @@ public class AdminDashboardController {
     }
 
 
-    private void removeUserFromEvent() {
-
-    }
-
     private void editUser() {
         User selectedUser = userListLv.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/CreateUser.fxml"));
                 Parent root = loader.load();
+
+                CreateUserController controller = loader.getController();
+                controller.setUserModel(userModel);
+                controller.setUserToEdit(selectedUser);
 
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
