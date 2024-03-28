@@ -5,6 +5,7 @@ import BE.User;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
 import GUI.model.UserModel;
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +27,7 @@ import java.util.List;
 public class AdminDashboardController {
     public Button createUserBtn;
     public Button closeBtn;
+    public JFXToggleButton toggleUserListBtn;
     @FXML
     private BorderPane mainBp;
     @FXML
@@ -81,7 +83,6 @@ public class AdminDashboardController {
         DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
         rightClickMenu();
     }
-
 
     public void rightClickMenu() {
 
@@ -252,4 +253,11 @@ public class AdminDashboardController {
         alert.showAndWait();
     }
 
+    public void toggleUserList(ActionEvent actionEvent) {
+        if (toggleUserListBtn.isSelected()) {
+            System.out.println("EC is selected");
+        } else {
+            System.out.println("Admin is selected");
+        }
+    }
 }

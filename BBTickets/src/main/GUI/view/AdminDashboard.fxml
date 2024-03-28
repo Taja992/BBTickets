@@ -28,7 +28,7 @@
                               <Insets left="15.0" />
                            </HBox.margin>
                         </Label>
-                        <JFXToggleButton prefHeight="38.0" prefWidth="74.0" size="8.0" text=" " toggleColor="#fafafa" toggleLineColor="#c694bb" unToggleLineColor="#c694bb" />
+                        <JFXToggleButton fx:id="toggleUserListBtn" onAction="#toggleUserList" prefHeight="38.0" prefWidth="74.0" size="8.0" text=" " toggleColor="#fafafa" toggleLineColor="#c694bb" unToggleLineColor="#c694bb" />
                         <Label text="Event C." />
                      </children>
                   </HBox>
