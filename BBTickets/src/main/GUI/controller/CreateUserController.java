@@ -1,5 +1,6 @@
 package GUI.controller;
 
+import BE.Event;
 import BE.User;
 import Exceptions.BBExceptions;
 import GUI.model.UserModel;
@@ -21,6 +22,8 @@ public class CreateUserController {
     private TextField passwordField;
     private UserModel userModel;
     private User userToEdit;
+    private EventHelper eventHelper;
+    private Event selectedEvent;
 
 
     public CreateUserController() {
@@ -28,6 +31,13 @@ public class CreateUserController {
 
     public void setUserModel(UserModel userModel) {
         this.userModel = userModel;
+    }
+
+    public void setEventHelper(EventHelper eventHelper) {
+        this.eventHelper = eventHelper;
+    }
+    public void setSelectedEvent(Event selectedEvent) {
+        this.selectedEvent = selectedEvent;
     }
 
     public void setUserToEdit(User user) {
@@ -74,6 +84,7 @@ public class CreateUserController {
                 User newUser = new User(userType, password, username);
                 userModel.newUser(newUser);
             }
+            eventHelper.refreshUserWindowHbox(selectedEvent);
         } catch (BBExceptions e) {
             showErrorDialog("Failed to create or edit user.");
         }
