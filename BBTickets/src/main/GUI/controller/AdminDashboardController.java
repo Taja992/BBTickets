@@ -77,7 +77,7 @@ public class AdminDashboardController {
     public void initialize() {
         this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
         setupEventListView();
-        userListLv.setItems(userModel.getAllUsers());
+        userListLv.setItems(userModel.getUsersByType(1)); // this is since toggle is starting on admin
         listViewcell();
         eventHelper.eventListObserver();
         DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
@@ -255,8 +255,10 @@ public class AdminDashboardController {
 
     public void toggleUserList(ActionEvent actionEvent) {
         if (toggleUserListBtn.isSelected()) {
+            userListLv.setItems(userModel.getUsersByType(0)); // Show only users of type 0 (EC)
             System.out.println("EC is selected");
         } else {
+            userListLv.setItems(userModel.getUsersByType(1)); // Show only users of type 1 (Admin)
             System.out.println("Admin is selected");
         }
     }
