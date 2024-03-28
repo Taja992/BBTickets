@@ -17,6 +17,7 @@
 
 .list-view {
     -fx-padding: 5;
+    -fx-font-size: 18px;
 }
 
 .list-view .list-cell {
@@ -26,7 +27,7 @@
 }
 
 .list-view .list-cell:selected {
-    -fx-background-color: rgba(240, 240, 240, 0.7);
+    -fx-background-color: rgba(119, 113, 113, 0.7);
 }
 
 .closeBtn {

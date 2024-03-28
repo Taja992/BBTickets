@@ -10,12 +10,21 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="mainBp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1095.0" styleClass="mainBp" stylesheets="/GUI/view/ECDashboard.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.EcDashboardController">
    <left>
       <VBox fx:id="eventListVbox" styleClass="eventListVbox" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Event List" />
+            <HBox alignment="CENTER">
+               <children>
+                  <Label text="Event List">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
             <ListView fx:id="eventListLv" prefHeight="797.0" prefWidth="200.0" styleClass="eventListLstV" />
          </children>
       </VBox>
@@ -63,12 +72,48 @@
          <center>
             <VBox fx:id="eventWindowVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="eventWindowVbox">
                <children>
-                  <Label fx:id="eventTypeLbl" text="Some Cool Event Name" />
-                  <Label fx:id="eventLocationLbl" text="Event Location" />
-                  <Label fx:id="eventStartLbl" text="Event Start Time" />
-                  <Label fx:id="eventEndLbl" text="Event End Time" />
-                  <Label fx:id="eventNotesLbl" text="Event Notes" />
-                  <Label fx:id="eventDirLbl" text="Directions" />
+                  <Label fx:id="eventTypeLbl" text="Some Cool Event Name">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="24.0" />
+                     </font></Label>
+                  <Label fx:id="eventLocationLbl" text="Event Location">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="24.0" />
+                     </font></Label>
+                  <Label fx:id="eventStartLbl" text="Event Start Time">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="24.0" />
+                     </font></Label>
+                  <Label fx:id="eventEndLbl" text="Event End Time">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="24.0" />
+                     </font></Label>
+                  <Label fx:id="eventNotesLbl" text="Event Notes">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="24.0" />
+                     </font></Label>
+                  <Label fx:id="eventDirLbl" text="Directions">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="24.0" />
+                     </font></Label>
                </children>
                <opaqueInsets>
                   <Insets />
@@ -81,24 +126,95 @@
          <bottom>
             <HBox fx:id="bottomHbox" prefHeight="100.0" prefWidth="200.0" styleClass="bottomHbox" BorderPane.alignment="CENTER">
                <children>
-                  <MFXButton fx:id="createEventBtn" mnemonicParsing="false" onAction="#createEventBtn" text="Create Event" />
-                  <MFXButton mnemonicParsing="false" onAction="#editEvent" text="Edit Event" />
-                  <MFXButton mnemonicParsing="false" onAction="#deleteEvent" text="Delete Event" />
-                  <MFXButton mnemonicParsing="false" onAction="#createTicket" text="Assign Tickets to Events" />
-                  <MFXButton mnemonicParsing="false" onAction="#assignCoordinator" text="Assign Coordinators" />
-                  <MFXButton fx:id="logoutBtn" mnemonicParsing="false" onAction="#logoutBtn" text="Log Out" />
-                  <MFXButton fx:id="logoutBtn1" layoutX="511.0" layoutY="10.0" mnemonicParsing="false" onAction="#logoutBtn" text="Edit User" />
-                  <MFXButton fx:id="logoutBtn11" layoutX="570.0" layoutY="10.0" mnemonicParsing="false" onAction="#logoutBtn" text="Create User" />
+                  <VBox alignment="CENTER" prefHeight="79.0" prefWidth="191.0">
+                     <children>
+                        <HBox>
+                           <children>
+                              <MFXButton fx:id="createEventBtn" mnemonicParsing="false" onAction="#createEventBtn" text="Create Event" />
+                              <MFXButton mnemonicParsing="false" onAction="#editEvent" text="Edit Event">
+                                 <HBox.margin>
+                                    <Insets left="30.0" />
+                                 </HBox.margin>
+                              </MFXButton>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="15.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <VBox alignment="CENTER">
+                           <children>
+                              <MFXButton mnemonicParsing="false" onAction="#deleteEvent" text="Delete Event" />
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </VBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets right="130.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="79.0" prefWidth="191.0">
+                     <children>
+                        <HBox>
+                           <children>
+                              <MFXButton fx:id="logoutBtn11" mnemonicParsing="false" onAction="#logoutBtn" text="Create User" />
+                              <MFXButton fx:id="logoutBtn1" mnemonicParsing="false" onAction="#logoutBtn" text="Edit User">
+                                 <HBox.margin>
+                                    <Insets left="30.0" />
+                                 </HBox.margin>
+                              </MFXButton>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="15.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <VBox alignment="CENTER">
+                           <children>
+                              <MFXButton mnemonicParsing="false" onAction="#assignCoordinator" text="Assign Coordinators" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets right="50.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <HBox alignment="TOP_CENTER" prefHeight="79.0" prefWidth="161.0">
+                     <children>
+                        <HBox>
+                           <children>
+                              <MFXButton mnemonicParsing="false" onAction="#createTicket" text="Assign Tickets to Events" />
+                           </children>
+                           <HBox.margin>
+                              <Insets top="8.0" />
+                           </HBox.margin>
+                        </HBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </HBox>
+                  <HBox alignment="BOTTOM_RIGHT">
+                     <children>
+                        <MFXButton fx:id="logoutBtn" mnemonicParsing="false" onAction="#logoutBtn" text="Log Out" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="30.0" />
+                     </HBox.margin>
+                  </HBox>
                </children>
             </HBox>
          </bottom>
       </BorderPane>
    </center>
    <top>
-      <Button fx:id="closeBtn" mnemonicParsing="false" styleClass="closeBtn" BorderPane.alignment="TOP_RIGHT">
+      <HBox alignment="TOP_RIGHT" BorderPane.alignment="TOP_RIGHT">
          <BorderPane.margin>
-            <Insets bottom="3.0" right="2.0" top="-5.0" />
+            <Insets bottom="5.0" right="10.0" top="5.0" />
          </BorderPane.margin>
-      </Button>
+         <children>
+            <Button fx:id="closeBtn" minHeight="1.0" minWidth="3.0" mnemonicParsing="false" prefHeight="1.0" prefWidth="3.0" styleClass="closeBtn" />
+         </children>
+      </HBox>
    </top>
 </BorderPane>

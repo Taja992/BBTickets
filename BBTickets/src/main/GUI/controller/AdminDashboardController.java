@@ -5,6 +5,7 @@ import BE.User;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
 import GUI.model.UserModel;
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,6 +27,7 @@ import java.util.List;
 public class AdminDashboardController {
     public Button createUserBtn;
     public Button closeBtn;
+    public JFXToggleButton toggleUserListBtn;
     @FXML
     private BorderPane mainBp;
     @FXML
@@ -75,13 +77,12 @@ public class AdminDashboardController {
     public void initialize() {
         this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
         setupEventListView();
-        userListLv.setItems(userModel.getAllUsers());
+        userListLv.setItems(userModel.getUsersByType(1)); // this is since toggle is starting on admin
         listViewcell();
         eventHelper.eventListObserver();
         DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
         rightClickMenu();
     }
-
 
     public void rightClickMenu() {
 
@@ -252,4 +253,11 @@ public class AdminDashboardController {
         alert.showAndWait();
     }
 
+    public void toggleUserList(ActionEvent actionEvent) {
+        if (toggleUserListBtn.isSelected()) {
+            userListLv.setItems(userModel.getUsersByType(0)); // Show only users of type 0 (EC)
+        } else {
+            userListLv.setItems(userModel.getUsersByType(1)); // Show only users of type 1 (Admin)
+        }
+    }
 }

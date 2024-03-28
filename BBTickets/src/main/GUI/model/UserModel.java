@@ -59,4 +59,8 @@ public class UserModel {
         userBLL.deleteUser(selectedUser);
         loadUsers();
     }
+
+    public ObservableList<User> getUsersByType(int userType) {
+        return allUsers.filtered(user -> user.getUser_type() == userType);
+    }
 }
