@@ -5,6 +5,7 @@ import BE.User;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
 import GUI.model.UserModel;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -82,6 +83,7 @@ public class AdminDashboardController {
         DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
         rightClickMenu();
     }
+
 
     public void rightClickMenu() {
 
@@ -164,10 +166,6 @@ public class AdminDashboardController {
         }
     }
 
-    public void loadUsers() {
-        List<User> users = userModel.getAllUsers();
-        userListLv.getItems().setAll(users);
-    }
 
     private void listViewcell() {
         userListLv.setCellFactory(param -> new ListCell<>() {
@@ -185,11 +183,14 @@ public class AdminDashboardController {
     }
 
 
-    @FXML
     public void createUserBtn(ActionEvent actionEvent) {
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/createUser.fxml"));
             Parent root = loader.load();
+
+            CreateUserController controller = loader.getController();
+            controller.setUserModel(userModel);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -201,51 +202,38 @@ public class AdminDashboardController {
     }
 
 
-    private void removeUserFromEvent() {
-
-    }
-
     private void editUser() {
         User selectedUser = userListLv.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
 
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/CreateUser.fxml"));
-                    Parent root = loader.load();
-                    CreateUserController controller = loader.getController();
-                    controller.initEditMode(selectedUser);
+                CreateUserController controller = loader.getController();
+                controller.setUserModel(userModel);
+                controller.setUserToEdit(selectedUser);
 
-                    Stage stage = new Stage();
-                    stage.setScene(new Scene(root));
-                    stage.show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    showErrorDialog("Edit User Error", "Failed to load user editing view: " + e.getMessage());
-                }
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+                showErrorDialog("Edit User Error", "Failed to load user editing view: " + e.getMessage());
+            }
         }
     }
 
 
     private void deleteUser() {
         User selectedUser = userListLv.getSelectionModel().getSelectedItem();
+        Event selectedEvent = eventListLv.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation Dialog");
-            alert.setHeaderText("Delete User");
-            alert.setContentText("Are you sure you want to delete this user?");
-
-            Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK) {
-                // User chose OK, proceed with deletion
-                try {
-                    userModel.deleteUser(selectedUser);
-                } catch (BBExceptions e) {
-                    e.printStackTrace();
-                    String errorMessage = "Failed to delete user " + selectedUser.getUsername() + ": " + e.getMessage();
-                    showErrorDialog("Delete User Error", errorMessage);
+            try {
+                userModel.deleteUser(selectedUser);
+                if (selectedEvent != null) {
+                    eventHelper.refreshUserWindowHbox(selectedEvent);
                 }
-            } else {
-                // User chose Cancel or closed the dialog, do nothing
+            } catch (BBExceptions e) {
+                e.printStackTrace();
+                String errorMessage = "Failed to delete user " + selectedUser.getUsername() + ": " + e.getMessage();
+                showErrorDialog("Delete User Error", errorMessage);
             }
         }
     }

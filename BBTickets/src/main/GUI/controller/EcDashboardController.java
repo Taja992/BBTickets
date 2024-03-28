@@ -91,7 +91,7 @@ public class EcDashboardController {
             // Add the events to the ListView
             eventListLv.setItems(events);
         } catch (BBExceptions e) {
-            e.printStackTrace();
+            showErrorDialog("Event Fetch Error", "Failed to fetch events for the user.");
         }
     }
 
@@ -110,48 +110,59 @@ public class EcDashboardController {
             }
         });
     }
-    
-    public void deleteEvent(ActionEvent actionEvent) throws BBExceptions {
+
+    public void deleteEvent(ActionEvent actionEvent) {
         Event selected = eventListLv.getSelectionModel().getSelectedItem();
         if(selected != null){
-            eventModel.deleteEvent(selected.getEventId());
-            refreshTable();
+            try {
+                eventModel.deleteEvent(selected.getEventId());
+                refreshTable();
+            } catch (BBExceptions e) {
+                showErrorDialog("Delete Error", "Failed to delete the event.");
+            }
         }
     }
 
-    public void createTicket(ActionEvent actionEvent) throws IOException {
+    public void createTicket(ActionEvent actionEvent) {
         if(eventListLv.getSelectionModel().getSelectedItem() != null){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/createTicket.fxml"));
-            Parent root = loader.load();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/createTicket.fxml"));
+                Parent root = loader.load();
 
-            CreateTicketController control = loader.getController();
-            control.setEvent(eventListLv.getSelectionModel().getSelectedItem());
+                CreateTicketController control = loader.getController();
+                control.setEvent(eventListLv.getSelectionModel().getSelectedItem());
 
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.show();
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                showErrorDialog("Create Ticket Error", "Failed to create a ticket.");
+            }
         } else {
-            //maybe we could print some error screen here
+            showErrorDialog("Selection Error", "Please select an event to create a ticket.");
         }
-
     }
 
-    public void editEvent(ActionEvent actionEvent) throws BBExceptions, IOException {
+
+    public void editEvent(ActionEvent actionEvent) {
         BE.Event selected = eventListLv.getSelectionModel().getSelectedItem();
         if(selected != null){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/manageEvent.fxml"));
-            Parent root = loader.load();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/manageEvent.fxml"));
+                Parent root = loader.load();
 
-            ManageEventController controller = loader.getController();
-            controller.setDashboard(this);
-            controller.setEvent(selected);
+                ManageEventController controller = loader.getController();
+                controller.setDashboard(this);
+                controller.setEvent(selected);
 
-
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.show();
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                showErrorDialog("Edit Event Error", "Failed to edit the event.");
+            }
         }
     }
 
@@ -180,42 +191,38 @@ public class EcDashboardController {
 
     public void createEventBtn(ActionEvent actionEvent) {
         try {
-            // Load createEvent.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/createEvent.fxml"));
             Parent root = loader.load();
 
-            // Get the controller and set the user ID
             CreateEvent controller = loader.getController();
             controller.setUserId(userId);
             controller.setRenameThisEcController(this);
 
-            // Create a new stage for the create event screen
             Stage createEventStage = new Stage();
             createEventStage.initStyle(StageStyle.DECORATED);
 
-            // Create a new scene with the loaded parent and set it on the stage
             Scene scene = new Scene(root);
             createEventStage.setTitle("Create Event");
             createEventStage.setScene(scene);
 
-            // Show the create event stage
             createEventStage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            showErrorDialog("Create Event Error", "Failed to create an event.");
         }
     }
 
-    private String formatDateTime(LocalDateTime dateTime) {
-        if (dateTime == null) {
-            return "";
-        }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy  '⏰'HH:mm");
-        return formatter.format(dateTime);
-    }
 
     public void assignCoordinator(ActionEvent actionEvent) {
     }
 
     public void logoutBtn(ActionEvent actionEvent) {
+    }
+
+    private void showErrorDialog(String title, String message){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

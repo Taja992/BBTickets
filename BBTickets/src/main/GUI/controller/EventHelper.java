@@ -7,10 +7,7 @@ import GUI.model.EventModel;
 import GUI.model.UserModel;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
@@ -24,7 +21,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Random;
 
 public class EventHelper {
@@ -85,7 +81,7 @@ public class EventHelper {
                 addUserToHbox(user);
             }
         } catch (BBExceptions | URISyntaxException e) {
-            throw new RuntimeException(e);
+            showErrorDialog("Failed to handle event selection.");
         }
     }
 
@@ -109,7 +105,7 @@ public class EventHelper {
                 eventModel.removeUserFromEvent(user.getUserId(), selectedEvent.getEventId());
                 refreshUserWindowHbox(selectedEvent);
             } catch (BBExceptions ex) {
-                throw new RuntimeException(ex);
+                showErrorDialog("Failed to remove user from event.");
             }
         });
         contextMenu.getItems().add(removeUser);
@@ -179,7 +175,15 @@ public class EventHelper {
                 addUserToHbox(user);
             }
         } catch (BBExceptions | URISyntaxException e) {
-            throw new RuntimeException(e);
+            showErrorDialog("Failed to refresh user window.");
         }
+    }
+
+    private void showErrorDialog(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
