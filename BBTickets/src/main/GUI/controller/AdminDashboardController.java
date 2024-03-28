@@ -183,13 +183,15 @@ public class AdminDashboardController {
 
 
     public void createUserBtn(ActionEvent actionEvent) {
-
+        Event selectedEvent = eventListLv.getSelectionModel().getSelectedItem();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/createUser.fxml"));
             Parent root = loader.load();
 
             CreateUserController controller = loader.getController();
             controller.setUserModel(userModel);
+            controller.setEventHelper(eventHelper);
+            controller.setSelectedEvent(selectedEvent);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -203,6 +205,7 @@ public class AdminDashboardController {
 
     private void editUser() {
         User selectedUser = userListLv.getSelectionModel().getSelectedItem();
+        Event selectedEvent = eventListLv.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/CreateUser.fxml"));
@@ -211,6 +214,8 @@ public class AdminDashboardController {
                 CreateUserController controller = loader.getController();
                 controller.setUserModel(userModel);
                 controller.setUserToEdit(selectedUser);
+                controller.setEventHelper(eventHelper);
+                controller.setSelectedEvent(selectedEvent);
 
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));

@@ -167,7 +167,7 @@ public class LoginController {
             scene.setFill(Color.TRANSPARENT);
             stage.initStyle(StageStyle.TRANSPARENT);
             stage.setScene(scene);
-          //  stage.initStyle(StageStyle.DECORATED);
+            //  stage.initStyle(StageStyle.DECORATED);
             stage.show();
 
             windowControls(stage, scene);
