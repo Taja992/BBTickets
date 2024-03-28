@@ -5,6 +5,7 @@ import BE.User;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
 import GUI.model.UserModel;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -81,6 +82,7 @@ public class AdminDashboardController {
         rightClickMenu();
     }
 
+
     public void rightClickMenu() {
 
         ContextMenu userlistContextMenu = new ContextMenu();
@@ -122,11 +124,7 @@ public class AdminDashboardController {
         }
     }
 
-    public void assignCoordinator(ActionEvent actionEvent) {
-    }
 
-    public void createTicket(ActionEvent actionEvent) {
-    }
 
     public void deleteEvent(ActionEvent actionEvent)  throws BBExceptions {
         //gets the selected item from the table and deletes it (does nothing if nothing is selected)
@@ -137,11 +135,6 @@ public class AdminDashboardController {
         }
     }
 
-    public void editEvent(ActionEvent actionEvent) {
-    }
-
-    public void createEventBtn(ActionEvent actionEvent) {
-    }
 
     private void setupEventListView() {
         // Set the cell factory of the ListView
@@ -165,17 +158,13 @@ public class AdminDashboardController {
 
     private void loadEventsToListView() {
         try {
-            // Call getAllEvents from eventModel and set the result as the items of eventListLv
             eventListLv.getItems().setAll(eventModel.getAllEvents());
         } catch (BBExceptions e) {
             e.printStackTrace();
+            showErrorDialog("Load Events Error", "Failed to load events: " + e.getMessage());
         }
     }
 
-    public void loadUsers() {
-        List<User> users = userModel.getAllUsers();
-        userListLv.getItems().setAll(users);
-    }
 
     private void listViewcell(){
         userListLv.setCellFactory(param -> new ListCell<>() {
@@ -193,57 +182,74 @@ public class AdminDashboardController {
     }
 
 
-    @FXML
     public void createUserBtn(ActionEvent actionEvent) {
+        Event selectedEvent = eventListLv.getSelectionModel().getSelectedItem();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/createUser.fxml"));
             Parent root = loader.load();
 
             CreateUserController controller = loader.getController();
-            controller.setRenameAdminDashboardController(this);
+            controller.setUserModel(userModel);
+            controller.setEventHelper(eventHelper);
+            controller.setSelectedEvent(selectedEvent);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            showErrorDialog("Create User Error", "Failed to load user creation view: " + e.getMessage());
         }
     }
 
 
-    private void removeUserFromEvent() {
-
-    }
     private void editUser() {
         User selectedUser = userListLv.getSelectionModel().getSelectedItem();
+        Event selectedEvent = eventListLv.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/CreateUser.fxml"));
                 Parent root = loader.load();
 
                 CreateUserController controller = loader.getController();
-                controller.initEditMode(selectedUser);
-                controller.setRenameAdminDashboardController(this);
+                controller.setUserModel(userModel);
+                controller.setUserToEdit(selectedUser);
+                controller.setEventHelper(eventHelper);
+                controller.setSelectedEvent(selectedEvent);
 
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
                 stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
+                showErrorDialog("Edit User Error", "Failed to load user editing view: " + e.getMessage());
             }
         }
     }
 
     private void deleteUser() {
         User selectedUser = userListLv.getSelectionModel().getSelectedItem();
+        Event selectedEvent = eventListLv.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
             try {
                 userModel.deleteUser(selectedUser);
-
+                if (selectedEvent != null) {
+                    eventHelper.refreshUserWindowHbox(selectedEvent);
+                }
             } catch (BBExceptions e) {
                 e.printStackTrace();
+                String errorMessage = "Failed to delete user " + selectedUser.getUsername() + ": " + e.getMessage();
+                showErrorDialog("Delete User Error", errorMessage);
             }
         }
+    }
+
+    private void showErrorDialog(String title, String message){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 }
