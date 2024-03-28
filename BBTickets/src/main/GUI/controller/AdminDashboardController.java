@@ -223,9 +223,13 @@ public class AdminDashboardController {
 
     private void deleteUser() {
         User selectedUser = userListLv.getSelectionModel().getSelectedItem();
+        Event selectedEvent = eventListLv.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
             try {
                 userModel.deleteUser(selectedUser);
+                if (selectedEvent != null) {
+                    eventHelper.refreshUserWindowHbox(selectedEvent);
+                }
             } catch (BBExceptions e) {
                 e.printStackTrace();
                 String errorMessage = "Failed to delete user " + selectedUser.getUsername() + ": " + e.getMessage();

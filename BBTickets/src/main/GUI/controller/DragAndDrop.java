@@ -4,6 +4,7 @@ import BE.Event;
 import BE.User;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
@@ -67,6 +68,11 @@ public class DragAndDrop {
                     eventModel.assignUserToEvent(userId, eventId);
                     eventHelper.refreshUserWindowHbox(selectedEvent);
                 } catch (BBExceptions e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setHeaderText(null);
+                    alert.setContentText("A user can only be assigned to an event once.");
+                    alert.showAndWait();
                     throw new RuntimeException(e);
                 }
 
