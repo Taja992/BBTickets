@@ -63,26 +63,24 @@ public class CreateUserController {
         String password = passwordField.getText();
 
         try {
-        if (userToEdit != null) {
-            // Update the existing user
-            userToEdit.setUsername(username);
-            userToEdit.setPassword(password);
-            userToEdit.setUser_type(userType);
-            userModel.updateUser(userToEdit);
-        } else {
-            // Create a new user
-            User newUser = new User(userType, password, username);
-            userModel.newUser(newUser);
-        }
-    } catch (BBExceptions e) {
+            if (userToEdit != null) {
+                // Update the existing user
+                userToEdit.setUsername(username);
+                userToEdit.setPassword(password);
+                userToEdit.setUser_type(userType);
+                userModel.updateUser(userToEdit);
+            } else {
+                // Create a new user
+                User newUser = new User(userType, password, username);
+                userModel.newUser(newUser);
+            }
+        } catch (BBExceptions e) {
             showErrorDialog("Failed to create or edit user.");
         }
 
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
-
-
     }
 
     public void cancelCreateUser(ActionEvent actionEvent) {

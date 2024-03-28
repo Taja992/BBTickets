@@ -5,6 +5,7 @@ import BE.User;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
 import GUI.model.UserModel;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -63,10 +64,9 @@ public class AdminDashboardController {
     private int userId;
 
     public AdminDashboardController() {
-        userModel = UserModel.getInstance();
         eventModel = new EventModel();
+        userModel = new UserModel();
     }
-
 
     public void setUserId(int userId) {
         this.userId = userId;
@@ -81,6 +81,7 @@ public class AdminDashboardController {
         DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
         rightClickMenu();
     }
+
 
     public void rightClickMenu() {
 
@@ -164,10 +165,6 @@ public class AdminDashboardController {
         }
     }
 
-    public void loadUsers() {
-        List<User> users = userModel.getAllUsers();
-        userListLv.getItems().setAll(users);
-    }
 
     private void listViewcell(){
         userListLv.setCellFactory(param -> new ListCell<>() {
@@ -185,11 +182,14 @@ public class AdminDashboardController {
     }
 
 
-    @FXML
     public void createUserBtn(ActionEvent actionEvent) {
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/createUser.fxml"));
             Parent root = loader.load();
+
+            CreateUserController controller = loader.getController();
+            controller.setUserModel(userModel);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
@@ -201,18 +201,16 @@ public class AdminDashboardController {
     }
 
 
-    private void removeUserFromEvent() {
-
-    }
-
     private void editUser() {
         User selectedUser = userListLv.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/CreateUser.fxml"));
                 Parent root = loader.load();
+
                 CreateUserController controller = loader.getController();
-                controller.initEditMode(selectedUser);
+                controller.setUserModel(userModel);
+                controller.setUserToEdit(selectedUser);
 
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
@@ -226,9 +224,13 @@ public class AdminDashboardController {
 
     private void deleteUser() {
         User selectedUser = userListLv.getSelectionModel().getSelectedItem();
+        Event selectedEvent = eventListLv.getSelectionModel().getSelectedItem();
         if (selectedUser != null) {
             try {
                 userModel.deleteUser(selectedUser);
+                if (selectedEvent != null) {
+                    eventHelper.refreshUserWindowHbox(selectedEvent);
+                }
             } catch (BBExceptions e) {
                 e.printStackTrace();
                 String errorMessage = "Failed to delete user " + selectedUser.getUsername() + ": " + e.getMessage();
