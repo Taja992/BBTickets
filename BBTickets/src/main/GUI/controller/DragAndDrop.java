@@ -64,14 +64,16 @@ public class DragAndDrop {
                 int userId = selectedUser.getUserId();
                 int eventId = selectedEvent.getEventId();
 
-                try {
-                    eventModel.assignUserToEvent(userId, eventId);
-                    eventHelper.refreshUserWindowHbox(selectedEvent);
-                } catch (BBExceptions e) {
-                    showErrorDialog("A user can only be assigned to an event once.");
+                if (selectedUser.getUser_type() == 1) {
+                    showErrorDialog("Admin cannot be assigned to events.");
+                } else {
+                    try {
+                        eventModel.assignUserToEvent(userId, eventId);
+                        eventHelper.refreshUserWindowHbox(selectedEvent);
+                    } catch (BBExceptions e) {
+                        showErrorDialog("A user can only be assigned to an event once.");
+                    }
                 }
-
-                success = true;
             }
 
             event.setDropCompleted(success);
