@@ -38,16 +38,16 @@ public class Main extends Application {
     }
 
     public void windowControls(Stage primaryStage, Scene scene){
-        BorderPane titleBar = (BorderPane) scene.lookup("#titleBar");
-        Button closeButton = (Button) scene.lookup("#closeButton");
+        BorderPane mainBp = (BorderPane) scene.lookup("#mainBp");
+        Button closeButton = (Button) scene.lookup("#closeBtn");
 
         // Add functionality to move the window around
-        titleBar.setOnMousePressed(event -> {
+        mainBp.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
             yOffset = event.getSceneY();
         });
 
-        titleBar.setOnMouseDragged(event -> {
+        mainBp.setOnMouseDragged(event -> {
             primaryStage.setX(event.getScreenX() - xOffset);
             primaryStage.setY(event.getScreenY() - yOffset);
         });

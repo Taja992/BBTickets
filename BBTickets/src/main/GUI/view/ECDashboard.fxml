@@ -153,7 +153,7 @@
                         </HBox>
                         <VBox alignment="CENTER">
                            <children>
-                              <MFXButton mnemonicParsing="false" onAction="#deleteEvent" text="Delete Event" />
+                              <MFXButton depthLevel="LEVEL5" mnemonicParsing="false" onAction="#deleteEvent" text="Delete Event" />
                            </children>
                            <VBox.margin>
                               <Insets />
