@@ -1,6 +1,7 @@
 package GUI.controller;
 
 import BE.Event;
+import BE.User;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
 import GUI.model.UserModel;
@@ -25,21 +26,38 @@ import java.time.LocalDateTime;
 
 public class EcDashboardController {
 
-    public VBox eventWindowVbox;
-    public BorderPane mainBp;
-    public VBox eventListVbox;
-    public BorderPane nestedBp;
-    public HBox userWindowHbox;
-    public HBox bottomHbox;
-    public Button createEventBtn;
-    public Button closeBtn;
-    public Label eventTypeLbl;
-    public Label eventLocationLbl;
-    public Label eventStartLbl;
-    public Label eventEndLbl;
-    public Label eventNotesLbl;
-    public Label eventDirLbl;
-    public ListView<BE.Event> eventListLv;
+    @FXML
+    private VBox eventWindowVbox;
+    @FXML
+    private BorderPane mainBp;
+    @FXML
+    private VBox eventListVbox;
+    @FXML
+    private BorderPane nestedBp;
+    @FXML
+    private HBox userWindowHbox;
+    @FXML
+    private HBox bottomHbox;
+    @FXML
+    private Button createEventBtn;
+    @FXML
+    private Button closeBtn;
+    @FXML
+    private Label eventTypeLbl;
+    @FXML
+    private Label eventLocationLbl;
+    @FXML
+    private Label eventStartLbl;
+    @FXML
+    private Label eventEndLbl;
+    @FXML
+    private Label eventNotesLbl;
+    @FXML
+    private Label eventDirLbl;
+    @FXML
+    private ListView<BE.Event> eventListLv;
+    @FXML
+    private ListView<User> userListLv;
     @FXML
     private Button logoutBtn;
 
@@ -63,6 +81,9 @@ public class EcDashboardController {
         setupLogoutButton();
         setupEventList();
         eventHelper.eventListObserver();
+        listViewcell();
+        DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
+        userListLv.setItems(userModel.getUsersByType(0));
     }
 
     private void setupLogoutButton() {
@@ -76,6 +97,21 @@ public class EcDashboardController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void listViewcell(){
+        userListLv.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(User item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getUsername());
+                }
+            }
+        });
     }
 
     public void refreshTable(){
