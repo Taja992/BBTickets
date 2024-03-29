@@ -168,7 +168,8 @@ public class EcDashboardController {
 
     private void loadNewScene(String fxmlPath, Button button) throws IOException {
         // Load fxml file
-        Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+        Parent root = loader.load();
 
         // Create a new stage for the new screen
         Stage newStage = new Stage();
@@ -186,6 +187,12 @@ public class EcDashboardController {
 
         // Show the new stage
         newStage.show();
+
+        // Check if the loaded controller is LoginController and call windowControls
+        if (loader.getController() instanceof LoginController) {
+            LoginController loginController = loader.getController();
+            loginController.windowControls(newStage, scene);
+        }
     }
 
     public void createEventBtn(ActionEvent actionEvent) {

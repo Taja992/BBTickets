@@ -19,9 +19,9 @@ import java.util.prefs.Preferences;
 public class LoginController {
 
     @FXML
-    private BorderPane titleBar;
+    private BorderPane mainBp;
     @FXML
-    private Button closeButton;
+    private Button closeBtn;
     private double xOffset = 0;
     private double yOffset = 0;
     public Button loginBtn;
@@ -48,31 +48,6 @@ public class LoginController {
         loadSavedCredentials();
         setupForgotPasswordLabel();
         setupLoginButton();
-    }
-
-    private void setupWindowMovement() {
-        titleBar.setOnMousePressed(this::handleMousePressed);
-        titleBar.setOnMouseDragged(this::handleMouseDragged);
-        closeButton.setOnAction(this::handleCloseButton);
-    }
-
-    @FXML
-    private void handleMousePressed(MouseEvent event) {
-        xOffset = event.getSceneX();
-        yOffset = event.getSceneY();
-    }
-
-    @FXML
-    private void handleMouseDragged(MouseEvent event) {
-        Stage stage = (Stage) titleBar.getScene().getWindow();
-        stage.setX(event.getScreenX() - xOffset);
-        stage.setY(event.getScreenY() - yOffset);
-    }
-
-    @FXML
-    private void handleCloseButton(ActionEvent event) {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
     }
 
     private void loadSavedCredentials() {
