@@ -79,12 +79,15 @@ public class CreateUserController {
                 userToEdit.setPassword(password);
                 userToEdit.setUser_type(userType);
                 userModel.updateUser(userToEdit);
+                if(selectedEvent != null) {
+                eventHelper.refreshUserWindowHbox(selectedEvent);
+                }
             } else {
                 // Create a new user
                 User newUser = new User(userType, password, username);
                 userModel.newUser(newUser);
             }
-            eventHelper.refreshUserWindowHbox(selectedEvent);
+
         } catch (BBExceptions e) {
             showErrorDialog("Failed to create or edit user.");
         }
