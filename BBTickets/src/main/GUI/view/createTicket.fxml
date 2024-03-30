@@ -19,7 +19,7 @@
             <Insets top="10.0" />
          </VBox.margin>
       </Label>
-      <ChoiceBox prefWidth="150.0" />
+      <ChoiceBox fx:id="typeChcBox" prefWidth="150.0" />
       <Label layoutX="128.0" layoutY="202.0" text="Who do you want to give this ticket to?">
          <VBox.margin>
             <Insets />
@@ -32,18 +32,18 @@
       </ListView>
       <HBox spacing="6.0">
          <children>
-            <CheckBox mnemonicParsing="false" prefHeight="30.0" prefWidth="125.0" text="Create a new user not on this list" wrapText="true" />
+            <CheckBox fx:id="newCustChkBox" mnemonicParsing="false" prefHeight="52.0" prefWidth="124.0" text="Create a new customer not on this list" wrapText="true" />
             <VBox prefHeight="99.0" prefWidth="169.0">
                <children>
                   <Label text="Name:" />
-                  <TextField fx:id="priceTxt1" prefHeight="36.0" prefWidth="97.0" promptText="enter price here">
+                  <TextField fx:id="custNameTxt" prefHeight="36.0" prefWidth="97.0" promptText="enter name here">
                      <styleClass>
                         <String fx:value="eventListLstV" />
                         <String fx:value="miniTextField" />
                      </styleClass>
                   </TextField>
                   <Label layoutX="10.0" layoutY="10.0" text="Email:" />
-                  <TextField fx:id="priceTxt11" layoutX="10.0" layoutY="10.0" prefHeight="36.0" prefWidth="138.0" promptText="enter price here">
+                  <TextField fx:id="custEmailTxt" layoutX="10.0" layoutY="10.0" prefHeight="36.0" prefWidth="138.0" promptText="enter email here">
                      <styleClass>
                         <String fx:value="eventListLstV" />
                         <String fx:value="miniTextField" />

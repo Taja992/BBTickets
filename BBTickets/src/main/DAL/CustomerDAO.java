@@ -17,7 +17,7 @@ public class CustomerDAO {
     }
 
     public void newCustomer(Customer customer) throws BBExceptions {
-        String sql = "INSERT INTO [Customer] (customer_name, customer_email) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO [Customer] (name, email) VALUES (?, ?)";
 
         try {
             Connection connection = connectionManager.getConnection();
@@ -51,8 +51,6 @@ public class CustomerDAO {
             }
 
 
-        } catch (SQLServerException e) {
-            throw new RuntimeException(e);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
