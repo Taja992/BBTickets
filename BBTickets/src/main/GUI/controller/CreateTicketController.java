@@ -102,24 +102,27 @@ public class CreateTicketController implements Initializable {
         int width = 450;
         int height = 300;
 
-        if(!filelocationTxt.getText().isEmpty()){
+        if(!filelocationTxt.getText().isEmpty() && !typeChcBox.getValue().isEmpty()){
+            String type = typeChcBox.getSelectionModel().getSelectedItem();
+
             if(newCustChkBox.isSelected()){
+                //create a new customer if the new customer checkbox is selected
                 if(!custNameTxt.getText().isEmpty() && !custEmailTxt.getText().isEmpty()){
                     Customer cust = new Customer(custNameTxt.getText(),custEmailTxt.getText());
                     custModel.newCustomer(cust);
-                    printTicketWithInfo(width, height, cust, selectedEvent);
+                    printTicketWithInfo(width, height, cust, selectedEvent, type);
                 }
             } else{
                 if(customerLv.getSelectionModel().getSelectedItem() != null){
                     Customer selectedCust = customerLv.getSelectionModel().getSelectedItem();
-                    printTicketWithInfo(width, height, selectedCust, selectedEvent);
+                    printTicketWithInfo(width, height, selectedCust, selectedEvent, type);
                 }
             }
         }
 
     }
 
-    private void printTicketWithInfo(int width, int height, Customer cust, Event event) throws IOException {
+    private void printTicketWithInfo(int width, int height, Customer cust, Event event, String type) throws IOException {
         PDDocument ticketDoc = new PDDocument();
         PDRectangle pageSize = new PDRectangle(width, height);
         PDPage page = new PDPage(pageSize);
@@ -127,14 +130,25 @@ public class CreateTicketController implements Initializable {
 
         PDPageContentStream stream = new PDPageContentStream(ticketDoc, page);
 
-        
-        stream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA), 12);
+
         stream.beginText();
+        stream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA), 10);
+        stream.setLeading(15);
         stream.newLineAtOffset(10,height - 40); //first bit of text
         stream.showText("Customer Name: " + cust.getCustomerName());
 
-        stream.newLineAtOffset(10,height - 45); //2nd bit of text
+        stream.newLineAtOffset(160, 0);
+        stream.showText("Customer Email: " + cust.getCustomerEmail());
+
+        //"newLineAtOffset()" creates a new line based on the position of the previous line
+        //so newLineAtOffset(0,0) would just make a new line at the same place as the old one,
+        //and not at the positions (0,0) in the worldspace. I hope that makes sense
+        stream.newLineAtOffset(-160,-15);
         stream.showText("Event: " + event.getEventType());
+
+        stream.newLine(); //"newLine()" makes a new line with the spacing set by the "setLeading()" method
+        stream.showText("Ticket Type: " + type);
+
 
         stream.endText();
 
@@ -148,6 +162,8 @@ public class CreateTicketController implements Initializable {
         ticketDoc.close();
 
     }
+
+
     /*
     //incase I want to add these later
     stream.addRect(390,220,20,20); //new rectangle
