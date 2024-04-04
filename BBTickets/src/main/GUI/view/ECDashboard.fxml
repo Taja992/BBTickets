@@ -43,55 +43,59 @@
          <top>
             <MFXScrollPane fitToHeight="true" prefHeight="150.0" prefWidth="855.0" vbarPolicy="NEVER" BorderPane.alignment="CENTER_LEFT">
                <content>
-                  <HBox fx:id="userWindowHbox" spacing="10.0" styleClass="userWindowHbox" />
+                  <HBox fx:id="userWindowHbox" prefHeight="148.0" prefWidth="853.0" spacing="10.0" styleClass="userWindowHbox" />
                </content>
             </MFXScrollPane>
          </top>
          <center>
             <VBox fx:id="eventWindowVbox" alignment="CENTER" prefHeight="410.0" prefWidth="645.0" styleClass="eventWindowVbox">
                <children>
-                  <Label fx:id="eventTypeLbl" text="Some Cool Event Name">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font size="24.0" />
-                     </font></Label>
-                  <Label fx:id="eventLocationLbl" text="Event Location">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font size="24.0" />
-                     </font></Label>
-                  <Label fx:id="eventStartLbl" text="Event Start Time">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font size="24.0" />
-                     </font></Label>
-                  <Label fx:id="eventEndLbl" text="Event End Time">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font size="24.0" />
-                     </font></Label>
-                  <Label fx:id="eventNotesLbl" text="Event Notes">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font size="24.0" />
-                     </font></Label>
-                  <Label fx:id="eventDirLbl" text="Directions">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                     <font>
-                        <Font size="24.0" />
-                     </font></Label>
+                  <HBox>
+                     <children>
+                        <VBox>
+                           <children>
+                              <Label fx:id="eventTypeLbl" text="Some Cool Event Name">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="eventLocationLbl" text="Event Location">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <Label fx:id="eventStartLbl" text="Event Start Time">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="eventEndLbl" text="Event End Time">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <VBox>
+                     <children>
+                        <Label fx:id="eventNotesLbl" text="Event Notes">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="eventDirLbl" text="Directions">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
                </children>
                <opaqueInsets>
                   <Insets />
