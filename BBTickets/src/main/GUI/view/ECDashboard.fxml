@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainBp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1095.0" styleClass="mainBp" stylesheets="/GUI/view/ECDashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.EcDashboardController">
+<BorderPane fx:id="mainBp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1095.0" styleClass="mainBp" stylesheets="/GUI/view/ECDashboard.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.EcDashboardController">
    <left>
       <VBox fx:id="eventListVbox" styleClass="eventListVbox" BorderPane.alignment="CENTER">
          <children>
@@ -42,45 +41,14 @@
    <center>
       <BorderPane fx:id="nestedBp" prefHeight="200.0" prefWidth="200.0" styleClass="nestedBp" BorderPane.alignment="CENTER">
          <top>
-            <HBox fx:id="userWindowHbox" prefHeight="162.0" prefWidth="895.0" spacing="10.0" styleClass="userWindowHbox" BorderPane.alignment="CENTER_LEFT">
-               <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="tempUser1">
-                     <HBox.margin>
-                        <Insets left="5.0" top="5.0" />
-                     </HBox.margin>
-                     <image>
-                        <Image url="@../../../../../../../../../../../Pictures/Pictures/51321776_p0.jpg" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="153.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="tempUser2">
-                     <HBox.margin>
-                        <Insets top="5.0" />
-                     </HBox.margin>
-                     <image>
-                        <Image url="@../../../../../../../../../../../Pictures/Pictures/Kitz/60799959_p0.jpg" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="tempUser3">
-                     <HBox.margin>
-                        <Insets top="5.0" />
-                     </HBox.margin>
-                     <image>
-                        <Image url="@../../../../../../../../../../../Pictures/Pictures/Kitz/61162586_p0.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="tempUser4">
-                     <HBox.margin>
-                        <Insets top="5.0" />
-                     </HBox.margin>
-                     <image>
-                        <Image url="@../../../../../../../../../../../Pictures/Pictures/Kitz/61144338_p0.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </HBox>
+            <MFXScrollPane fitToHeight="true" prefHeight="150.0" prefWidth="855.0" vbarPolicy="NEVER" BorderPane.alignment="CENTER_LEFT">
+               <content>
+                  <HBox fx:id="userWindowHbox" spacing="10.0" styleClass="userWindowHbox" />
+               </content>
+            </MFXScrollPane>
          </top>
          <center>
-            <VBox fx:id="eventWindowVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="eventWindowVbox">
+            <VBox fx:id="eventWindowVbox" alignment="CENTER" prefHeight="410.0" prefWidth="645.0" styleClass="eventWindowVbox">
                <children>
                   <Label fx:id="eventTypeLbl" text="Some Cool Event Name">
                      <VBox.margin>
@@ -134,50 +102,33 @@
             </VBox>
          </center>
          <bottom>
-            <HBox fx:id="bottomHbox" prefHeight="100.0" prefWidth="200.0" styleClass="bottomHbox" BorderPane.alignment="CENTER">
+            <HBox fx:id="bottomHbox" alignment="CENTER" prefHeight="45.0" prefWidth="855.0" spacing="70.0" styleClass="bottomHbox" BorderPane.alignment="CENTER">
                <children>
-                  <HBox prefHeight="25.0" prefWidth="224.0">
-                     <children>
-                        <VBox>
-                           <children>
-                              <HBox spacing="10.0">
-                                 <children>
-                                    <MFXButton fx:id="createEventBtn" mnemonicParsing="false" onAction="#createEventBtn" prefHeight="25.0" prefWidth="101.0" text="Create Event" />
-                                    <MFXButton mnemonicParsing="false" onAction="#editEvent" prefHeight="25.0" prefWidth="96.0" text="Edit Event" />
-                                 </children>
-                              </HBox>
-                              <MFXButton depthLevel="LEVEL5" mnemonicParsing="false" onAction="#deleteEvent" text="Delete Event">
-                                 <VBox.margin>
-                                    <Insets left="50.0" top="35.0" />
-                                 </VBox.margin>
-                              </MFXButton>
-                           </children>
-                           <HBox.margin>
-                              <Insets left="10.0" top="5.0" />
-                           </HBox.margin>
-                        </VBox>
-                     </children>
-                  </HBox>
-                  <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="192.0">
-                     <children>
-                        <VBox>
-                           <children>
-                              <MFXButton mnemonicParsing="false" onAction="#createTicket" text="Assign Tickets to Events" />
-                              <MFXButton fx:id="logoutBtn" mnemonicParsing="false" onAction="#logoutBtn" text="Log Out">
-                                 <VBox.margin>
-                                    <Insets left="40.0" top="35.0" />
-                                 </VBox.margin>
-                              </MFXButton>
-                           </children>
-                           <HBox.margin>
-                              <Insets top="5.0" />
-                           </HBox.margin>
-                        </VBox>
-                     </children>
+                  <MFXButton fx:id="createEventBtn" mnemonicParsing="false" onAction="#createEventBtn" prefHeight="25.0" prefWidth="101.0" text="Create Event">
                      <HBox.margin>
-                        <Insets left="500.0" />
+                        <Insets />
                      </HBox.margin>
-                  </HBox>
+                  </MFXButton>
+                  <MFXButton mnemonicParsing="false" onAction="#editEvent" prefHeight="25.0" prefWidth="96.0" text="Edit Event">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </MFXButton>
+                  <MFXButton depthLevel="LEVEL5" mnemonicParsing="false" onAction="#deleteEvent" text="Delete Event">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </MFXButton>
+                  <MFXButton mnemonicParsing="false" onAction="#createTicket" text="Assign Tickets to Events">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </MFXButton>
+                  <MFXButton fx:id="logoutBtn" mnemonicParsing="false" onAction="#logoutBtn" text="Log Out">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </MFXButton>
                </children>
             </HBox>
          </bottom>
