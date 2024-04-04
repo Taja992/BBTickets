@@ -22,7 +22,6 @@
     -fx-background-color: rgba(255, 255, 255, 0.7);
     -fx-border-radius: 15;
     -fx-text-fill: #333;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 0);
 }
 
 .list-view .list-cell:focused, .list-view .list-cell:selected {

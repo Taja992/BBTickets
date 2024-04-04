@@ -18,9 +18,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.time.format.DateTimeFormatter;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -77,6 +81,7 @@ public class EcDashboardController {
         userModel = new UserModel();}
 
     public void initialize() {
+        loadFont();
         this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
         eventModel = new EventModel();
         setupLogoutButton();
@@ -85,6 +90,34 @@ public class EcDashboardController {
         ListViewSetupUtility.setupUserListView(userListLv);
         DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
         userListLv.setItems(userModel.getUsersByType(0));
+    }
+
+    private void loadFont() {
+        try {
+            // Create a URL object with the Google Font URL
+            URL googleFontUrl = new URL("https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxP.ttf");
+
+            // Open a connection to the URL
+            URLConnection connection = googleFontUrl.openConnection();
+
+            // Get an InputStream from the connection
+            InputStream fontStream = connection.getInputStream();
+
+            // Load the font with the desired size
+            Font googleFont = Font.loadFont(fontStream, 20);
+
+            // Use the font in your application
+            // For example, set it as the font of a Label
+            eventTypeLbl.setFont(googleFont);
+            eventLocationLbl.setFont(googleFont);
+            eventNotesLbl.setFont(googleFont);
+            eventDirLbl.setFont(googleFont);
+            eventStartLbl.setFont(googleFont);
+            eventEndLbl.setFont(googleFont);
+        } catch (IOException e) {
+            // Handle exception
+            e.printStackTrace();
+        }
     }
 
     private void setupLogoutButton() {
