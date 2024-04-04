@@ -22,7 +22,6 @@
     -fx-background-color: rgba(255, 255, 255, 0.7);
     -fx-border-radius: 15;
     -fx-text-fill: #333;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 0);
 }
 
 .list-view .list-cell:focused, .list-view .list-cell:selected {
@@ -32,8 +31,6 @@
 
 .list-view .list-cell:hover {
     -fx-background-color: rgba(200, 200, 200, 0.7); /* Change this to the color you want when hovered */
-    -fx-scale-x: 0.98;
-    -fx-scale-y: 0.98;
     -fx-border-radius: 20;
     -fx-background-radius: 20;
 }
