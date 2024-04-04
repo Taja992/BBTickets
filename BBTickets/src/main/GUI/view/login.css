@@ -1,6 +1,6 @@
 
 .root {
-    -fx-background-color: linear-gradient(to top, #c79081 0%, #dfa579 100%);
+    -fx-background-color: linear-gradient(to top, rgba(232, 185, 255) 23%, rgba(223, 159, 247) 93%);
     -fx-border-radius: 15px;
     -fx-background-radius: 15px;
 }

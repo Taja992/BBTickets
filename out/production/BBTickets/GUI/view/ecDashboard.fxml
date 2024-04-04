@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -11,9 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainBp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1095.0" styleClass="mainBp" stylesheets="/GUI/view/ECDashboard.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.EcDashboardController">
+<BorderPane fx:id="mainBp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1095.0" styleClass="mainBp" stylesheets="/GUI/view/ECDashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.EcDashboardController">
    <left>
-      <VBox fx:id="eventListVbox" styleClass="eventListVbox" BorderPane.alignment="CENTER">
+      <VBox fx:id="eventListVbox" prefWidth="223.0" styleClass="eventListVbox" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER">
                <children>
@@ -154,31 +153,11 @@
          <bottom>
             <HBox fx:id="bottomHbox" alignment="CENTER" prefHeight="45.0" prefWidth="855.0" spacing="70.0" styleClass="bottomHbox" BorderPane.alignment="CENTER">
                <children>
-                  <MFXButton fx:id="createEventBtn" mnemonicParsing="false" onAction="#createEventBtn" prefHeight="25.0" prefWidth="101.0" text="Create Event">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </MFXButton>
-                  <MFXButton mnemonicParsing="false" onAction="#editEvent" prefHeight="25.0" prefWidth="96.0" text="Edit Event">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </MFXButton>
-                  <MFXButton depthLevel="LEVEL5" mnemonicParsing="false" onAction="#deleteEvent" text="Delete Event">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </MFXButton>
-                  <MFXButton mnemonicParsing="false" onAction="#createTicket" text="Assign Tickets to Events">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </MFXButton>
-                  <MFXButton fx:id="logoutBtn" mnemonicParsing="false" onAction="#logoutBtn" text="Log Out">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </MFXButton>
+                  <Button fx:id="createEventBtn" mnemonicParsing="false" onAction="#createEventBtn" text="Create Event" />
+                  <Button mnemonicParsing="false" onAction="#editEvent" text="Edit Event" />
+                  <Button mnemonicParsing="false" onAction="#deleteEvent" text="Delete Event" />
+                  <Button mnemonicParsing="false" onAction="#createTicket" text="Assign Tickets to Events" />
+                  <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logoutBtn" text="Log Out" />
                </children>
             </HBox>
          </bottom>

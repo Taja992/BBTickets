@@ -126,7 +126,7 @@ public class EventHelper {
             ImagePattern imagePattern = new ImagePattern(image);
             circle.setFill(imagePattern);
         } else {
-            circle.setFill(Color.TEAL);
+            circle.setFill(Color.web("#a06cb9"));
         }
         return circle;
     }
