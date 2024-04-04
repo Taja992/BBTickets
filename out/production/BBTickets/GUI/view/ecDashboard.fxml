@@ -39,38 +39,89 @@
       </VBox>
    </left>
    <center>
-      <BorderPane fx:id="nestedBp" prefHeight="200.0" prefWidth="200.0" styleClass="nestedBp" BorderPane.alignment="CENTER">
+      <BorderPane fx:id="nestedBp" prefHeight="759.0" prefWidth="867.0" styleClass="nestedBp" BorderPane.alignment="CENTER">
          <top>
             <MFXScrollPane fitToHeight="true" prefHeight="150.0" prefWidth="855.0" vbarPolicy="NEVER" BorderPane.alignment="CENTER_LEFT">
                <content>
-                  <HBox fx:id="userWindowHbox" spacing="10.0" styleClass="userWindowHbox" />
+                  <HBox fx:id="userWindowHbox" prefHeight="148.0" prefWidth="853.0" spacing="10.0" styleClass="userWindowHbox" />
                </content>
             </MFXScrollPane>
          </top>
          <center>
-            <VBox fx:id="eventWindowVbox" alignment="CENTER" prefHeight="410.0" prefWidth="645.0" styleClass="eventWindowVbox">
+            <VBox fx:id="eventWindowVbox" alignment="TOP_CENTER" prefHeight="410.0" prefWidth="645.0" styleClass="eventWindowVbox">
                <children>
-                  <HBox>
+                  <HBox prefHeight="481.0" prefWidth="717.0">
                      <children>
-                        <VBox>
+                        <VBox alignment="CENTER" prefHeight="440.0" prefWidth="343.0" spacing="150.0">
                            <children>
-                              <Label fx:id="eventTypeLbl" text="Some Cool Event Name">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="eventLocationLbl" text="Event Location">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Label>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" text="Event Name:">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="eventTypeLbl" alignment="CENTER" contentDisplay="CENTER" text="Some Cool Event Name">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" text="Event Location:">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="eventLocationLbl" alignment="CENTER" contentDisplay="CENTER" text="Some Event Location">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <Label text="Event Notes:">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="eventNotesLbl" text="Some Event Notes">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Event Directions:">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="eventDirLbl" text="Some Directions">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
                            </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
                         </VBox>
-                        <VBox>
+                        <VBox alignment="CENTER" prefHeight="440.0" prefWidth="266.0">
                            <children>
+                              <Label text="Start time:">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
                               <Label fx:id="eventStartLbl" text="Event Start Time">
                                  <font>
                                     <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label text="End time:">
+                                 <font>
+                                    <Font size="18.0" />
                                  </font>
                               </Label>
                               <Label fx:id="eventEndLbl" text="Event End Time">
@@ -79,30 +130,25 @@
                                  </font>
                               </Label>
                            </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
                         </VBox>
                      </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </HBox>
-                  <VBox>
-                     <children>
-                        <Label fx:id="eventNotesLbl" text="Event Notes">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="eventDirLbl" text="Directions">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
                </children>
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
                <BorderPane.margin>
-                  <Insets bottom="50.0" left="100.0" right="100.0" top="50.0" />
+                  <Insets bottom="27.0" left="100.0" right="100.0" top="27.0" />
                </BorderPane.margin>
+               <padding>
+                  <Insets bottom="30.0" top="30.0" />
+               </padding>
             </VBox>
          </center>
          <bottom>
