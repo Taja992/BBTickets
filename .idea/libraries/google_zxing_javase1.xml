@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="google.zxing.javase1" type="repository">
+    <properties maven-id="com.google.zxing:javase:2.2" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/zxing/javase/2.2/javase-2.2.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/zxing/core/2.2/core-2.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -23,8 +23,8 @@ public class TicketModel {
         ticketBLL.createTicket(type, customerId, eventId, UUID);
     }
 
-    public void printTicketWithInfo(int width, int height, Customer cust, Event event, String type, double price, String fileLocation) throws IOException {
-        ticketBLL.printTicketWithInfo(width, height, cust, event, type, price, fileLocation);
+    public void printTicketWithInfo(int width, int height, Customer cust, Event event, String type, double price,String uuid, String fileLocation) throws IOException {
+        ticketBLL.printTicketWithInfo(width, height, cust, event, type, price, uuid, fileLocation);
     }
 
     public String generateUUID(){
