@@ -13,16 +13,8 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
-
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,100 +71,56 @@ public class CreateTicketController implements Initializable {
 
     }
 
-    public void addTicket(ActionEvent actionEvent) {
-        if(customerLv.getSelectionModel().getSelectedItem() != null){
+    public void addTicket(ActionEvent actionEvent) throws BBExceptions, IOException {
+        if(customerLv.getSelectionModel().getSelectedItem() != null && !typeChcBox.getValue().isEmpty()
+                && !filelocationTxt.getText().isEmpty()){
             Customer cust = allCustomers.get(customerLv.getSelectionModel().getSelectedIndex());
 
 
-            double price = 0;
             if(!priceTxt.getText().isEmpty()){
-                price = Double.parseDouble(priceTxt.getText());
+                double price = Double.parseDouble(priceTxt.getText());
+                ticketModel.createTicket(typeChcBox.getValue(), cust.getCustId(), selectedEvent.getEventId(), price);
+                printTicket(actionEvent);
 
+            } else {
+                ticketModel.createTicket(typeChcBox.getValue(), cust.getCustId(), selectedEvent.getEventId());
+                printTicket(actionEvent);
             }
 
-            //change type to be either VIP or Standard (or any other options)
-            ticketModel.createTicket(selectedEvent.getEventType(), cust.getCustId(), selectedEvent.getEventId(), price);
         }
 
 
     }
 
 
-    public void printTicket(ActionEvent actionEvent) throws IOException, URISyntaxException, BBExceptions {
+    public void printTicket(ActionEvent actionEvent) throws IOException, BBExceptions {
         int width = 450;
         int height = 300;
 
         if(!filelocationTxt.getText().isEmpty() && !typeChcBox.getValue().isEmpty()){
             String type = typeChcBox.getSelectionModel().getSelectedItem();
 
+            double price = -1;
+            if(!priceTxt.getText().isEmpty()){
+                price = Double.parseDouble(priceTxt.getText());
+            }
+
             if(newCustChkBox.isSelected()){
                 //create a new customer if the new customer checkbox is selected
                 if(!custNameTxt.getText().isEmpty() && !custEmailTxt.getText().isEmpty()){
                     Customer cust = new Customer(custNameTxt.getText(),custEmailTxt.getText());
                     custModel.newCustomer(cust);
-                    printTicketWithInfo(width, height, cust, selectedEvent, type);
+                    ticketModel.printTicketWithInfo(width,height,cust,selectedEvent, type, price, filelocationTxt.getText());
                 }
             } else{
                 if(customerLv.getSelectionModel().getSelectedItem() != null){
                     Customer selectedCust = customerLv.getSelectionModel().getSelectedItem();
-                    printTicketWithInfo(width, height, selectedCust, selectedEvent, type);
+                    ticketModel.printTicketWithInfo(width,height,selectedCust,selectedEvent, type, price, filelocationTxt.getText());
                 }
             }
         }
 
     }
-
-    private void printTicketWithInfo(int width, int height, Customer cust, Event event, String type) throws IOException {
-        PDDocument ticketDoc = new PDDocument();
-        PDRectangle pageSize = new PDRectangle(width, height);
-        PDPage page = new PDPage(pageSize);
-        ticketDoc.addPage(page);
-
-        PDPageContentStream stream = new PDPageContentStream(ticketDoc, page);
-
-
-        stream.beginText();
-        stream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA), 10);
-        stream.setLeading(15);
-        stream.newLineAtOffset(10,height - 40); //first bit of text
-        stream.showText("Customer Name: " + cust.getCustomerName());
-
-        stream.newLineAtOffset(160, 0);
-        stream.showText("Customer Email: " + cust.getCustomerEmail());
-
-        //"newLineAtOffset()" creates a new line based on the position of the previous line
-        //so newLineAtOffset(0,0) would just make a new line at the same place as the old one,
-        //and not at the positions (0,0) in the worldspace. I hope that makes sense
-        stream.newLineAtOffset(-160,-15);
-        stream.showText("Event: " + event.getEventType());
-
-        stream.newLine(); //"newLine()" makes a new line with the spacing set by the "setLeading()" method
-        stream.showText("Ticket Type: " + type);
-
-
-        stream.endText();
-
-        stream.close();
-
-        String eventType = event.getEventType();
-        if(eventType.contains("?")){
-            eventType = eventType.replace('?', ' ');
-        }
-        ticketDoc.save(filelocationTxt.getText() + "\\Ticket For " + eventType + ".pdf");
-        ticketDoc.close();
-
-    }
-
-
-    /*
-    //incase I want to add these later
-    stream.addRect(390,220,20,20); //new rectangle
-
-    //adding test image
-    Path path = Paths.get(ClassLoader.getSystemResource("images/deleteThisLater.png").toURI()); //getting path
-    PDImageXObject image = PDImageXObject.createFromFile(path.toAbsolutePath().toString(), document); //converting to image object
-    stream.drawImage(image, 0, 469);
-     */
 
 
     public void chooseFile(ActionEvent actionEvent) {
