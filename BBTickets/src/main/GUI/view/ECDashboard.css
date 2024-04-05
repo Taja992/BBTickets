@@ -1,7 +1,11 @@
 .root {
     -fx-font-family: "Segoe UI";
-    -fx-background: linear-gradient(to right, #c69eec, #e6b8d4);
+    -fx-background-color: linear-gradient(to right, #c69eec, #e6b8d4);
     -fx-text-fill: #333;
+}
+
+.root * {
+    -fx-background-color: transparent;
 }
 
 
@@ -77,8 +81,14 @@
     -fx-background-color: #a162dd;
 }
 
-.userSp {
+.userWindowHbox {
     -fx-background-color: #ede1f8;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+}
+
+.userSp {
+    -fx-background-color: TRANSPARENT;
     -fx-border-radius: 50;
     -fx-background-radius: 50;
 }
@@ -93,4 +103,38 @@
     -fx-background-color: #ede1f8;
     -fx-border-radius: 50;
     -fx-background-radius: 50;
+}
+
+.buttonVbox {
+    -fx-background-color: #ede1f8;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+}
+
+
+.userSp .scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.userSp .scroll-bar .thumb {
+    -fx-background-color: #b98ad9;
+    -fx-background-insets: 2;
+    -fx-background-radius: 10;
+}
+
+.eventListLstV .scroll-bar .thumb {
+    -fx-background-color: #b98ad9;
+    -fx-background-insets: 2;
+    -fx-background-radius: 10;
+    -fx-padding: 0.25em;
+}
+
+.eventListLstV .scroll-bar {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10;
+}
+
+
+.eventListLstV .scroll-bar .increment-arrow, .eventListLstV .scroll-bar .decrement-arrow {
+    -fx-padding: 0;
 }
