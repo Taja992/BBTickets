@@ -8,6 +8,7 @@ import GUI.model.UserModel;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
@@ -46,6 +47,7 @@ public class EventHelper {
         this.eventEndLbl = eventEndLbl;
         this.eventNotesLbl = eventNotesLbl;
         this.eventDirLbl = eventDirLbl;
+
     }
 
 
@@ -119,14 +121,14 @@ public class EventHelper {
 
     //These adds the profile pic(random image atm) to the user
     private Circle createCircleForUser() throws URISyntaxException {
-        Circle circle = new Circle(40);
+        Circle circle = new Circle(28);
         String imagePath = getRandomImagePath();
         if (imagePath != null) {
             Image image = new Image(imagePath, 80, 80, false, true);
             ImagePattern imagePattern = new ImagePattern(image);
             circle.setFill(imagePattern);
         } else {
-            circle.setFill(Color.TEAL);
+            circle.setFill(Color.web("#a06cb9"));
         }
         return circle;
     }

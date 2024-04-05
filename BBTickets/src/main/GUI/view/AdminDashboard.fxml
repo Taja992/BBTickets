@@ -6,33 +6,66 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainBp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="756.0" prefWidth="1095.0" styleClass="mainBp" stylesheets="/GUI/view/AdminDashboard.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.AdminDashboardController">
+<BorderPane fx:id="mainBp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="701.0" prefWidth="1095.0" styleClass="mainBp" stylesheets="/GUI/view/AdminDashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.AdminDashboardController">
     <left>
         <VBox fx:id="eventListVbox" styleClass="eventListVbox" BorderPane.alignment="CENTER">
             <children>
-                <Label text="Event List" />
-                <ListView fx:id="eventListLv" prefHeight="309.0" prefWidth="200.0" styleClass="eventListLstV" />
+            <HBox alignment="CENTER">
+               <children>
+                      <Label styleClass="eventLbl" text="Events:">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+                <ListView fx:id="eventListLv" prefHeight="351.0" prefWidth="200.0" styleClass="eventListLstV">
+               <VBox.margin>
+                  <Insets left="10.0" right="5.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="55.0" top="45.0" />
+               </padding></ListView>
             <VBox alignment="CENTER">
                <children>
-                  <Label text="User List" />
                   <HBox alignment="CENTER">
                      <children>
-                        <Label text="Admin">
+                        <Label styleClass="coordLbl" text="Users:">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Label styleClass="coordLbl" text="Admin">
                            <HBox.margin>
                               <Insets left="15.0" />
                            </HBox.margin>
                         </Label>
                         <JFXToggleButton fx:id="toggleUserListBtn" onAction="#toggleUserList" prefHeight="38.0" prefWidth="74.0" size="8.0" text=" " toggleColor="#fafafa" toggleLineColor="#c694bb" unToggleLineColor="#c694bb" />
-                        <Label text="Event C." />
+                        <Label styleClass="coordLbl" text="Event C." />
                      </children>
                   </HBox>
-                  <ListView fx:id="userListLv" prefHeight="413.0" prefWidth="200.0" styleClass="userListLv" />
+                  <ListView fx:id="userListLv" prefHeight="413.0" prefWidth="200.0" styleClass="userListLv">
+                     <VBox.margin>
+                        <Insets bottom="40.0" left="10.0" right="5.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="50.0" top="45.0" />
+                     </padding></ListView>
                </children>
             </VBox>
             </children>
@@ -41,81 +74,136 @@
     <center>
         <BorderPane fx:id="nestedBp" prefHeight="200.0" prefWidth="200.0" styleClass="nestedBp" BorderPane.alignment="CENTER">
             <top>
-            <ScrollPane maxWidth="900.0" BorderPane.alignment="CENTER_LEFT">
+            <ScrollPane fitToHeight="true" maxHeight="101.0" prefHeight="101.0" prefWidth="673.0" styleClass="userSp">
                <content>
-                      <HBox fx:id="userWindowHbox" prefHeight="162.0" prefWidth="895.0" spacing="10.0" styleClass="userWindowHbox">
-                          <children>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="tempUser1">
-                                  <HBox.margin>
-                                      <Insets left="5.0" top="5.0" />
-                                  </HBox.margin>
-                                  <image>
-                                      <Image url="@../../../../../../../../../../../Pictures/Pictures/51321776_p0.jpg" />
-                                  </image>
-                              </ImageView>
-                              <ImageView fitHeight="153.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="tempUser2">
-                                  <HBox.margin>
-                                      <Insets top="5.0" />
-                                  </HBox.margin>
-                                  <image>
-                                      <Image url="@../../../../../../../../../../../Pictures/Pictures/Kitz/60799959_p0.jpg" />
-                                  </image>
-                              </ImageView>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="tempUser3">
-                                  <HBox.margin>
-                                      <Insets top="5.0" />
-                                  </HBox.margin>
-                                  <image>
-                                      <Image url="@../../../../../../../../../../../Pictures/Pictures/Kitz/61162586_p0.png" />
-                                  </image>
-                              </ImageView>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="tempUser4">
-                                  <HBox.margin>
-                                      <Insets top="5.0" />
-                                  </HBox.margin>
-                                  <image>
-                                      <Image url="@../../../../../../../../../../../Pictures/Pictures/Kitz/61144338_p0.png" />
-                                  </image>
-                              </ImageView>
-                          </children>
+                      <HBox fx:id="userWindowHbox" prefWidth="670.0" spacing="10.0" styleClass="userWindowHbox">
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
                       </HBox>
                </content>
+               <BorderPane.margin>
+                  <Insets top="10.0" />
+               </BorderPane.margin>
             </ScrollPane>
             </top>
             <center>
-                <VBox fx:id="eventWindowVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="eventWindowVbox">
+                <VBox fx:id="eventWindowVbox" prefHeight="200.0" prefWidth="100.0" spacing="2.0" styleClass="eventWindowVbox">
                     <children>
-                        <Label fx:id="eventTypeLbl" text="Some Cool Event Name" />
-                        <Label fx:id="eventLocationLbl" text="Event Location" />
-                        <Label fx:id="eventStartLbl" text="Event Start Time" />
-                        <Label fx:id="eventEndLbl" text="Event End Time" />
-                        <Label fx:id="eventNotesLbl" text="Event Notes" />
-                        <Label fx:id="eventDirLbl" text="Directions" />
+                  <HBox spacing="3.0">
+                     <children>
+                              <Label fx:id="eventLocationLbl" text="Event Name:" />
+                              <Label fx:id="eventTypeLbl" text="Some Cool Event Name" />
+                     </children>
+                     <VBox.margin>
+                        <Insets left="35.0" top="50.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox spacing="3.0">
+                     <children>
+                              <Label fx:id="eventStartLbl" text="Event Location:" />
+                              <Label fx:id="eventEndLbl" text="Some Event location" />
+                     </children>
+                     <VBox.margin>
+                        <Insets left="35.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox spacing="3.0">
+                     <children>
+                              <Label fx:id="eventNotesLbl" text="Event Notes:" />
+                              <Label fx:id="eventDirLbl" text="Some Event Notes" />
+                     </children>
+                     <VBox.margin>
+                        <Insets left="35.0" top="60.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox spacing="3.0">
+                     <children>
+                        <Label fx:id="eventTypeLbl1" text="Event Directions:" />
+                        <Label fx:id="eventLocationLbl1" text="Some Directions" />
+                     </children>
+                     <VBox.margin>
+                        <Insets left="35.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox spacing="3.0">
+                     <children>
+                        <Label fx:id="eventStartLbl1" text="Start Time:" />
+                        <Label fx:id="eventEndLbl1" text="Event Start Time" />
+                     </children>
+                     <VBox.margin>
+                        <Insets left="35.0" top="60.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox spacing="3.0">
+                     <children>
+                        <Label fx:id="eventNotesLbl1" text="End Time:" />
+                        <Label fx:id="eventDirLbl1" text="Event End Time" />
+                     </children>
+                     <VBox.margin>
+                        <Insets left="35.0" />
+                     </VBox.margin>
+                  </HBox>
                     </children>
                     <opaqueInsets>
                         <Insets />
                     </opaqueInsets>
                     <BorderPane.margin>
-                        <Insets bottom="50.0" left="100.0" right="100.0" top="50.0" />
+                        <Insets bottom="40.0" left="20.0" right="20.0" top="27.0" />
                     </BorderPane.margin>
                 </VBox>
             </center>
-            <bottom>
-                <HBox fx:id="bottomHbox" prefHeight="100.0" prefWidth="200.0" styleClass="bottomHbox" BorderPane.alignment="CENTER">
-                    <children>
-                        <Button mnemonicParsing="false" onAction="#deleteEvent" text="Delete Event" />
-                        <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logoutBtn" text="Log Out" />
-                  <Button fx:id="createUserBtn" mnemonicParsing="false" onAction="#createUserBtn" text="Create User" />
-                    </children>
-                </HBox>
-            </bottom>
         </BorderPane>
     </center>
    <top>
-      <Button fx:id="closeBtn" mnemonicParsing="false" styleClass="closeBtn" BorderPane.alignment="TOP_RIGHT">
+      <HBox alignment="TOP_RIGHT" prefHeight="24.0" prefWidth="1095.0" styleClass="topHbox" BorderPane.alignment="TOP_RIGHT">
          <BorderPane.margin>
-            <Insets bottom="3.0" right="2.0" top="-5.0" />
+            <Insets />
          </BorderPane.margin>
-      </Button>
+         <children>
+            <Button fx:id="closeBtn" mnemonicParsing="false" styleClass="closeBtn">
+               <HBox.margin>
+                  <Insets right="5.0" top="2.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
    </top>
+   <right>
+      <VBox prefHeight="677.0" prefWidth="181.0" BorderPane.alignment="CENTER">
+         <children>
+            <Circle fill="#b672b9" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE">
+               <VBox.margin>
+                  <Insets left="60.0" top="40.0" />
+               </VBox.margin>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color opacity="0.5992366671562195" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Circle>
+            <VBox alignment="CENTER" prefHeight="525.0" prefWidth="181.0" spacing="13.0" styleClass="buttonVbox">
+               <children>
+                        <Button mnemonicParsing="false" onAction="#deleteEvent" text="Delete Event">
+                     <VBox.margin>
+                        <Insets top="125.0" />
+                     </VBox.margin></Button>
+                  <Button fx:id="createUserBtn" mnemonicParsing="false" onAction="#createUserBtn" text="Create User" />
+                        <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logoutBtn" text="Log Out">
+                     <VBox.margin>
+                        <Insets top="200.0" />
+                     </VBox.margin></Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="40.0" top="20.0" />
+               </VBox.margin>
+            </VBox>
+         </children>
+         <BorderPane.margin>
+            <Insets right="20.0" />
+         </BorderPane.margin>
+      </VBox>
+   </right>
 </BorderPane>

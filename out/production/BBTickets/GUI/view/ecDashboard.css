@@ -1,33 +1,37 @@
 .root {
     -fx-font-family: "Segoe UI";
-    -fx-background-color: #d1aafa;
+    -fx-background-color: linear-gradient(to right, #c69eec, #e6b8d4);
     -fx-text-fill: #333;
 }
 
-.eventListVbox, .eventListLstV, .nestedBp, .userWindowHbox, .tempUser1, .tempUser2, .tempUser3, .tempUser4, .eventWindowVbox, .bottomHbox, .userListLv {
-    -fx-background-color: rgba(255, 255, 255, 0.7);
-    -fx-border-radius: 15;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);
-    -fx-padding: 10;
+.root * {
+    -fx-background-color: transparent;
 }
 
-.userListLv {
-    -fx-font-weight: bold;
-}
+
 
 .list-view {
-    -fx-padding: 5;
+    -fx-background-color: #ede1f8;
     -fx-font-size: 18px;
+    -fx-border-radius: 50; /* Increase this to make it more oval */
+    -fx-background-radius: 50; /* Increase this to make it more oval */
 }
 
 .list-view .list-cell {
-    -fx-background-color: rgba(255, 255, 255, 0.7);
+    -fx-background-color: #ede1f8;
     -fx-border-radius: 15;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 0);
+    -fx-text-fill: #333;
 }
 
-.list-view .list-cell:selected {
-    -fx-background-color: rgba(119, 113, 113, 0.7);
+.list-view .list-cell:focused, .list-view .list-cell:selected {
+    -fx-text-fill: #c694bb;
+    -fx-font-weight: bold;
+}
+
+.list-view .list-cell:hover {
+    -fx-background-color: rgba(200, 200, 200, 0.7); /* Change this to the color you want when hovered */
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
 }
 
 .closeBtn {
@@ -54,4 +58,91 @@
 .miniTextField{
     -fx-font-size: 8;
     -fx-border-radius: 8;
+}
+
+.button {
+    -fx-background-color: #b98ad9; /* Purple to match your theme */
+    -fx-text-fill: #fff; /* White text */
+    -fx-font-weight: bold; /* Bold text */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0); /* Shadow */
+}
+
+.button:hover {
+    -fx-background-color: #a06cb9; /* Darker purple when hovered */
+}
+
+.button:pressed {
+    -fx-background-color: #c4a2d9; /* Lighter purple when pressed */
+}
+
+.eventLbl {
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.coordLbl {
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.topHbox {
+    -fx-background-color: #a162dd;
+}
+
+.userWindowHbox {
+    -fx-background-color: #ede1f8;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+}
+
+.userSp {
+    -fx-background-color: TRANSPARENT;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+}
+
+.eventWindowVbox {
+    -fx-background-color: #ede1f8;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+}
+
+.buttonVbox {
+    -fx-background-color: #ede1f8;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+}
+
+.buttonVbox {
+    -fx-background-color: #ede1f8;
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
+}
+
+
+.userSp .scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.userSp .scroll-bar .thumb {
+    -fx-background-color: #b98ad9;
+    -fx-background-insets: 2;
+    -fx-background-radius: 10;
+}
+
+.eventListLstV .scroll-bar .thumb {
+    -fx-background-color: #b98ad9;
+    -fx-background-insets: 2;
+    -fx-background-radius: 10;
+    -fx-padding: 0.25em;
+}
+
+.eventListLstV .scroll-bar {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10;
+}
+
+
+.eventListLstV .scroll-bar .increment-arrow, .eventListLstV .scroll-bar .decrement-arrow {
+    -fx-padding: 0;
 }

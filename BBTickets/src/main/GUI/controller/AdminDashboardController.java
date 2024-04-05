@@ -5,6 +5,7 @@ import BE.User;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
 import GUI.model.UserModel;
+import GUI.util.ListViewSetupUtility;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
@@ -76,12 +77,14 @@ public class AdminDashboardController {
 
     public void initialize() {
         this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
-        setupEventListView();
+        ListViewSetupUtility.setupEventListView(eventListLv, eventModel);
         userListLv.setItems(userModel.getUsersByType(1)); // this is since toggle is starting on admin
-        listViewcell();
+        ListViewSetupUtility.setupUserListView(userListLv);
         eventHelper.eventListObserver();
         DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
         rightClickMenu();
+
+
     }
 
     public void rightClickMenu() {
@@ -137,26 +140,6 @@ public class AdminDashboardController {
     }
 
 
-    private void setupEventListView() {
-        // Set the cell factory of the ListView
-        eventListLv.setCellFactory(param -> new ListCell<>() {
-            @Override
-            protected void updateItem(Event item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    // Set the text of the cell to the eventType of the Event
-                    setText(String.valueOf(item.getEventType()));
-                }
-            }
-        });
-
-        // Load the events into the ListView
-        loadEventsToListView();
-    }
-
     private void loadEventsToListView() {
         try {
             eventListLv.getItems().setAll(eventModel.getAllEvents());
@@ -164,22 +147,6 @@ public class AdminDashboardController {
             e.printStackTrace();
             showErrorDialog("Load Events Error", "Failed to load events: " + e.getMessage());
         }
-    }
-
-
-    private void listViewcell(){
-        userListLv.setCellFactory(param -> new ListCell<>() {
-            @Override
-            protected void updateItem(User item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item.getUsername());
-                }
-            }
-        });
     }
 
 

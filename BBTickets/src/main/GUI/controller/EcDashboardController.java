@@ -5,6 +5,7 @@ import BE.User;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
 import GUI.model.UserModel;
+import GUI.util.ListViewSetupUtility;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,9 +18,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.time.format.DateTimeFormatter;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -76,14 +81,43 @@ public class EcDashboardController {
         userModel = new UserModel();}
 
     public void initialize() {
+        loadFont();
         this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
         eventModel = new EventModel();
         setupLogoutButton();
-        setupEventList();
+        ListViewSetupUtility.setupEventListView(eventListLv, eventModel);
         eventHelper.eventListObserver();
-        listViewcell();
+        ListViewSetupUtility.setupUserListView(userListLv);
         DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
         userListLv.setItems(userModel.getUsersByType(0));
+    }
+
+    private void loadFont() {
+        try {
+            // Create a URL object with the Google Font URL
+            URL googleFontUrl = new URL("https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxP.ttf");
+
+            // Open a connection to the URL
+            URLConnection connection = googleFontUrl.openConnection();
+
+            // Get an InputStream from the connection
+            InputStream fontStream = connection.getInputStream();
+
+            // Load the font with the desired size
+            Font googleFont = Font.loadFont(fontStream, 20);
+
+            // Use the font in your application
+            // For example, set it as the font of a Label
+            eventTypeLbl.setFont(googleFont);
+            eventLocationLbl.setFont(googleFont);
+            eventNotesLbl.setFont(googleFont);
+            eventDirLbl.setFont(googleFont);
+            eventStartLbl.setFont(googleFont);
+            eventEndLbl.setFont(googleFont);
+        } catch (IOException e) {
+            // Handle exception
+            e.printStackTrace();
+        }
     }
 
     private void setupLogoutButton() {
@@ -95,24 +129,11 @@ public class EcDashboardController {
         try {
             loadNewScene("/GUI/view/login.fxml", logoutBtn);
         } catch (IOException e) {
+            showErrorDialog("You cannot log out.", "You may never log out again.");
             e.printStackTrace();
         }
     }
 
-    private void listViewcell(){
-        userListLv.setCellFactory(param -> new ListCell<>() {
-            @Override
-            protected void updateItem(User item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item.getUsername());
-                }
-            }
-        });
-    }
 
     public void refreshTable(){
         eventListLv.getItems().clear();
@@ -130,21 +151,6 @@ public class EcDashboardController {
         }
     }
 
-    public void setupEventList() {
-        eventListLv.setCellFactory(param -> new ListCell<>() {
-            @Override
-            protected void updateItem(Event event, boolean empty) {
-                super.updateItem(event, empty);
-
-                if (empty || event == null) {
-                    setText(null);
-                } else {
-                    // Set the text of the cell to the eventType of the Event
-                    setText(String.valueOf(event.getEventType()));
-                }
-            }
-        });
-    }
 
     public void deleteEvent(ActionEvent actionEvent) {
         Event selected = eventListLv.getSelectionModel().getSelectedItem();
