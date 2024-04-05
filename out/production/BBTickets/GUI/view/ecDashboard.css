@@ -51,6 +51,14 @@
     -fx-background-color: rgba(252, 82, 82, 0.7); /* Darker red when hovered */
 }
 
+.text-field{
+    -fx-font-size: 10;
+}
+
+.miniTextField{
+    -fx-font-size: 8;
+    -fx-border-radius: 8;
+}
 
 .button {
     -fx-background-color: #b98ad9; /* Purple to match your theme */
