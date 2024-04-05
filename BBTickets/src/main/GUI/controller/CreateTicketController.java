@@ -75,15 +75,15 @@ public class CreateTicketController implements Initializable {
         if(customerLv.getSelectionModel().getSelectedItem() != null && !typeChcBox.getValue().isEmpty()
                 && !filelocationTxt.getText().isEmpty()){
             Customer cust = allCustomers.get(customerLv.getSelectionModel().getSelectedIndex());
-
+            String uuid = ticketModel.generateUUID();
 
             if(!priceTxt.getText().isEmpty()){
                 double price = Double.parseDouble(priceTxt.getText());
-                ticketModel.createTicket(typeChcBox.getValue(), cust.getCustId(), selectedEvent.getEventId(), price);
+                ticketModel.createTicket(typeChcBox.getValue(), cust.getCustId(), selectedEvent.getEventId(), price, uuid);
                 printTicket(actionEvent);
 
             } else {
-                ticketModel.createTicket(typeChcBox.getValue(), cust.getCustId(), selectedEvent.getEventId());
+                ticketModel.createTicket(typeChcBox.getValue(), cust.getCustId(), selectedEvent.getEventId(), uuid);
                 printTicket(actionEvent);
             }
 

@@ -11,17 +11,18 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 
 import java.io.IOException;
+import java.util.UUID;
 
 public class TicketBLL {
 
     private TicketDAO DAO = new TicketDAO();
 
-    public void createTicket(String type, int customerId, int eventId, double price){
-        DAO.createTicket(type, customerId, eventId, price);
+    public void createTicket(String type, int customerId, int eventId, double price, String UUID){
+        DAO.createTicket(type, customerId, eventId, price, UUID);
     }
 
-    public void createTicket(String type, int customerId, int eventId){
-        DAO.createTicket(type, customerId, eventId);
+    public void createTicket(String type, int customerId, int eventId, String UUID){
+        DAO.createTicket(type, customerId, eventId, UUID);
     }
 
     public void printTicketWithInfo(int width, int height, Customer cust, Event event, String type, double price, String fileLocation) throws IOException {
@@ -66,9 +67,7 @@ public class TicketBLL {
         }
         ticketDoc.save(fileLocation + "\\Ticket For " + eventType + ".pdf");
         ticketDoc.close();
-
     }
-
 
     /*
     //incase I want to add these later
@@ -79,5 +78,12 @@ public class TicketBLL {
     PDImageXObject image = PDImageXObject.createFromFile(path.toAbsolutePath().toString(), document); //converting to image object
     stream.drawImage(image, 0, 469);
      */
+
+    public String generateUUID(){
+        UUID uuid = UUID.randomUUID();
+        String uuidStr = uuid.toString();
+        return  uuidStr;
+
+    }
 
 }
