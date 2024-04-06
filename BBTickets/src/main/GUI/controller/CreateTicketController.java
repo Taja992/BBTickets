@@ -78,7 +78,7 @@ public class CreateTicketController implements Initializable {
 
             if(newCustChkBox.isSelected()){
                 if(!custNameTxt.getText().isEmpty() && !custEmailTxt.getText().isEmpty()){
-                    Customer cust = new Customer(custNameTxt.getText(), custEmailTxt.getText());
+                    Customer cust = new Customer(custModel.getLastCustomerID()+1, custNameTxt.getText(), custEmailTxt.getText());
                     custModel.newCustomer(cust);
                     showCustomers(); //to refresh the table with the new customer
                     finalizeTicket(actionEvent, cust);

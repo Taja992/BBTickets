@@ -59,5 +59,26 @@ public class CustomerDAO {
 
     }
 
+    public int getLastCustomerID(){
+        int lastId = -1;
+        String sql = "SELECT * FROM Customer WHERE cust_id = (SELECT IDENT_CURRENT('Customer'))";
+
+        try {
+            Connection con = connectionManager.getConnection();
+            PreparedStatement pstmnt = con.prepareStatement(sql);
+            ResultSet rs = pstmnt.executeQuery();
+            while(rs.next()){
+                lastId = rs.getInt("cust_id");
+            }
+        } catch (SQLServerException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return lastId;
+
+    }
+
 
 }

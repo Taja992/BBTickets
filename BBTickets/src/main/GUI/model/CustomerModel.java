@@ -16,4 +16,7 @@ public class CustomerModel {
     public List<Customer> getAllCustomers(){
         return custBLL.getAllCustomers();
     }
+    public int getLastCustomerID(){
+        return custBLL.getLastCustomerID();
+    }
 }
