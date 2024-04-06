@@ -51,8 +51,8 @@ public class CreateTicketController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        showCustomers();
         allCustomers.addAll(custModel.getAllCustomers());
+        showCustomers();
         typeChcBox.getItems().addAll(ticketTypes);
     }
 
@@ -69,29 +69,49 @@ public class CreateTicketController implements Initializable {
 
     private void showCustomers(){
         customerLv.getItems().clear();
-        customerLv.getItems().addAll(custModel.getAllCustomers());
+        customerLv.getItems().addAll(allCustomers);
 
     }
 
     public void addTicket(ActionEvent actionEvent) throws BBExceptions, IOException {
-        if(customerLv.getSelectionModel().getSelectedItem() != null && !typeChcBox.getValue().isEmpty()
-                && !filelocationTxt.getText().isEmpty()){
-            Customer cust = allCustomers.get(customerLv.getSelectionModel().getSelectedIndex());
-            uuid = ticketModel.generateUUID();
+        if(!typeChcBox.getValue().isEmpty() && !filelocationTxt.getText().isEmpty()){
 
-            if(!priceTxt.getText().isEmpty()){
-                double price = Double.parseDouble(priceTxt.getText());
-                ticketModel.createTicket(typeChcBox.getValue(), cust.getCustId(), selectedEvent.getEventId(), price, uuid);
-                printTicket(actionEvent);
+            if(newCustChkBox.isSelected()){
+                if(!custNameTxt.getText().isEmpty() && !custEmailTxt.getText().isEmpty()){
+                    Customer cust = new Customer(custNameTxt.getText(), custEmailTxt.getText());
+                    custModel.newCustomer(cust);
+                    showCustomers(); //to refresh the table with the new customer
+                    finalizeTicket(actionEvent, cust);
 
+                }
             } else {
-                ticketModel.createTicket(typeChcBox.getValue(), cust.getCustId(), selectedEvent.getEventId(), uuid);
-                printTicket(actionEvent);
-            }
+                if(customerLv.getSelectionModel().getSelectedItem() != null){
+                    Customer cust = allCustomers.get(customerLv.getSelectionModel().getSelectedIndex());
+                    finalizeTicket(actionEvent, cust);
 
+                }
+            }
+        } else {
+            showErrorDialog("Empty Fields", "Please make sure you select a ticket type and file location");
         }
 
 
+
+    }
+
+    //I know the name is a bit confusing but this method exists because these lines of code are repeated
+    private void finalizeTicket(ActionEvent actionEvent, Customer cust) throws IOException, BBExceptions {
+        uuid = ticketModel.generateUUID();
+
+        if(!priceTxt.getText().isEmpty()){
+            double price = Double.parseDouble(priceTxt.getText());
+            ticketModel.createTicket(typeChcBox.getValue(), cust.getCustId(), selectedEvent.getEventId(), price, uuid);
+            printTicket(actionEvent);
+
+        } else {
+            ticketModel.createTicket(typeChcBox.getValue(), cust.getCustId(), selectedEvent.getEventId(), uuid);
+            printTicket(actionEvent);
+        }
     }
 
 
@@ -115,7 +135,7 @@ public class CreateTicketController implements Initializable {
                 //create a new customer if the new customer checkbox is selected
                 if(!custNameTxt.getText().isEmpty() && !custEmailTxt.getText().isEmpty()){
                     Customer cust = new Customer(custNameTxt.getText(),custEmailTxt.getText());
-                    custModel.newCustomer(cust);
+
                     ticketModel.printTicketWithInfo(width,height,cust,selectedEvent, type, price, uuid, filelocationTxt.getText());
                 }
             } else{
@@ -131,20 +151,22 @@ public class CreateTicketController implements Initializable {
 
 
     public void chooseFile(ActionEvent actionEvent) {
-
-        //fileChooser = the thing that lets you open the file explorer
         DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle("Choose location to save your ticket pdf");
 
-        File directory = chooser.showDialog(customerLv.getScene().getWindow()); //getting the selected file
+        File directory = chooser.showDialog(customerLv.getScene().getWindow()); //getting the selected folder
 
         if(directory != null){
-
             String folderLocation = directory.getAbsolutePath();
-
             filelocationTxt.setText(folderLocation);
-
         }
+    }
 
+    private void showErrorDialog(String title, String message){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
