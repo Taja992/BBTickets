@@ -46,6 +46,7 @@ public class CreateTicketController implements Initializable {
     private List<Customer> allCustomers = new ArrayList<>();
     private Event selectedEvent;
     private String[] ticketTypes = {"Standard", "VIP"};
+    private String uuid = "";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -75,15 +76,15 @@ public class CreateTicketController implements Initializable {
         if(customerLv.getSelectionModel().getSelectedItem() != null && !typeChcBox.getValue().isEmpty()
                 && !filelocationTxt.getText().isEmpty()){
             Customer cust = allCustomers.get(customerLv.getSelectionModel().getSelectedIndex());
-
+            uuid = ticketModel.generateUUID();
 
             if(!priceTxt.getText().isEmpty()){
                 double price = Double.parseDouble(priceTxt.getText());
-                ticketModel.createTicket(typeChcBox.getValue(), cust.getCustId(), selectedEvent.getEventId(), price);
+                ticketModel.createTicket(typeChcBox.getValue(), cust.getCustId(), selectedEvent.getEventId(), price, uuid);
                 printTicket(actionEvent);
 
             } else {
-                ticketModel.createTicket(typeChcBox.getValue(), cust.getCustId(), selectedEvent.getEventId());
+                ticketModel.createTicket(typeChcBox.getValue(), cust.getCustId(), selectedEvent.getEventId(), uuid);
                 printTicket(actionEvent);
             }
 
@@ -93,6 +94,7 @@ public class CreateTicketController implements Initializable {
     }
 
 
+    //method for saving a ticket pdf file
     public void printTicket(ActionEvent actionEvent) throws IOException, BBExceptions {
         int width = 450;
         int height = 300;
@@ -104,18 +106,22 @@ public class CreateTicketController implements Initializable {
             if(!priceTxt.getText().isEmpty()){
                 price = Double.parseDouble(priceTxt.getText());
             }
+            if(uuid.isEmpty()){ //in case this method wasn't called by the addTicket method. this way it can still have a UUID
+                uuid = ticketModel.generateUUID();
+            }
 
             if(newCustChkBox.isSelected()){
                 //create a new customer if the new customer checkbox is selected
                 if(!custNameTxt.getText().isEmpty() && !custEmailTxt.getText().isEmpty()){
                     Customer cust = new Customer(custNameTxt.getText(),custEmailTxt.getText());
                     custModel.newCustomer(cust);
-                    ticketModel.printTicketWithInfo(width,height,cust,selectedEvent, type, price, filelocationTxt.getText());
+                    ticketModel.printTicketWithInfo(width,height,cust,selectedEvent, type, price, uuid, filelocationTxt.getText());
                 }
             } else{
+                //uses the selected customer to print tickert
                 if(customerLv.getSelectionModel().getSelectedItem() != null){
                     Customer selectedCust = customerLv.getSelectionModel().getSelectedItem();
-                    ticketModel.printTicketWithInfo(width,height,selectedCust,selectedEvent, type, price, filelocationTxt.getText());
+                    ticketModel.printTicketWithInfo(width,height,selectedCust,selectedEvent, type, price, uuid, filelocationTxt.getText());
                 }
             }
         }

@@ -13,5 +13,6 @@
     <orderEntry type="library" name="glavo.materialfx" level="project" />
     <orderEntry type="library" name="apache.pdfbox" level="project" />
     <orderEntry type="library" name="jfoenix" level="project" />
+    <orderEntry type="library" name="google.zxing.javase1" level="project" />
   </component>
 </module>
