@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
@@ -132,24 +133,16 @@ public class CreateTicketController implements Initializable {
     public void chooseFile(ActionEvent actionEvent) {
 
         //fileChooser = the thing that lets you open the file explorer
-        FileChooser chooser = new FileChooser();
+        DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle("Choose location to save your ticket pdf");
 
-        File selected = chooser.showOpenDialog(customerLv.getScene().getWindow()); //getting the selected file
+        File directory = chooser.showDialog(customerLv.getScene().getWindow()); //getting the selected file
 
-        if(selected != null){
+        if(directory != null){
 
-            String fileLocation = selected.getAbsolutePath();
+            String folderLocation = directory.getAbsolutePath();
 
-            //for the purposes of this method, we just want a folder to save the pdf,
-            //not a file. So we remove the part of the path containing the file
-            //and just get the folder that the file is contained in
-            if(fileLocation.contains(".")){
-                fileLocation = fileLocation.substring(0,fileLocation.lastIndexOf("\\"));
-                //the double slash is because "\" makes java ignore the text next to it
-            }
-
-            filelocationTxt.setText(fileLocation);
+            filelocationTxt.setText(folderLocation);
 
         }
 

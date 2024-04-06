@@ -72,7 +72,7 @@ public class TicketBLL {
 
         BitMatrix bitMatrix = null;
         try {
-            //creating a barcode (type = Code128) (I don't know what that means either)
+            //creating a barcode (a Code128 barcode specifically) (I don't know what that means either)
             bitMatrix = new Code128Writer().encode(uuid, BarcodeFormat.CODE_128, (int) (width*0.1), (int) (height*0.08), null);
             BufferedImage bfImg = MatrixToImageWriter.toBufferedImage(bitMatrix);
             PDImageXObject xObject = JPEGFactory.createFromImage(ticketDoc, bfImg); //creating an object from the buffered image so it can be put on the doc
@@ -99,7 +99,7 @@ public class TicketBLL {
         if(eventType.contains("?")){ //files can't be saved if their name contains "?" so I just wrote a thing to get rid of those
             eventType = eventType.replace('?', ' ');
         }
-        ticketDoc.save(fileLocation + "\\Ticket For " + eventType + ".pdf");
+        ticketDoc.save(fileLocation + "\\Ticket For " + cust.getCustomerName() + " to " + eventType + ".pdf");
         ticketDoc.close();
     }
 
