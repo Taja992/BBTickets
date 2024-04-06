@@ -13,8 +13,8 @@
 .list-view {
     -fx-background-color: #ede1f8;
     -fx-font-size: 18px;
-    -fx-border-radius: 50; /* Increase this to make it more oval */
-    -fx-background-radius: 50; /* Increase this to make it more oval */
+    -fx-border-radius: 50;
+    -fx-background-radius: 50;
 }
 
 .list-view .list-cell {
@@ -29,42 +29,42 @@
 }
 
 .list-view .list-cell:hover {
-    -fx-background-color: rgba(200, 200, 200, 0.7); /* Change this to the color you want when hovered */
+    -fx-background-color: rgba(200, 200, 200, 0.7);
     -fx-border-radius: 20;
     -fx-background-radius: 20;
 }
 
 .closeBtn {
-    -fx-background-color: rgba(246, 113, 113, 0.5); /* Semi-transparent red */
-    -fx-text-fill: #EEE; /* Lighter font color */
-    -fx-font-weight: bold; /* Bold text */
-    -fx-padding: 5; /* Padding */
-    -fx-background-radius: 1000; /* High value to make it circular */
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 0); /* Shadow */
-    -fx-min-width: 17px; /* Same width and height */
-    -fx-min-height: 17px; /* Same width and height */
-    -fx-max-width: 17px; /* Same width and height */
-    -fx-max-height: 17px; /* Same width and height */
+    -fx-background-color: rgba(246, 113, 113, 0.5);
+    -fx-text-fill: #EEE;
+    -fx-font-weight: bold;
+    -fx-padding: 5;
+    -fx-background-radius: 1000;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 0);
+    -fx-min-width: 17px;
+    -fx-min-height: 17px;
+    -fx-max-width: 17px;
+    -fx-max-height: 17px;
 }
 
 .closeBtn:hover {
-    -fx-background-color: rgba(252, 82, 82, 0.7); /* Darker red when hovered */
+    -fx-background-color: rgba(252, 82, 82, 0.7);
 }
 
 
 .button {
-    -fx-background-color: #b98ad9; /* Purple to match your theme */
-    -fx-text-fill: #fff; /* White text */
-    -fx-font-weight: bold; /* Bold text */
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0); /* Shadow */
+    -fx-background-color: #b98ad9;
+    -fx-text-fill: #fff;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);
 }
 
 .button:hover {
-    -fx-background-color: #a06cb9; /* Darker purple when hovered */
+    -fx-background-color: #a06cb9;
 }
 
 .button:pressed {
-    -fx-background-color: #c4a2d9; /* Lighter purple when pressed */
+    -fx-background-color: #c4a2d9;
 }
 
 .eventLbl {
