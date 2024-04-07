@@ -50,6 +50,8 @@ public class CreateTicketController implements Initializable {
     private String[] ticketTypes = {"Standard", "VIP"};
     private String uuid = "";
 
+    private Button createTicketBtn;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         allCustomers.addAll(custModel.getAllCustomers());
@@ -57,7 +59,16 @@ public class CreateTicketController implements Initializable {
         typeChcBox.getItems().addAll(ticketTypes);
     }
 
+    public void setCreateTicketBtn(Button createTicketBtn) {
+        this.createTicketBtn = createTicketBtn;
+    }
+
     public void closeWindow(ActionEvent actionEvent) {
+        // Re-enable the button
+        if (createTicketBtn != null) {
+            createTicketBtn.setDisable(false);
+        }
+
         // Get the current stage from the action event and close it
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();

@@ -9,6 +9,7 @@ import GUI.util.ListViewSetupUtility;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;
@@ -28,9 +29,12 @@ import java.net.URLConnection;
 import java.time.format.DateTimeFormatter;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 public class EcDashboardController {
 
+    public Button editEventBtn;
+    public Button createTicketBtn;
     @FXML
     private VBox eventWindowVbox;
     @FXML
@@ -155,11 +159,22 @@ public class EcDashboardController {
     public void deleteEvent(ActionEvent actionEvent) {
         Event selected = eventListLv.getSelectionModel().getSelectedItem();
         if(selected != null){
-            try {
-                eventModel.deleteEvent(selected.getEventId());
-                refreshTable();
-            } catch (BBExceptions e) {
-                showErrorDialog("Delete Error", "Failed to delete the event.");
+            // Create a confirmation dialog
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to delete this event?");
+
+            // Show the dialog and wait for the user's response
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK){
+                // If the user clicked OK, delete the event
+                try {
+                    eventModel.deleteEvent(selected.getEventId());
+                    refreshTable();
+                } catch (BBExceptions e) {
+                    showErrorDialog("Delete Error", "Failed to delete the event.");
+                }
             }
         }
     }
@@ -172,10 +187,18 @@ public class EcDashboardController {
 
                 CreateTicketController control = loader.getController();
                 control.setEvent(eventListLv.getSelectionModel().getSelectedItem());
+                control.setCreateTicketBtn(createTicketBtn);
 
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);
+
+                // Disable the button
+                ((Node) actionEvent.getSource()).setDisable(true);
+
+                // Add a listener to the window close event to re-enable the button
+                stage.setOnCloseRequest(event -> ((Node) actionEvent.getSource()).setDisable(false));
+                
                 stage.show();
             } catch (IOException e) {
                 showErrorDialog("Create Ticket Error", "Failed to create a ticket.");
@@ -198,9 +221,19 @@ public class EcDashboardController {
                 controller.setDashboard(this);
                 controller.setEvent(selected);
 
+                controller.setEditEventBtn(editEventBtn);
+
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
+                stage.setTitle("Edit Event");
                 stage.setScene(scene);
+
+                // Disable the button
+                ((Node) actionEvent.getSource()).setDisable(true);
+
+                // Add a listener to the window close event to re-enable the button
+                stage.setOnCloseRequest(event -> ((Node) actionEvent.getSource()).setDisable(false));
+
                 stage.show();
             } catch (IOException e) {
                 showErrorDialog("Edit Event Error", "Failed to edit the event.");
@@ -247,12 +280,21 @@ public class EcDashboardController {
             controller.setUserId(userId);
             controller.setRenameThisEcController(this);
 
+            controller.setCreateEventBtn(createEventBtn);
+
             Stage createEventStage = new Stage();
             createEventStage.initStyle(StageStyle.DECORATED);
 
             Scene scene = new Scene(root);
             createEventStage.setTitle("Create Event");
             createEventStage.setScene(scene);
+
+            // Disable the button
+            ((Node) actionEvent.getSource()).setDisable(true);
+
+            // Add a listener to the window close event to re-enable the button
+            createEventStage.setOnCloseRequest(event -> ((Node) actionEvent.getSource()).setDisable(false));
+
 
             createEventStage.show();
         } catch (IOException e) {
