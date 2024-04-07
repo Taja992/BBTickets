@@ -179,6 +179,7 @@ public class EcDashboardController {
                 stage.show();
             } catch (IOException e) {
                 showErrorDialog("Create Ticket Error", "Failed to create a ticket.");
+                e.printStackTrace();
             }
         } else {
             showErrorDialog("Selection Error", "Please select an event to create a ticket.");
