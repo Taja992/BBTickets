@@ -28,6 +28,7 @@ import java.net.URLConnection;
 import java.time.format.DateTimeFormatter;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 public class EcDashboardController {
 
@@ -153,13 +154,34 @@ public class EcDashboardController {
 
 
     public void deleteEvent(ActionEvent actionEvent) {
+//        Event selected = eventListLv.getSelectionModel().getSelectedItem();
+//        if(selected != null){
+//            try {
+//                eventModel.deleteEvent(selected.getEventId());
+//                refreshTable();
+//            } catch (BBExceptions e) {
+//                showErrorDialog("Delete Error", "Failed to delete the event.");
+//            }
+//        }
+
         Event selected = eventListLv.getSelectionModel().getSelectedItem();
         if(selected != null){
-            try {
-                eventModel.deleteEvent(selected.getEventId());
-                refreshTable();
-            } catch (BBExceptions e) {
-                showErrorDialog("Delete Error", "Failed to delete the event.");
+            // Create a confirmation dialog
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to delete this event?");
+
+            // Show the dialog and wait for the user's response
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK){
+                // If the user clicked OK, delete the event
+                try {
+                    eventModel.deleteEvent(selected.getEventId());
+                    refreshTable();
+                } catch (BBExceptions e) {
+                    showErrorDialog("Delete Error", "Failed to delete the event.");
+                }
             }
         }
     }
