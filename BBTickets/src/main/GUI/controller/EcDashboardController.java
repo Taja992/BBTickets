@@ -9,6 +9,7 @@ import GUI.util.ListViewSetupUtility;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.Parent;
@@ -259,12 +260,21 @@ public class EcDashboardController {
             controller.setUserId(userId);
             controller.setRenameThisEcController(this);
 
+            controller.setCreateEventBtn(createEventBtn);
+
             Stage createEventStage = new Stage();
             createEventStage.initStyle(StageStyle.DECORATED);
 
             Scene scene = new Scene(root);
             createEventStage.setTitle("Create Event");
             createEventStage.setScene(scene);
+
+            // Disable the button
+            ((Node) actionEvent.getSource()).setDisable(true);
+
+            // Add a listener to the window close event to re-enable the button
+            createEventStage.setOnCloseRequest(event -> ((Node) actionEvent.getSource()).setDisable(false));
+
 
             createEventStage.show();
         } catch (IOException e) {
