@@ -154,16 +154,6 @@ public class EcDashboardController {
 
 
     public void deleteEvent(ActionEvent actionEvent) {
-//        Event selected = eventListLv.getSelectionModel().getSelectedItem();
-//        if(selected != null){
-//            try {
-//                eventModel.deleteEvent(selected.getEventId());
-//                refreshTable();
-//            } catch (BBExceptions e) {
-//                showErrorDialog("Delete Error", "Failed to delete the event.");
-//            }
-//        }
-
         Event selected = eventListLv.getSelectionModel().getSelectedItem();
         if(selected != null){
             // Create a confirmation dialog
@@ -221,6 +211,7 @@ public class EcDashboardController {
 
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
+                stage.setTitle("Edit Event");
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException e) {

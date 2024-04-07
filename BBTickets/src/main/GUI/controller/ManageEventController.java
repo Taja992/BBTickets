@@ -52,6 +52,7 @@ public class ManageEventController {
         if(event.getEventEndingTime() != null){
             eventEndDatePicker.setValue(event.getEventEndingTime().toLocalDate());
         }
+        eventIdField.setVisible(false);
     }
 
     public void setDashboard(EcDashboardController controller){
