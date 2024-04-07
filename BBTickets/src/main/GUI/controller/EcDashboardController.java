@@ -34,6 +34,7 @@ import java.util.Optional;
 public class EcDashboardController {
 
     public Button editEventBtn;
+    public Button createTicketBtn;
     @FXML
     private VBox eventWindowVbox;
     @FXML
@@ -186,10 +187,18 @@ public class EcDashboardController {
 
                 CreateTicketController control = loader.getController();
                 control.setEvent(eventListLv.getSelectionModel().getSelectedItem());
+                control.setCreateTicketBtn(createTicketBtn);
 
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setScene(scene);
+
+                // Disable the button
+                ((Node) actionEvent.getSource()).setDisable(true);
+
+                // Add a listener to the window close event to re-enable the button
+                stage.setOnCloseRequest(event -> ((Node) actionEvent.getSource()).setDisable(false));
+                
                 stage.show();
             } catch (IOException e) {
                 showErrorDialog("Create Ticket Error", "Failed to create a ticket.");
