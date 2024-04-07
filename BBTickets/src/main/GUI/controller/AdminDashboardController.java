@@ -105,7 +105,8 @@ public class AdminDashboardController {
     public void logoutBtn(ActionEvent actionEvent) {
         try {
             // Load login.fxml
-            Parent root = FXMLLoader.load(getClass().getResource("/GUI/view/login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/login.fxml"));
+            Parent root = loader.load();
 
             // Create a new stage for the login screen
             Stage loginStage = new Stage();
@@ -123,6 +124,13 @@ public class AdminDashboardController {
 
             // Show the login stage
             loginStage.show();
+
+            // Check if the loaded controller is LoginController and call windowControls
+            if (loader.getController() instanceof LoginController) {
+                LoginController loginController = loader.getController();
+                loginController.windowControls(loginStage, scene);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
