@@ -5,6 +5,8 @@ import Exceptions.BBExceptions;
 import GUI.model.EventModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
@@ -35,6 +37,8 @@ public class ManageEventController {
     @FXML
     private TextField locationGuidanceField;
 
+    private Button  editEventBtn;
+
     EcDashboardController controller;
 
     //This needs to be changed to use the model instead of BLL
@@ -53,6 +57,10 @@ public class ManageEventController {
             eventEndDatePicker.setValue(event.getEventEndingTime().toLocalDate());
         }
         eventIdField.setVisible(false);
+    }
+
+    public void setEditEventBtn(Button editEventBtn) {
+        this.editEventBtn = editEventBtn;
     }
 
     public void setDashboard(EcDashboardController controller){
@@ -79,8 +87,14 @@ public class ManageEventController {
     }
 
     public void closeWindow(ActionEvent actionEvent) {
+        // Re-enable the button
+        if (editEventBtn != null) {
+            editEventBtn.setDisable(false);
+        }
 
-        Stage currentStage = (Stage) eventTypeField.getScene().getWindow();
-        currentStage.close();
+        // Get the current stage from the action event and close it
+        Node source = (Node) actionEvent.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
     }
 }

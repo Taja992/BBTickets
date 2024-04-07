@@ -33,6 +33,7 @@ import java.util.Optional;
 
 public class EcDashboardController {
 
+    public Button editEventBtn;
     @FXML
     private VBox eventWindowVbox;
     @FXML
@@ -210,10 +211,19 @@ public class EcDashboardController {
                 controller.setDashboard(this);
                 controller.setEvent(selected);
 
+                controller.setEditEventBtn(editEventBtn);
+
                 Scene scene = new Scene(root);
                 Stage stage = new Stage();
                 stage.setTitle("Edit Event");
                 stage.setScene(scene);
+
+                // Disable the button
+                ((Node) actionEvent.getSource()).setDisable(true);
+
+                // Add a listener to the window close event to re-enable the button
+                stage.setOnCloseRequest(event -> ((Node) actionEvent.getSource()).setDisable(false));
+
                 stage.show();
             } catch (IOException e) {
                 showErrorDialog("Edit Event Error", "Failed to edit the event.");
