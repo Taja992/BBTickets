@@ -54,6 +54,8 @@ public class CreateEvent {
     public void initialize() {
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, 0, 15);
         eventMinuteSpinner.setValueFactory(valueFactory);
+        eventMinuteSpinner.setEditable(true);
+        eventHourSpinner.setEditable(true);
     }
 
     public void setCreateEventBtn(Button createEventBtn) {

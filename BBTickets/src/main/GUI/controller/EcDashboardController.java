@@ -208,6 +208,7 @@ public class EcDashboardController {
 
                 stage.show();
             } catch (IOException e) {
+                e.printStackTrace();
                 showErrorDialog("Edit Event Error", "Failed to edit the event.");
             }
         }

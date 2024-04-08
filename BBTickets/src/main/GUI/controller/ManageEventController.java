@@ -6,10 +6,7 @@ import GUI.model.EventModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.time.LocalDateTime;
@@ -18,8 +15,6 @@ import java.time.LocalTime;
 public class ManageEventController {
 
 
-    @FXML
-    private TextField eventIdField;
     @FXML
     private TextField eventTypeField;
     @FXML
@@ -39,24 +34,28 @@ public class ManageEventController {
 
     private Button  editEventBtn;
 
+    private int eventId;
+
     EcDashboardController controller;
 
     //This needs to be changed to use the model instead of BLL
     private EventModel eventModel = new EventModel();
 
-    public void setId(int Id){
-        eventIdField.setText(String.valueOf(Id));
+    public void initialize() {
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, 0, 15);
+        eventMinuteSpinner.setValueFactory(valueFactory);
+        eventMinuteSpinner.setEditable(true);
+        eventHourSpinner.setEditable(true);
     }
 
     public void setEvent(Event event){
-        eventIdField.setText(String.valueOf(event.getEventId()));
+        this.eventId = event.getEventId();
         eventTypeField.setText(event.getEventType());
         eventLocationField.setText(event.getEventLocation());
         eventStartDatePicker.setValue(event.getEventStartTime().toLocalDate());
         if(event.getEventEndingTime() != null){
             eventEndDatePicker.setValue(event.getEventEndingTime().toLocalDate());
         }
-        eventIdField.setVisible(false);
     }
 
     public void setEditEventBtn(Button editEventBtn) {
@@ -70,7 +69,6 @@ public class ManageEventController {
     public void manageEvent(ActionEvent actionEvent) throws BBExceptions {
         if(!eventTypeField.getText().isEmpty()
                 && eventStartDatePicker.getValue() != null && !eventLocationField.getText().isEmpty() ){
-            int eventID = Integer.parseInt(eventIdField.getText());
             String type = eventTypeField.getText();
             int hour = (int) eventHourSpinner.getValue();
             int minute = (int) eventMinuteSpinner.getValue();
@@ -79,7 +77,7 @@ public class ManageEventController {
             String notes = eventNotesField.getText();
             String guidance = locationGuidanceField.getText();
 
-            Event event = new Event(eventID,type,eventLocationField.getText(), startTime, endTime, notes, guidance);
+            Event event = new Event(eventId, type,eventLocationField.getText(), startTime, endTime, notes, guidance);
             eventModel.manageEvent(event);
             controller.refreshTable();
         }
