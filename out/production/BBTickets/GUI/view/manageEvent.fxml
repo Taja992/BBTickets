@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -8,20 +9,23 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="487.0" prefWidth="321.0" spacing="10.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.ManageEventController">
+<VBox alignment="CENTER" prefHeight="477.0" prefWidth="321.0" spacing="10" styleClass="rootVbox" stylesheets="/GUI/view/createEvent.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.ManageEventController">
    <children>
-      <TextField fx:id="eventIdField" editable="false" prefHeight="13.0" prefWidth="322.0" promptText="Event ID (cannot edit)" />
-      <Label text="Event Type:" />
-      <TextField fx:id="eventTypeField" promptText="Event Type" />
+      <Label text="Event Name:" />
+      <TextField fx:id="eventTypeField" promptText="Event Name">
+         <VBox.margin>
+            <Insets top="5.0" />
+         </VBox.margin></TextField>
       <Label text="Event Location:" />
       <TextField fx:id="eventLocationField" promptText="Event Location" />
-      <Label text="Starting Time:" />
-      <DatePicker fx:id="eventStartDatePicker" promptText="Start Time" />
-      <HBox alignment="TOP_CENTER" prefHeight="15.0" prefWidth="322.0" spacing="10.0">
+      <Label text="Start Date:" />
+      <DatePicker fx:id="eventStartDatePicker" promptText="Start Date" />
+      <Label text="Event Time:" />
+      <HBox alignment="CENTER" spacing="10">
          <children>
-            <Spinner fx:id="eventHourSpinner" initialValue="12" max="23" min="0" prefHeight="25.0" prefWidth="54.0" />
+            <Spinner fx:id="eventHourSpinner" initialValue="12" max="23" min="0" prefHeight="25.0" prefWidth="53.0" />
             <Label text=":" />
-            <Spinner fx:id="eventMinuteSpinner" initialValue="30" max="59" min="0" prefHeight="25.0" prefWidth="54.0" />
+            <Spinner fx:id="eventMinuteSpinner" initialValue="30" max="59" min="0" prefHeight="25.0" prefWidth="57.0" />
          </children>
       </HBox>
       <Label text="End Date (Optional):" />
@@ -30,11 +34,20 @@
       <TextField fx:id="eventNotesField" promptText="Event Notes (Optional)" />
       <Label text="Directions (Optional):" />
       <TextField fx:id="locationGuidanceField" promptText="Directions (Optional)" />
-      <HBox alignment="TOP_CENTER" prefHeight="0.0" prefWidth="322.0" spacing="10.0">
+      <HBox alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#closeWindow" styleClass="addEvent" text="Close" />
-            <Button layoutX="136.0" layoutY="10.0" mnemonicParsing="false" onAction="#manageEvent" styleClass="addEvent" text="Edit Event" />
+            <Button alignment="TOP_LEFT" mnemonicParsing="false" onAction="#closeWindow" text="Close">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin></Button>
+            <Button alignment="TOP_RIGHT" onAction="#manageEvent" text="Edit Event">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin></Button>
          </children>
+         <VBox.margin>
+            <Insets bottom="5.0" />
+         </VBox.margin>
       </HBox>
    </children>
 </VBox>
