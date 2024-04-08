@@ -57,6 +57,7 @@ public class CreateTicketController implements Initializable {
         allCustomers.addAll(custModel.getAllCustomers());
         showCustomers();
         typeChcBox.getItems().addAll(ticketTypes);
+        typeChcBox.setValue("Standard");
     }
 
     public void setCreateTicketBtn(Button createTicketBtn) {
