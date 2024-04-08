@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0" spacing="10" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.CreateUserController">
+<VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0" spacing="10" stylesheets="/GUI/view/AdminDashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.CreateUserController">
     <children>
         <Label text="Create/Edit User" />
         <HBox prefHeight="26.0" prefWidth="218.0" spacing="10">
@@ -21,20 +21,29 @@
             </RadioButton>
             <RadioButton fx:id="roleEC" mnemonicParsing="false" text="Event Coordinator" />
             </children>
+         <VBox.margin>
+            <Insets left="5.0" />
+         </VBox.margin>
         </HBox>
         <HBox spacing="10">
             <children>
                 <Label text="Username:" />
                 <TextField fx:id="usernameField" prefHeight="26.0" prefWidth="153.0" promptText="Enter Username" />
             </children>
+         <VBox.margin>
+            <Insets left="5.0" />
+         </VBox.margin>
         </HBox>
         <HBox spacing="10">
             <children>
                 <Label text="Password:" />
                 <TextField fx:id="passwordField" prefHeight="26.0" prefWidth="158.0" promptText="Enter Password" />
             </children>
+         <VBox.margin>
+            <Insets left="5.0" />
+         </VBox.margin>
         </HBox>
-        <HBox spacing="10">
+        <HBox alignment="CENTER" spacing="10">
             <children>
                 <Button fx:id="createUserBtn" onAction="#createUser" text="Save" />
                 <Button fx:id="cancelCreateUserBtn" onAction="#cancelCreateUser" text="Cancel" />
