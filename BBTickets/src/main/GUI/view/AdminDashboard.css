@@ -1,5 +1,5 @@
 .root {
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: 'PT Serif';
     -fx-background-color: linear-gradient(to right, #c69eec, #e6b8d4);
     -fx-text-fill: #333;
 }
@@ -137,4 +137,14 @@
 
 .list-view .scroll-bar .increment-arrow, .eventListLstV .scroll-bar .decrement-arrow {
     -fx-padding: 0;
+}
+
+.eventInfoLbl {
+    -fx-font-family: 'PT Serif';
+    -fx-font-size: 25px;
+}
+
+.eventSpecificLbl {
+    -fx-font-family: 'PT Serif';
+    -fx-font-size: 20px;
 }
