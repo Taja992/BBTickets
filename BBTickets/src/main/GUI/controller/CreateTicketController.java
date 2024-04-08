@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CreateTicketController implements Initializable {
@@ -48,14 +50,25 @@ public class CreateTicketController implements Initializable {
     private String[] ticketTypes = {"Standard", "VIP"};
     private String uuid = "";
 
+    private Button createTicketBtn;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        showCustomers();
         allCustomers.addAll(custModel.getAllCustomers());
+        showCustomers();
         typeChcBox.getItems().addAll(ticketTypes);
     }
 
+    public void setCreateTicketBtn(Button createTicketBtn) {
+        this.createTicketBtn = createTicketBtn;
+    }
+
     public void closeWindow(ActionEvent actionEvent) {
+        // Re-enable the button
+        if (createTicketBtn != null) {
+            createTicketBtn.setDisable(false);
+        }
+
         // Get the current stage from the action event and close it
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
@@ -69,89 +82,125 @@ public class CreateTicketController implements Initializable {
     private void showCustomers(){
         customerLv.getItems().clear();
         customerLv.getItems().addAll(custModel.getAllCustomers());
-
     }
 
     public void addTicket(ActionEvent actionEvent) throws BBExceptions, IOException {
-        if(customerLv.getSelectionModel().getSelectedItem() != null && !typeChcBox.getValue().isEmpty()
-                && !filelocationTxt.getText().isEmpty()){
-            Customer cust = allCustomers.get(customerLv.getSelectionModel().getSelectedIndex());
-            uuid = ticketModel.generateUUID();
+        if(!typeChcBox.getValue().isEmpty() && !filelocationTxt.getText().isEmpty()){
+            if(newCustChkBox.isSelected()){ //make new ticket and customer
+                if(!custNameTxt.getText().isEmpty() && !custEmailTxt.getText().isEmpty()){
+                    Customer cust = new Customer(custModel.getLastCustomerID()+1, custNameTxt.getText(), custEmailTxt.getText());
 
-            if(!priceTxt.getText().isEmpty()){
-                double price = Double.parseDouble(priceTxt.getText());
-                ticketModel.createTicket(typeChcBox.getValue(), cust.getCustId(), selectedEvent.getEventId(), price, uuid);
-                printTicket(actionEvent);
+                    //checking if a pdf of the same name exists (could cause corruption otherwise)
+                    if(!ticketModel.doesPDFExist(filelocationTxt.getText() + "\\Ticket For " + cust.getCustomerName() + " to " + selectedEvent.getEventType() + ".pdf")){
+                        custModel.newCustomer(cust);
+                        showCustomers(); //to refresh the table with the new customer
+                        finalizeTicket(cust);
+                    } else{
 
+                        if(saveOverPDFConfirmation()){
+                            custModel.newCustomer(cust);
+                            showCustomers(); //to refresh the table with the new customer
+                            finalizeTicket(cust);
+                        }
+                    }
+                }
             } else {
-                ticketModel.createTicket(typeChcBox.getValue(), cust.getCustId(), selectedEvent.getEventId(), uuid);
-                printTicket(actionEvent);
+                //just make new ticket with selected customer
+                if(customerLv.getSelectionModel().getSelectedItem() != null){
+                    Customer cust = allCustomers.get(customerLv.getSelectionModel().getSelectedIndex());
+
+                    //checking if pdf of the same name exists
+                    if(!ticketModel.doesPDFExist(filelocationTxt.getText() + "\\Ticket For " + cust.getCustomerName() + " to " + selectedEvent.getEventType() + ".pdf")){
+                        finalizeTicket(cust);
+                    } else{
+                        if(saveOverPDFConfirmation()){
+                            finalizeTicket(cust);
+                        }
+                    }
+                } else {
+                    showErrorDialog("Empty Fields", "Please make sure you select a customer");
+                }
             }
 
+
+        } else {
+            showErrorDialog("Empty Fields", "Please make sure you select a ticket type and file location");
         }
+    }
 
+    //I know the name is a bit confusing but this method exists because these lines of code are repeated
+    private void finalizeTicket( Customer cust) throws IOException, BBExceptions {
 
+        uuid = ticketModel.generateUUID();
+
+        if(!priceTxt.getText().isEmpty()){
+            double price = Double.parseDouble(priceTxt.getText());
+            ticketModel.createTicket(typeChcBox.getValue(), cust.getCustId(), selectedEvent.getEventId(), price, uuid);
+            printTicket(cust);
+
+        } else {
+            ticketModel.createTicket(typeChcBox.getValue(), cust.getCustId(), selectedEvent.getEventId(), uuid);
+            printTicket(cust);
+        }
     }
 
 
     //method for saving a ticket pdf file
-    public void printTicket(ActionEvent actionEvent) throws IOException, BBExceptions {
-        int width = 450;
-        int height = 300;
+    public void printTicket(Customer cust) throws BBExceptions {
+        int width = 1168;
+        int height = 544;
 
-        if(!filelocationTxt.getText().isEmpty() && !typeChcBox.getValue().isEmpty()){
-            String type = typeChcBox.getSelectionModel().getSelectedItem();
+        String type = typeChcBox.getSelectionModel().getSelectedItem();
 
-            double price = -1;
-            if(!priceTxt.getText().isEmpty()){
-                price = Double.parseDouble(priceTxt.getText());
-            }
-            if(uuid.isEmpty()){ //in case this method wasn't called by the addTicket method. this way it can still have a UUID
-                uuid = ticketModel.generateUUID();
-            }
-
-            if(newCustChkBox.isSelected()){
-                //create a new customer if the new customer checkbox is selected
-                if(!custNameTxt.getText().isEmpty() && !custEmailTxt.getText().isEmpty()){
-                    Customer cust = new Customer(custNameTxt.getText(),custEmailTxt.getText());
-                    custModel.newCustomer(cust);
-                    ticketModel.printTicketWithInfo(width,height,cust,selectedEvent, type, price, uuid, filelocationTxt.getText());
-                }
-            } else{
-                //uses the selected customer to print tickert
-                if(customerLv.getSelectionModel().getSelectedItem() != null){
-                    Customer selectedCust = customerLv.getSelectionModel().getSelectedItem();
-                    ticketModel.printTicketWithInfo(width,height,selectedCust,selectedEvent, type, price, uuid, filelocationTxt.getText());
-                }
-            }
+        double price = -1;
+        if(!priceTxt.getText().isEmpty()){
+            price = Double.parseDouble(priceTxt.getText());
         }
+
+        try {
+            ticketModel.printTicketWithInfo(width,height,cust,selectedEvent, type, price, uuid, filelocationTxt.getText());
+        } catch (IOException e) {
+            showErrorDialog("error with file", "There was an error saving this file. If you're trying to save over another file, it may be because you have it open");
+            throw new RuntimeException(e);
+        }
+
 
     }
 
 
     public void chooseFile(ActionEvent actionEvent) {
-
-        //fileChooser = the thing that lets you open the file explorer
-        FileChooser chooser = new FileChooser();
+        DirectoryChooser chooser = new DirectoryChooser();
         chooser.setTitle("Choose location to save your ticket pdf");
 
-        File selected = chooser.showOpenDialog(customerLv.getScene().getWindow()); //getting the selected file
+        File directory = chooser.showDialog(customerLv.getScene().getWindow()); //getting the selected folder
 
-        if(selected != null){
+        if(directory != null){
+            String folderLocation = directory.getAbsolutePath();
+            filelocationTxt.setText(folderLocation);
+        }
+    }
 
-            String fileLocation = selected.getAbsolutePath();
+    private void showErrorDialog(String title, String message){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
-            //for the purposes of this method, we just want a folder to save the pdf,
-            //not a file. So we remove the part of the path containing the file
-            //and just get the folder that the file is contained in
-            if(fileLocation.contains(".")){
-                fileLocation = fileLocation.substring(0,fileLocation.lastIndexOf("\\"));
-                //the double slash is because "\" makes java ignore the text next to it
-            }
+    private boolean saveOverPDFConfirmation(){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Trying to save over existing pdf");
+        alert.setHeaderText(null);
+        alert.setContentText("This may cause corruption of the file and it won't save if the file is open. Would you like to proceed?");
 
-            filelocationTxt.setText(fileLocation);
-
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.get() == ButtonType.OK){
+            return true;
+        } else {
+            return false;
         }
 
     }
+
 }

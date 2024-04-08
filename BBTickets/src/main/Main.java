@@ -1,4 +1,5 @@
 import DAL.ConnectionManager;
+import GUI.util.FontLoadUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,6 +25,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        FontLoadUtil.loadFont("https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxP.ttf", 20);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GUI/view/login.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);

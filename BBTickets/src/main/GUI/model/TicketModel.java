@@ -31,6 +31,10 @@ public class TicketModel {
         return ticketBLL.generateUUID();
     }
 
+    public boolean doesPDFExist(String filepath){
+        return ticketBLL.doesPDFExist(filepath);
+    }
+
 
 
 }

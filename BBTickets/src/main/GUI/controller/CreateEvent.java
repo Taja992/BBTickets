@@ -36,6 +36,7 @@ public class CreateEvent {
     @FXML
     private Button addEvent;
 
+    private Button createEventBtn;
     private EcDashboardController ecController;
 
     private int userId;
@@ -51,8 +52,12 @@ public class CreateEvent {
     }
 
     public void initialize() {
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0, 15);
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 60, 0, 15);
         eventMinuteSpinner.setValueFactory(valueFactory);
+    }
+
+    public void setCreateEventBtn(Button createEventBtn) {
+        this.createEventBtn = createEventBtn;
     }
 
     public void setRenameThisEcController(EcDashboardController ecController) {
@@ -108,6 +113,11 @@ public class CreateEvent {
     }
 
     public void closeWindow(ActionEvent actionEvent) {
+        // Re-enable the button
+        if (createEventBtn != null) {
+            createEventBtn.setDisable(false);
+        }
+
         // Get the current stage from the action event and close it
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();

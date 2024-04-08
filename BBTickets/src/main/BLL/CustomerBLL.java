@@ -17,5 +17,8 @@ public class CustomerBLL {
     public List<Customer> getAllCustomers() {
         return DAO.getAllCustomers();
     }
+    public int getLastCustomerID(){
+        return DAO.getLastCustomerID();
+    }
 
 }
