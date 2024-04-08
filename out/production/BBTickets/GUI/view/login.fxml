@@ -55,7 +55,7 @@
                                     <VBox alignment="CENTER">
                                        <children>
                                           <Label styleClass="userPWLbl" text="Password:" />
-                                          <PasswordField id="userPWTxtField" fx:id="passwordField" alignment="CENTER" promptText="Password" />
+                                          <PasswordField id="userPWTxtField" fx:id="passwordField" alignment="CENTER" promptText="Password" styleClass="pwField" />
                                        </children>
                                     </VBox>
                                  </children>
