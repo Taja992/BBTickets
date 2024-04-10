@@ -77,7 +77,10 @@ public class ManageEventController {
             int hour = (int) eventHourSpinner.getValue();
             int minute = (int) eventMinuteSpinner.getValue();
             LocalDateTime startTime = LocalDateTime.of(eventStartDatePicker.getValue(), LocalTime.of(hour, minute));
-            LocalDateTime endTime = LocalDateTime.of(eventEndDatePicker.getValue(), LocalTime.MIN);
+            LocalDateTime endTime = null;
+            if (eventEndDatePicker.getValue() != null) {
+                endTime = LocalDateTime.of(eventEndDatePicker.getValue(), LocalTime.MIN);
+            }
             String notes = eventNotesField.getText();
             String guidance = locationGuidanceField.getText();
 
