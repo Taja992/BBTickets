@@ -2,15 +2,19 @@ package GUI.model;
 
 import BE.User;
 import BLL.UserBLL;
+import DAL.UserDAO;
 import Exceptions.BBExceptions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class UserModel {
+
+    private UserDAO userDAO;
     private UserBLL userBLL;
     private ObservableList<User> allUsers;
     private Map<Integer, ObservableList<User>> usersForEvent = new HashMap<>();
@@ -19,6 +23,7 @@ public class UserModel {
         userBLL = new UserBLL();
         allUsers = FXCollections.observableArrayList();
         loadUsers();
+        userDAO = new UserDAO();
 
     }
 
@@ -81,5 +86,9 @@ public class UserModel {
             }
         }
         throw new BBExceptions("User with id " + userId + " not found.");
+    }
+
+    public void updateProfilePicture(int userId, byte[] pictureData) throws SQLException, SQLException {
+        userDAO.updateProfilePicture(userId, pictureData);
     }
 }

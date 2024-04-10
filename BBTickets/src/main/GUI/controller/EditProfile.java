@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 
 public class EditProfile {
 
@@ -66,8 +67,18 @@ public class EditProfile {
         loggedInUser.setUsername(username);
         loggedInUser.setPassword(password);
 
-        // Save the image path instead of the image data
-        loggedInUser.setProfilePicture(picturePath.getBytes());
+        // Read the image file and convert it to a byte array
+        try {
+            byte[] pictureData = Files.readAllBytes(Paths.get(picturePath));
+            loggedInUser.setProfilePicture(pictureData);
+            userModel.updateUser(loggedInUser); // Update the user details in the database
+            userModel.updateProfilePicture(loggedInUser.getUserId(), pictureData); // Update the profile picture in the database
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         userModel.updateUser(loggedInUser); // Update the user details in the database
         Node source = (Node) actionEvent.getSource();

@@ -4,10 +4,18 @@ import BE.Event;
 import BE.User;
 import Exceptions.BBExceptions;
 
+import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.sql.Blob;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UserDAO {
     private ConnectionManager connectionManager;
@@ -25,9 +33,19 @@ public class UserDAO {
             statement.setInt(1, user.getUser_type());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getUsername());
-            statement.setBytes(4, user.getProfilePicture());
+
+            // Load the placeholder image file
+            File file = new File("src/main/resources/placeholder.png");
+            FileInputStream fis = new FileInputStream(file);
+            byte[] profilePicture = new byte[(int) file.length()];
+            fis.read(profilePicture);
+            fis.close();
+
+            // Set the placeholder image as the profile picture
+            statement.setBytes(4, profilePicture);
+
             statement.executeUpdate();
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             throw new BBExceptions("Failed to insert user", e);
         }
     }
@@ -48,6 +66,14 @@ public class UserDAO {
         } catch (SQLException e) {
             throw new BBExceptions("Failed to update user", e);
         }
+    }
+    public void updateProfilePicture(int userId, byte[] profilePicture) throws SQLException {
+        String sql = "UPDATE Users SET profilePicture = ? WHERE id = ?";
+        Connection connection = connectionManager.getConnection();
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        pstmt.setBytes(1, profilePicture);
+        pstmt.setInt(2, userId);
+        pstmt.executeUpdate();
     }
 
     public User getUser(String username, String password) throws BBExceptions {

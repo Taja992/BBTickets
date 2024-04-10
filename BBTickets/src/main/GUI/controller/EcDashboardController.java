@@ -22,6 +22,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import javafx.stage.StageStyle;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -71,8 +78,12 @@ public class EcDashboardController {
     private Button logoutBtn;
     @FXML
     private Button editProfileBtn;
-
+    @FXML
+    private Circle pictureHolder;
     private int userId;
+    private User loggedInUser;
+
+
     private EventModel eventModel;
     private UserModel userModel;
     private EventHelper eventHelper;
@@ -286,15 +297,19 @@ public class EcDashboardController {
 
             EditProfile controller = loader.getController();
             controller.setUserModel(userModel);
+            User loggedInUser = userModel.getUserById(userId);
+            controller.setLoggedInUser(loggedInUser);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
-        } catch (IOException e) {
+        } catch (IOException | BBExceptions e) {
             e.printStackTrace();
             showErrorDialog("Edit Profile Error", "Failed to load profile editing view: " + e.getMessage());
         }
     }
+
+
 
 
     public void assignCoordinator(ActionEvent actionEvent) {

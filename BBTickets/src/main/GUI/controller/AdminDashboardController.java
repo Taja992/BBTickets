@@ -89,25 +89,28 @@ public class AdminDashboardController {
     public void setUserId(int userId) throws BBExceptions {
         this.userId = userId;
         loggedInUser = userModel.getUserById(userId);
-        Image image;
+        Image image = null;
         if (loggedInUser != null && loggedInUser.getProfilePicture() != null) {
-            // convert the file path to a URL
-            String imagePath = new String(loggedInUser.getProfilePicture());
-            File imageFile = new File(imagePath);
-            try {
-                String imageUrl = imageFile.toURI().toURL().toString();
-                image = new Image(imageUrl);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-                return;
+            byte[] imageData = loggedInUser.getProfilePicture();
+            if (imageData != null && imageData.length > 0) {
+                // Convert byte array to input stream
+                try (InputStream imageStream = new ByteArrayInputStream(imageData)) {
+                    image = new Image(imageStream);
+                } catch (IOException e) {
+                    // If an exception occurs, log it and set image to default
+                    e.printStackTrace();
+                    String defaultImagePath = "/images/pictureplaceholder.png";
+                    image = new Image(defaultImagePath);
+                }
+            } else {
+                // When user has no image, a default one is added
+                String defaultImagePath = "/images/pictureplaceholder.png";
+                image = new Image(defaultImagePath);
             }
-        } else {
-            // when user has no image, a default one is added,
-            String imagePath = "/images/pictureplaceholder.png";
-            image = new Image(imagePath);
         }
         pictureHolder.setFill(new ImagePattern(image));
     }
+
 
 
     public void initialize() {
