@@ -3,6 +3,7 @@ package BLL;
 import BE.Customer;
 import BE.Event;
 import BE.TicketType;
+import BE.Ticket;
 import DAL.TicketDAO;
 import DAL.TicketTypeDAO;
 import Exceptions.BBExceptions;
@@ -202,6 +203,11 @@ public class TicketBLL {
         String uuidStr = uuid.toString();
         return  uuidStr;
 
+    }
+
+    public List<Ticket> getTickets(int customerId, int eventId) {
+        List<Ticket> tickets = DAO.getTickets(customerId, eventId);
+        return tickets;
     }
 
 }

@@ -9,8 +9,11 @@ import GUI.model.CustomerModel;
 import GUI.model.TicketModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -216,4 +219,19 @@ public class CreateTicketController implements Initializable {
 
     }
 
+    public void reprintTktBtn(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/reprintTicket.fxml"));
+        Parent root = loader.load();
+
+        ReprintTicketController controller = loader.getController();
+        controller.setEventId(selectedEvent.getEventId());
+        controller.setEvent(selectedEvent);
+
+        Customer selectedCustomer = customerLv.getSelectionModel().getSelectedItem();
+        controller.setCustomer(selectedCustomer);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 }
