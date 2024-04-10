@@ -7,6 +7,7 @@ import GUI.model.TicketModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -17,7 +18,8 @@ import java.util.List;
 
 public class ReprintTicketController {
 
-    public ListView<Ticket> userTktLv;
+    @FXML
+    private ListView<Ticket> userTktLv;
     private Event event;
     private Customer customer;
     private TicketModel ticketModel;
@@ -55,21 +57,15 @@ public class ReprintTicketController {
                 if (selectedDirectory != null) {
                     String fileLocation = selectedDirectory.getAbsolutePath();
 
-                    ticketModel.printTicketWithInfo(
-                            1168, // width
-                            544, // height
-                            customer,
-                            selectedEvent,
+                    ticketModel.printTicketWithInfo(1168, 544, customer, selectedEvent,
                             selectedTicket.getType(),
                             selectedTicket.getPrice(),
                             selectedTicket.getUuid(),
-                            fileLocation // Use the selected directory
+                            fileLocation
                     );
-                } else {
-                    showErrorDialog("No Directory Selected", "Please select a directory to save the PDF.");
                 }
             } catch (IOException e) {
-                showErrorDialog("Error with file", "There was an error saving this file. If you're trying to save over another file, it may be because you have it open");
+                showErrorDialog("Error with file", "There was an error saving this file. This could be because the file already exists and its opened.");
                 throw new RuntimeException(e);
             }
         } else {

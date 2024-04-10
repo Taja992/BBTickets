@@ -13,8 +13,8 @@
 .list-view {
     -fx-background-color: #ede1f8;
     -fx-font-size: 18px;
-    -fx-border-radius: 50;
-    -fx-background-radius: 50;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
 }
 
 .list-view .list-cell {
@@ -78,37 +78,39 @@
 }
 
 .topHbox {
-    -fx-background-color: #a162dd;
+    -fx-background-color: rgba(176, 130, 220, 0.8);
 }
 
 .userWindowHbox {
     -fx-background-color: #ede1f8;
-    -fx-border-radius: 50;
-    -fx-background-radius: 50;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
 }
 
 .userSp {
     -fx-background-color: TRANSPARENT;
-    -fx-border-radius: 50;
-    -fx-background-radius: 50;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
 }
 
 .eventWindowVbox {
     -fx-background-color: #ede1f8;
-    -fx-border-radius: 50;
-    -fx-background-radius: 50;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 0);
 }
 
 .buttonVbox {
     -fx-background-color: #ede1f8;
-    -fx-border-radius: 50;
-    -fx-background-radius: 50;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
 }
 
 .buttonVbox {
     -fx-background-color: #ede1f8;
-    -fx-border-radius: 50;
-    -fx-background-radius: 50;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
 }
 
 
@@ -139,14 +141,24 @@
     -fx-padding: 0;
 }
 
+.eventListLstV {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
+.list-view {
+        -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
+
 .eventInfoLbl {
     -fx-font-family: 'PT Serif';
     -fx-font-size: 25px;
+    -fx-text-fill: #333;
 }
 
 .eventSpecificLbl {
     -fx-font-family: 'PT Serif';
     -fx-font-size: 20px;
+    -fx-text-fill: #333;
 }
 
 .text-field {
