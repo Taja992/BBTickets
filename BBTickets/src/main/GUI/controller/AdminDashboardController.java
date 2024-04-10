@@ -91,7 +91,7 @@ public class AdminDashboardController {
         loggedInUser = userModel.getUserById(userId);
         Image image;
         if (loggedInUser != null && loggedInUser.getProfilePicture() != null) {
-            // Convert the file path to a URL
+            // convert the file path to a URL
             String imagePath = new String(loggedInUser.getProfilePicture());
             File imageFile = new File(imagePath);
             try {
@@ -102,7 +102,7 @@ public class AdminDashboardController {
                 return;
             }
         } else {
-            // Load a default image from the resources folder
+            // when user has no image, a default one is added,
             String imagePath = "/images/pictureplaceholder.png";
             image = new Image(imagePath);
         }
