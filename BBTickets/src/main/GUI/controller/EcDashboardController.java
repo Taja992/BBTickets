@@ -85,7 +85,6 @@ public class EcDashboardController {
         userModel = new UserModel();}
 
     public void initialize() {
-        loadFont();
         this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
         eventModel = new EventModel();
         setupLogoutButton();
@@ -96,33 +95,6 @@ public class EcDashboardController {
         userListLv.setItems(userModel.getUsersByType(0));
     }
 
-    private void loadFont() {
-        try {
-            // Create a URL object with the Google Font URL
-            URL googleFontUrl = new URL("https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxP.ttf");
-
-            // Open a connection to the URL
-            URLConnection connection = googleFontUrl.openConnection();
-
-            // Get an InputStream from the connection
-            InputStream fontStream = connection.getInputStream();
-
-            // Load the font with the desired size
-            Font googleFont = Font.loadFont(fontStream, 20);
-
-            // Use the font in your application
-            // For example, set it as the font of a Label
-            eventTypeLbl.setFont(googleFont);
-            eventLocationLbl.setFont(googleFont);
-            eventNotesLbl.setFont(googleFont);
-            eventDirLbl.setFont(googleFont);
-            eventStartLbl.setFont(googleFont);
-            eventEndLbl.setFont(googleFont);
-        } catch (IOException e) {
-            // Handle exception
-            e.printStackTrace();
-        }
-    }
 
     private void setupLogoutButton() {
         logoutBtn.setOnAction(this::handleLogoutButtonClick);
@@ -236,8 +208,11 @@ public class EcDashboardController {
 
                 stage.show();
             } catch (IOException e) {
+                e.printStackTrace();
                 showErrorDialog("Edit Event Error", "Failed to edit the event.");
             }
+        } else {
+            showErrorDialog("Selection Error", "Please select an event to edit.");
         }
     }
 

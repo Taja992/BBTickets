@@ -1,18 +1,13 @@
-import DAL.ConnectionManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-import java.sql.Connection;
-import java.sql.SQLException;
 
 public class Main extends Application {
 
@@ -24,6 +19,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Font.loadFont(getClass().getResourceAsStream("/fonts/PTSerif-Regular.ttf"), 20);
+        Font.loadFont(getClass().getResourceAsStream("/fonts/Lato-Regular.ttf"), 20);
+        Font.loadFont(getClass().getResourceAsStream("/fonts/Roboto-Regular.ttf"), 20);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GUI/view/login.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);

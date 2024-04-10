@@ -205,7 +205,7 @@ public class CreateTicketController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Trying to save over existing pdf");
         alert.setHeaderText(null);
-        alert.setContentText("This may cause corruption of the file and it won't save if the file is open. Would you like to proceed?");
+        alert.setContentText("This will create a new ticket with the same name");
 
         Optional<ButtonType> result = alert.showAndWait();
         if(result.get() == ButtonType.OK){

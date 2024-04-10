@@ -1,9 +1,8 @@
 .rootVbox {
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: 'PT Serif';
     -fx-background-color: linear-gradient(to right, #cfb3ea, #e7d1e8);
     -fx-text-fill: #333;
 }
-
 
 .label {
     -fx-font-weight: bold;
