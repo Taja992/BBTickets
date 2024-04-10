@@ -72,6 +72,7 @@ public class CreateTicketController implements Initializable {
         }
 
         typeChcBox.getItems().addAll(typesForBox);
+        typeChcBox.setValue("Standard");
     }
 
     public void setCreateTicketBtn(Button createTicketBtn) {
