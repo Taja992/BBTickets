@@ -88,7 +88,7 @@ public class ManageEventController {
             eventModel.manageEvent(event);
             controller.refreshTable();
         }
-
+        closeWindow(actionEvent);
     }
 
     public void closeWindow(ActionEvent actionEvent) {
