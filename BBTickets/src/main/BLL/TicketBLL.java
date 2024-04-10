@@ -2,7 +2,10 @@ package BLL;
 
 import BE.Customer;
 import BE.Event;
+import BE.TicketType;
 import DAL.TicketDAO;
+import DAL.TicketTypeDAO;
+import Exceptions.BBExceptions;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -25,18 +28,28 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.UUID;
 
 public class TicketBLL {
 
     private TicketDAO DAO = new TicketDAO();
+    private TicketTypeDAO typeDAO = new TicketTypeDAO();
 
-    public void createTicket(String type, int customerId, int eventId, double price, String UUID){
+    public void createTicket(int type, int customerId, int eventId, double price, String UUID){
         DAO.createTicket(type, customerId, eventId, price, UUID);
     }
 
-    public void createTicket(String type, int customerId, int eventId, String UUID){
+    public void createTicket(int type, int customerId, int eventId, String UUID){
         DAO.createTicket(type, customerId, eventId, UUID);
+    }
+
+    public List<TicketType> getAllTypes(){
+        return typeDAO.getAllTypes();
+    }
+
+    public void addType(int id, String name) throws BBExceptions {
+        typeDAO.addType(id, name);
     }
 
     public void printTicketWithInfo(int width, int height, Customer cust, Event event, String type, double price, String uuid, String fileLocation) throws IOException  {
@@ -118,11 +131,16 @@ public class TicketBLL {
 
         stream.close();
 
-        String eventType = event.getEventType();
-        if(eventType.contains("?")){ //files can't be saved if their name contains "?" so I just wrote a thing to get rid of those
-            eventType = eventType.replace('?', ' ');
+        String baseFilename = fileLocation + "\\Ticket For " + cust.getCustomerName() + " to " + event.getEventType();
+        String filename = baseFilename + ".pdf";
+        int copyNumber = 2;
+
+        while (doesPDFExist(filename)) {
+            filename = baseFilename + " (" + copyNumber + ").pdf";
+            copyNumber++;
         }
-        ticketDoc.save(fileLocation + "\\Ticket For " + cust.getCustomerName() + " to " + eventType + ".pdf");
+
+        ticketDoc.save(filename);
         ticketDoc.close();
     }
 
