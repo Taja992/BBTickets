@@ -5,9 +5,7 @@ import BLL.UserBLL;
 import Exceptions.BBExceptions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class UserModel {

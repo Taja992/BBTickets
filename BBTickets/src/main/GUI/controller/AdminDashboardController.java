@@ -26,29 +26,17 @@ import java.io.IOException;
 import java.util.List;
 
 public class AdminDashboardController {
-    public Button createUserBtn;
-    public Button closeBtn;
-    public JFXToggleButton toggleUserListBtn;
+
     @FXML
-    private BorderPane mainBp;
+    private Button createUserBtn;
     @FXML
-    private VBox eventListVbox;
+    private JFXToggleButton toggleUserListBtn;
     @FXML
     private ListView<BE.Event> eventListLv;
     @FXML
     private ListView<User> userListLv;
     @FXML
-    private BorderPane nestedBp;
-    @FXML
     private HBox userWindowHbox;
-    @FXML
-    private VBox eventWindowVbox;
-    @FXML
-    private HBox bottomHbox;
-    @FXML
-    private Button createEventBtn;
-    @FXML
-    private Button logoutBtn;
     @FXML
     private Label eventTypeLbl;
     @FXML

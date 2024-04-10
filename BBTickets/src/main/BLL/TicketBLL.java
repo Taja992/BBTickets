@@ -3,6 +3,7 @@ package BLL;
 import BE.Customer;
 import BE.Event;
 import BE.TicketType;
+import BE.Ticket;
 import DAL.TicketDAO;
 import DAL.TicketTypeDAO;
 import Exceptions.BBExceptions;
@@ -25,8 +26,6 @@ import org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject;
 import org.apache.pdfbox.pdmodel.graphics.image.JPEGFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.util.Matrix;
-
-import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -248,6 +247,11 @@ public class TicketBLL {
         String uuidStr = uuid.toString();
         return  uuidStr;
 
+    }
+
+    public List<Ticket> getTickets(int customerId, int eventId) {
+        List<Ticket> tickets = DAO.getTickets(customerId, eventId);
+        return tickets;
     }
 
 }
