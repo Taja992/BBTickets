@@ -33,8 +33,6 @@ public class CreateEvent {
     private TextField eventNotesField;
     @FXML
     private TextField locationGuidanceField;
-    @FXML
-    private Button addEvent;
 
     private Button createEventBtn;
     private EcDashboardController ecController;
@@ -103,6 +101,8 @@ public class CreateEvent {
             alert.setHeaderText(null);
             alert.setContentText("The event was successfully created.");
             alert.showAndWait();
+
+            closeWindow(actionEvent);
 
             // Get the current stage from the action event and close it
             Node source = (Node) actionEvent.getSource();

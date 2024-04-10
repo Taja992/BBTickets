@@ -15,13 +15,11 @@ import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -34,30 +32,20 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.time.format.DateTimeFormatter;
+
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class EcDashboardController {
 
-    public Button editEventBtn;
-    public Button createTicketBtn;
     @FXML
-    private VBox eventWindowVbox;
+    private Button editEventBtn;
     @FXML
-    private BorderPane mainBp;
-    @FXML
-    private VBox eventListVbox;
-    @FXML
-    private BorderPane nestedBp;
+    private Button createTicketBtn;
     @FXML
     private HBox userWindowHbox;
     @FXML
-    private HBox bottomHbox;
-    @FXML
     private Button createEventBtn;
-    @FXML
-    private Button closeBtn;
     @FXML
     private Label eventTypeLbl;
     @FXML
@@ -100,17 +88,20 @@ public class EcDashboardController {
     public void initialize() {
         this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
         eventModel = new EventModel();
-        setupLogoutButton();
+        setupButtons();
         ListViewSetupUtility.setupEventListView(eventListLv, eventModel);
         eventHelper.eventListObserver();
         ListViewSetupUtility.setupUserListView(userListLv);
         DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
         userListLv.setItems(userModel.getUsersByType(0));
+
     }
 
 
-    private void setupLogoutButton() {
+    private void setupButtons() {
         logoutBtn.setOnAction(this::handleLogoutButtonClick);
+        Button closeBtn = new Button();
+        closeBtn.setId("closeBtn");
     }
 
     @FXML
@@ -311,9 +302,6 @@ public class EcDashboardController {
 
 
 
-
-    public void assignCoordinator(ActionEvent actionEvent) {
-    }
 
     public void logoutBtn(ActionEvent actionEvent) {
     }

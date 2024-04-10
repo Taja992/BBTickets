@@ -8,7 +8,7 @@ public class User {
     private String roleName;
     private byte[] profilePicture;
 
-    ///why?
+
     public User(Integer userID, Integer user_type, String password, String username) {
         this.userId = userID;
         this.user_type = user_type;
