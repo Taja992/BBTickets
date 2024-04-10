@@ -2,6 +2,7 @@ package BLL;
 
 import BE.Customer;
 import BE.Event;
+import BE.Ticket;
 import DAL.TicketDAO;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -25,6 +26,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.UUID;
 
 public class TicketBLL {
@@ -189,6 +191,11 @@ public class TicketBLL {
         String uuidStr = uuid.toString();
         return  uuidStr;
 
+    }
+
+    public List<Ticket> getTickets(int customerId, int eventId) {
+        List<Ticket> tickets = DAO.getTickets(customerId, eventId);
+        return tickets;
     }
 
 }

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxHeight="520.0" maxWidth="621.0" prefHeight="520.0" prefWidth="621.0" spacing="8.0" stylesheets="/GUI/view/createTicket.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.CreateTicketController">
+<VBox alignment="TOP_CENTER" maxHeight="520.0" maxWidth="621.0" prefHeight="520.0" prefWidth="621.0" spacing="8.0" stylesheets="/GUI/view/createTicket.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.CreateTicketController">
    <children>
       <VBox alignment="CENTER">
          <children>
@@ -99,7 +99,7 @@
                         <Insets />
                      </HBox.margin>
                   </Button>
-                  <Button layoutX="203.0" layoutY="10.0" mnemonicParsing="false"  text="reprint ticket" />
+                  <Button layoutX="203.0" layoutY="10.0" mnemonicParsing="false" onAction="#reprintTktBtn" text="Reprint ticket" />
                </children>
                <padding>
                   <Insets bottom="10.0" />

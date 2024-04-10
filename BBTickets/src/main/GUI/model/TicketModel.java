@@ -2,10 +2,12 @@ package GUI.model;
 
 import BE.Customer;
 import BE.Event;
+import BE.Ticket;
 import BLL.TicketBLL;
 import BLL.UserBLL;
 
 import java.io.IOException;
+import java.util.List;
 
 public class TicketModel {
 
@@ -35,6 +37,8 @@ public class TicketModel {
         return ticketBLL.doesPDFExist(filepath);
     }
 
-
+    public List<Ticket> getTickets(int customerId, int eventId) {
+        return ticketBLL.getTickets(customerId, eventId);
+    }
 
 }
