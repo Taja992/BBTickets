@@ -308,6 +308,12 @@ public class EcDashboardController {
             // Set the title of the stage
             stage.setTitle("Create Coupon");
 
+            // Disable the button
+            ((Node) actionEvent.getSource()).setDisable(true);
+
+            // Add a listener to the window close event to re-enable the button
+            stage.setOnCloseRequest(event -> ((Node) actionEvent.getSource()).setDisable(false));
+
             // Show the stage
             stage.show();
         } catch (IOException e) {
