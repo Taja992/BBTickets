@@ -2,9 +2,11 @@ package GUI.model;
 
 import BE.Customer;
 import BE.Event;
+import BE.TicketType;
 import BE.Ticket;
 import BLL.TicketBLL;
 import BLL.UserBLL;
+import Exceptions.BBExceptions;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,12 +19,19 @@ public class TicketModel {
         ticketBLL = new TicketBLL();
 
     }
-    public void createTicket(String type, int customerId, int eventId, double price, String UUID){
-        ticketBLL.createTicket(type, customerId, eventId, price, UUID);
+    public void createTicket(int typeId, int customerId, int eventId, double price, String UUID){
+        ticketBLL.createTicket(typeId, customerId, eventId, price, UUID);
     }
 
-    public void createTicket(String type, int customerId, int eventId, String UUID){
-        ticketBLL.createTicket(type, customerId, eventId, UUID);
+    public void createTicket(int typeId, int customerId, int eventId, String UUID){
+        ticketBLL.createTicket(typeId, customerId, eventId, UUID);
+    }
+
+    public List<TicketType> getAllTypes(){
+        return ticketBLL.getAllTypes();
+    }
+    public void addType(int id, String name) throws BBExceptions {
+        ticketBLL.addType(id, name);
     }
 
     public void printTicketWithInfo(int width, int height, Customer cust, Event event, String type, double price,String uuid, String fileLocation) throws IOException {
