@@ -3,13 +3,17 @@ package GUI.controller;
 
 import BE.Customer;
 import BE.Event;
+import BE.TicketType;
 import Exceptions.BBExceptions;
 import GUI.model.CustomerModel;
 import GUI.model.TicketModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -47,6 +51,10 @@ public class CreateTicketController implements Initializable {
     private CustomerModel custModel = new CustomerModel();
     private List<Customer> allCustomers = new ArrayList<>();
     private Event selectedEvent;
+
+    private List<TicketType> types = new ArrayList<>();
+    private List<String> typesForBox = new ArrayList<>();
+
     private String[] ticketTypes = {"Standard", "VIP"};
     private String uuid = "";
 
@@ -56,7 +64,14 @@ public class CreateTicketController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         allCustomers.addAll(custModel.getAllCustomers());
         showCustomers();
-        typeChcBox.getItems().addAll(ticketTypes);
+
+        types.addAll(ticketModel.getAllTypes());
+
+        for(TicketType type : types){
+            typesForBox.add(type.getName());
+        }
+
+        typeChcBox.getItems().addAll(typesForBox);
         typeChcBox.setValue("Standard");
     }
 
@@ -133,14 +148,15 @@ public class CreateTicketController implements Initializable {
     private void finalizeTicket( Customer cust) throws IOException, BBExceptions {
 
         uuid = ticketModel.generateUUID();
+        int typeId = types.get(typeChcBox.getSelectionModel().getSelectedIndex()).getId();
 
         if(!priceTxt.getText().isEmpty()){
             double price = Double.parseDouble(priceTxt.getText());
-            ticketModel.createTicket(typeChcBox.getValue(), cust.getCustId(), selectedEvent.getEventId(), price, uuid);
+            ticketModel.createTicket(typeId, cust.getCustId(), selectedEvent.getEventId(), price, uuid);
             printTicket(cust);
 
         } else {
-            ticketModel.createTicket(typeChcBox.getValue(), cust.getCustId(), selectedEvent.getEventId(), uuid);
+            ticketModel.createTicket(typeId, cust.getCustId(), selectedEvent.getEventId(), uuid);
             printTicket(cust);
         }
     }
@@ -204,4 +220,19 @@ public class CreateTicketController implements Initializable {
 
     }
 
+    public void reprintTktBtn(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/reprintTicket.fxml"));
+        Parent root = loader.load();
+
+        ReprintTicketController controller = loader.getController();
+        controller.setEventId(selectedEvent.getEventId());
+        controller.setEvent(selectedEvent);
+
+        Customer selectedCustomer = customerLv.getSelectionModel().getSelectedItem();
+        controller.setCustomer(selectedCustomer);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 }
