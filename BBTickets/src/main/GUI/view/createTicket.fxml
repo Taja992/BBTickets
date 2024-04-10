@@ -20,7 +20,17 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <ChoiceBox fx:id="typeChcBox" prefWidth="150.0" />
+            <HBox alignment="TOP_CENTER" spacing="10.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <ChoiceBox fx:id="typeChcBox" prefWidth="150.0">
+                     <HBox.margin>
+                        <Insets left="62.0" />
+                     </HBox.margin>
+                  </ChoiceBox>
+                  <Button mnemonicParsing="false" onAction="#addTickType" text="+" />
+                  <Button layoutX="389.0" layoutY="10.0" mnemonicParsing="false" onAction="#removeTickType" text="-" />
+               </children>
+            </HBox>
             <Label text="Who do you want to give this ticket to?" />
             <ListView fx:id="customerLv" prefHeight="225.0" prefWidth="301.0">
                <padding>
@@ -99,7 +109,7 @@
                         <Insets />
                      </HBox.margin>
                   </Button>
-                  <Button layoutX="203.0" layoutY="10.0" mnemonicParsing="false"  text="reprint ticket" />
+                  <Button layoutX="203.0" layoutY="10.0" mnemonicParsing="false" text="reprint ticket" />
                </children>
                <padding>
                   <Insets bottom="10.0" />

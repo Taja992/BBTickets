@@ -40,15 +40,14 @@ public class TicketTypeDAO {
         return types;
     }
 
-    public void addType(int id, String name) throws BBExceptions {
-        String sql = "INSERT INTO TicketTypes (type_id,type_name) VALUES (?,?)";
+    public void addType(String name) throws BBExceptions {
+        String sql = "INSERT INTO TicketTypes (type_name) VALUES (?)";
 
         try(Connection con = connectionManager.getConnection()){
 
             PreparedStatement pstmnt = con.prepareStatement(sql);
 
-            pstmnt.setInt(1, id);
-            pstmnt.setString(2, name);
+            pstmnt.setString(1, name);
 
             pstmnt.executeUpdate();
 
@@ -56,6 +55,22 @@ public class TicketTypeDAO {
             throw new BBExceptions("failed to add TicketType, sorry", e);
         }
 
+    }
+
+    public void removeType(int id) throws BBExceptions {
+        String sql = "DELETE TicketTypes FROM TicketTypes WHERE type_id = ?";
+
+        try(Connection con = connectionManager.getConnection()){
+
+            PreparedStatement pstmnt = con.prepareStatement(sql);
+
+            pstmnt.setInt(1, id);
+
+            pstmnt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new BBExceptions("failed to remove TicketType, sorry", e);
+        }
 
     }
 
