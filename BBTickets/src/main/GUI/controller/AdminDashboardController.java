@@ -7,7 +7,6 @@ import GUI.model.EventModel;
 import GUI.model.UserModel;
 import GUI.util.ListViewSetupUtility;
 import com.jfoenix.controls.JFXToggleButton;
-import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,10 +19,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.StageStyle;
 
+import java.io.ByteArrayInputStream;
+
+
 import java.io.IOException;
-import java.util.List;
+import java.io.InputStream;
 
 public class AdminDashboardController {
     public Button createUserBtn;
@@ -63,21 +69,44 @@ public class AdminDashboardController {
     private Label eventNotesLbl;
     @FXML
     private Label eventDirLbl;
+    @FXML
+    private Circle pictureHolder;
     private EventModel eventModel;
     private UserModel userModel;
     private EventHelper eventHelper;
     private int userId;
+    private User loggedInUser;
 
 
 
-    public AdminDashboardController() {
+    public AdminDashboardController() throws BBExceptions {
         eventModel = new EventModel();
         userModel = new UserModel();
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(int userId) throws BBExceptions {
         this.userId = userId;
+        loggedInUser = userModel.getUserById(userId);
+        Image image;
+        if (loggedInUser != null && loggedInUser.getProfilePicture() != null) {
+            System.out.println("Profile picture byte array: " + loggedInUser.getProfilePicture());
+            InputStream is = new ByteArrayInputStream(loggedInUser.getProfilePicture());
+            image = new Image(is);
+        } else {
+
+            String imagePath = "/images/pictureplaceholder.png";
+            System.out.println("Image path: " + imagePath);
+            InputStream is = getClass().getResourceAsStream(imagePath);
+            if (is != null) {
+                image = new Image(is);
+            } else {
+                System.out.println("Image not found at " + imagePath);
+                return;
+            }
+        }
+        pictureHolder.setFill(new ImagePattern(image));
     }
+
 
     public void initialize() {
         this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);

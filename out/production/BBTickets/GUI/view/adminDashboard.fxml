@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
@@ -8,7 +9,6 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<?import com.jfoenix.controls.JFXToggleButton?>
 <BorderPane fx:id="mainBp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="701.0" prefWidth="1095.0" styleClass="mainBp" stylesheets="/GUI/view/AdminDashboard.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.AdminDashboardController">
     <left>
         <VBox fx:id="eventListVbox" styleClass="eventListVbox" BorderPane.alignment="CENTER">
@@ -167,7 +167,7 @@
    <right>
       <VBox prefHeight="677.0" prefWidth="181.0" BorderPane.alignment="CENTER">
          <children>
-            <Circle fill="#b672b9" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE">
+            <Circle fx:id="pictureHolder" fill="#b672b9" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE">
                <VBox.margin>
                   <Insets left="60.0" top="40.0" />
                </VBox.margin>
