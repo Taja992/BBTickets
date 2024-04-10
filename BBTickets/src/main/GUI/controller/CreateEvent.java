@@ -104,6 +104,8 @@ public class CreateEvent {
             alert.setContentText("The event was successfully created.");
             alert.showAndWait();
 
+            closeWindow(actionEvent);
+
             // Get the current stage from the action event and close it
             Node source = (Node) actionEvent.getSource();
             Stage stage = (Stage) source.getScene().getWindow();

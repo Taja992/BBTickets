@@ -53,9 +53,13 @@ public class ManageEventController {
         eventTypeField.setText(event.getEventType());
         eventLocationField.setText(event.getEventLocation());
         eventStartDatePicker.setValue(event.getEventStartTime().toLocalDate());
+        eventHourSpinner.getValueFactory().setValue(event.getEventStartTime().getHour());
+        eventMinuteSpinner.getValueFactory().setValue(event.getEventStartTime().getMinute());
         if(event.getEventEndingTime() != null){
             eventEndDatePicker.setValue(event.getEventEndingTime().toLocalDate());
         }
+        eventNotesField.setText(event.getEventNotes());
+        locationGuidanceField.setText(event.getLocationGuidance());
     }
 
     public void setEditEventBtn(Button editEventBtn) {
@@ -73,7 +77,10 @@ public class ManageEventController {
             int hour = (int) eventHourSpinner.getValue();
             int minute = (int) eventMinuteSpinner.getValue();
             LocalDateTime startTime = LocalDateTime.of(eventStartDatePicker.getValue(), LocalTime.of(hour, minute));
-            LocalDateTime endTime = LocalDateTime.of(eventEndDatePicker.getValue(), LocalTime.MIN);
+            LocalDateTime endTime = null;
+            if (eventEndDatePicker.getValue() != null) {
+                endTime = LocalDateTime.of(eventEndDatePicker.getValue(), LocalTime.MIN);
+            }
             String notes = eventNotesField.getText();
             String guidance = locationGuidanceField.getText();
 
@@ -81,7 +88,7 @@ public class ManageEventController {
             eventModel.manageEvent(event);
             controller.refreshTable();
         }
-
+        closeWindow(actionEvent);
     }
 
     public void closeWindow(ActionEvent actionEvent) {
