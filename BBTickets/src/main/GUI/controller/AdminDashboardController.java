@@ -28,8 +28,10 @@ import javafx.stage.StageStyle;
 import java.io.ByteArrayInputStream;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 
 public class AdminDashboardController {
     public Button createUserBtn;
@@ -89,20 +91,20 @@ public class AdminDashboardController {
         loggedInUser = userModel.getUserById(userId);
         Image image;
         if (loggedInUser != null && loggedInUser.getProfilePicture() != null) {
-            System.out.println("Profile picture byte array: " + loggedInUser.getProfilePicture());
-            InputStream is = new ByteArrayInputStream(loggedInUser.getProfilePicture());
-            image = new Image(is);
-        } else {
-
-            String imagePath = "/images/pictureplaceholder.png";
-            System.out.println("Image path: " + imagePath);
-            InputStream is = getClass().getResourceAsStream(imagePath);
-            if (is != null) {
-                image = new Image(is);
-            } else {
-                System.out.println("Image not found at " + imagePath);
+            // Convert the file path to a URL
+            String imagePath = new String(loggedInUser.getProfilePicture());
+            File imageFile = new File(imagePath);
+            try {
+                String imageUrl = imageFile.toURI().toURL().toString();
+                image = new Image(imageUrl);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
                 return;
             }
+        } else {
+            // Load a default image from the resources folder
+            String imagePath = "/images/pictureplaceholder.png";
+            image = new Image(imagePath);
         }
         pictureHolder.setFill(new ImagePattern(image));
     }

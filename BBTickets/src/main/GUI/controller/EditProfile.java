@@ -11,6 +11,9 @@ import javafx.scene.control.Button;
 
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class EditProfile {
 
@@ -62,7 +65,10 @@ public class EditProfile {
         String picturePath = picturePathField.getText();
         loggedInUser.setUsername(username);
         loggedInUser.setPassword(password);
+
+        // Save the image path instead of the image data
         loggedInUser.setProfilePicture(picturePath.getBytes());
+
         userModel.updateUser(loggedInUser); // Update the user details in the database
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
