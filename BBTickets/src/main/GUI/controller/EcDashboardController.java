@@ -211,6 +211,8 @@ public class EcDashboardController {
                 e.printStackTrace();
                 showErrorDialog("Edit Event Error", "Failed to edit the event.");
             }
+        } else {
+            showErrorDialog("Selection Error", "Please select an event to edit.");
         }
     }
 

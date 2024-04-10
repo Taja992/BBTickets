@@ -24,6 +24,7 @@ public class CreateUserController {
     private User userToEdit;
     private EventHelper eventHelper;
     private Event selectedEvent;
+    private Button createUserBtn;
 
 
     public CreateUserController() {
@@ -55,6 +56,10 @@ public class CreateUserController {
         ToggleGroup toggleGroup = new ToggleGroup();
         roleAdmin.setToggleGroup(toggleGroup);
         roleEC.setToggleGroup(toggleGroup);
+    }
+
+    public void setCreateUserBtn(Button createEventBtn) {
+        this.createUserBtn = createEventBtn;
     }
 
     @FXML
@@ -98,6 +103,11 @@ public class CreateUserController {
     }
 
     public void cancelCreateUser(ActionEvent actionEvent) {
+        // Re-enable the button
+        if (createUserBtn != null) {
+            createUserBtn.setDisable(false);
+        }
+
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();

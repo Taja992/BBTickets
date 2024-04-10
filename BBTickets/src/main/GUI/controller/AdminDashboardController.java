@@ -66,6 +66,8 @@ public class AdminDashboardController {
     private EventHelper eventHelper;
     private int userId;
 
+
+
     public AdminDashboardController() {
         eventModel = new EventModel();
         userModel = new UserModel();
@@ -168,9 +170,17 @@ public class AdminDashboardController {
             controller.setUserModel(userModel);
             controller.setEventHelper(eventHelper);
             controller.setSelectedEvent(selectedEvent);
+            controller.setCreateUserBtn(createUserBtn);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+
+            // Disable the button
+            ((Node) actionEvent.getSource()).setDisable(true);
+
+            // Add a listener to the window close event to re-enable the button
+            stage.setOnCloseRequest(event -> ((Node) actionEvent.getSource()).setDisable(false));
+            
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
