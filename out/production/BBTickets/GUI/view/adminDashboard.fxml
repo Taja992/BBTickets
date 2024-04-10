@@ -179,7 +179,10 @@
                   </DropShadow>
                </effect>
             </Circle>
-             <Button fx:id="editProfileBtn" onAction="#editProfileBtn" text="Edit Profile" />
+             <Button fx:id="editProfileBtn" onAction="#editProfileBtn" text="Edit Profile">
+               <VBox.margin>
+                  <Insets left="53.0" top="7.0" />
+               </VBox.margin></Button>
             <VBox alignment="CENTER" prefHeight="525.0" prefWidth="181.0" spacing="13.0" styleClass="buttonVbox">
                <children>
                         <Button mnemonicParsing="false" onAction="#deleteEvent" text="Delete Event">

@@ -68,7 +68,7 @@ public class UserDAO {
         }
     }
     public void updateProfilePicture(int userId, byte[] profilePicture) throws SQLException {
-        String sql = "UPDATE [User] SET profilePicture = ? WHERE user_id = ?";
+        String sql = "UPDATE [User] SET profile_picture = ? WHERE user_id = ?";
         Connection connection = connectionManager.getConnection();
         PreparedStatement pstmt = connection.prepareStatement(sql);
         pstmt.setBytes(1, profilePicture);
