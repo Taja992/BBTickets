@@ -118,11 +118,16 @@ public class TicketBLL {
 
         stream.close();
 
-        String eventType = event.getEventType();
-        if(eventType.contains("?")){ //files can't be saved if their name contains "?" so I just wrote a thing to get rid of those
-            eventType = eventType.replace('?', ' ');
+        String baseFilename = fileLocation + "\\Ticket For " + cust.getCustomerName() + " to " + event.getEventType();
+        String filename = baseFilename + ".pdf";
+        int copyNumber = 2;
+
+        while (doesPDFExist(filename)) {
+            filename = baseFilename + " (" + copyNumber + ").pdf";
+            copyNumber++;
         }
-        ticketDoc.save(fileLocation + "\\Ticket For " + cust.getCustomerName() + " to " + eventType + ".pdf");
+
+        ticketDoc.save(filename);
         ticketDoc.close();
     }
 
