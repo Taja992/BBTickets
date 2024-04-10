@@ -31,7 +31,7 @@ public class ManageEventController {
     private TextField eventNotesField;
     @FXML
     private TextField locationGuidanceField;
-
+    @FXML
     private Button  editEventBtn;
 
     private int eventId;

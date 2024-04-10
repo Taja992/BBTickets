@@ -16,7 +16,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
@@ -55,7 +54,6 @@ public class CreateTicketController implements Initializable {
     private List<TicketType> types = new ArrayList<>();
     private List<String> typesForBox = new ArrayList<>();
 
-    private String[] ticketTypes = {"Standard", "VIP"};
     private String uuid = "";
 
     private Button createTicketBtn;
