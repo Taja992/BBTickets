@@ -32,6 +32,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.util.Arrays;
 
 public class AdminDashboardController {
     public Button createUserBtn;
@@ -91,24 +92,34 @@ public class AdminDashboardController {
         loggedInUser = userModel.getUserById(userId);
         Image image = null;
         if (loggedInUser != null && loggedInUser.getProfilePicture() != null) {
+            System.out.println("User is logged in");
             byte[] imageData = loggedInUser.getProfilePicture();
             if (imageData != null && imageData.length > 0) {
                 // Convert byte array to input stream
                 try (InputStream imageStream = new ByteArrayInputStream(imageData)) {
                     image = new Image(imageStream);
                 } catch (IOException e) {
-                    // If an exception occurs, log it and set image to default
                     e.printStackTrace();
                     String defaultImagePath = "/images/pictureplaceholder.png";
                     image = new Image(defaultImagePath);
                 }
-            } else {
-                // When user has no image, a default one is added
+            }
+            else
+            {
+                //no image add default
                 String defaultImagePath = "/images/pictureplaceholder.png";
                 image = new Image(defaultImagePath);
             }
         }
-        pictureHolder.setFill(new ImagePattern(image));
+        else
+        {
+            //no image add default
+            String defaultImagePath = "/images/pictureplaceholder.png";
+            image = new Image(defaultImagePath);
+        }
+
+        ImagePattern imagePattern = new ImagePattern(image);
+        pictureHolder.setFill(imagePattern);
     }
 
 
