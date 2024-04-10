@@ -51,4 +51,18 @@ public class CouponDAO {
 
         return couponNotes;
     }
+
+    public void deleteCoupon(String coupon_notes) {
+        String sql = "DELETE FROM Coupon WHERE coupon_notes = ?";
+
+        try (Connection conn = connectionManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, coupon_notes);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
