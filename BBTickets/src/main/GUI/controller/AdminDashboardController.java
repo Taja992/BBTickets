@@ -197,11 +197,14 @@ public class AdminDashboardController {
 
             EditProfile controller = loader.getController();
             controller.setUserModel(userModel);
+            User loggedInUser = userModel.getUserById(userId);
+            controller.setLoggedInUser(loggedInUser);
+
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
-        } catch (IOException e) {
+        } catch (IOException | BBExceptions e) {
             e.printStackTrace();
             showErrorDialog("Edit Profile Error", "Failed to load profile editing view: " + e.getMessage());
         }

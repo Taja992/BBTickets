@@ -42,7 +42,7 @@ public class UserDAO {
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getUsername());
             statement.setBytes(4, user.getProfilePicture());
-            statement.setInt(4, user.getUserId());
+            statement.setInt(5, user.getUserId());
 
             statement.executeUpdate();
         } catch (SQLException e) {

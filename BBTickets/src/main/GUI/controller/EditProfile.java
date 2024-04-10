@@ -1,5 +1,6 @@
 package GUI.controller;
 
+import Exceptions.BBExceptions;
 import GUI.model.UserModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,6 +21,7 @@ public class EditProfile {
     @FXML
     private Button saveProfileBtn;
     private UserModel userModel;
+    private BE.User loggedInUser;
 
     @FXML
     private javafx.scene.control.TextField usernameField;
@@ -32,6 +34,17 @@ public class EditProfile {
         this.userModel = userModel;
     }
 
+    public void setLoggedInUser(BE.User loggedInUser) {
+        this.loggedInUser = loggedInUser;
+        usernameField.setText(loggedInUser.getUsername());
+        passwordField.setText(loggedInUser.getPassword());
+        //check if picture is not null
+        if (loggedInUser.getProfilePicture() != null) {
+            picturePathField.setText(new String(loggedInUser.getProfilePicture()));
+        } else {
+            picturePathField.setText("");
+        }
+    }
     @FXML
     private void browseProfilePicture(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
@@ -43,11 +56,14 @@ public class EditProfile {
     }
 
     @FXML
-    private void saveProfile(ActionEvent actionEvent) {
+    private void saveProfile(ActionEvent actionEvent) throws BBExceptions {
         String username = usernameField.getText();
         String password = passwordField.getText();
         String picturePath = picturePathField.getText();
-        userModel.editProfile(username, password, picturePath);
+        loggedInUser.setUsername(username);
+        loggedInUser.setPassword(password);
+        loggedInUser.setProfilePicture(picturePath.getBytes());
+        userModel.updateUser(loggedInUser); // Update the user details in the database
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();

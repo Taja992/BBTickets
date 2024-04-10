@@ -73,4 +73,13 @@ public class UserModel {
             e.printStackTrace();
         }
     }
+
+    public User getUserById(int userId) throws BBExceptions {
+        for (User user : allUsers) {
+            if (user.getUserId() == userId) {
+                return user;
+            }
+        }
+        throw new BBExceptions("User with id " + userId + " not found.");
+    }
 }
