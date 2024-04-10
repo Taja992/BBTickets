@@ -29,20 +29,6 @@
                         <ChoiceBox fx:id="couponChkBox" prefWidth="150.0" />
                      </children>
                   </VBox>
-            <Label text="Ticket Type:">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-            <HBox alignment="TOP_CENTER" spacing="10.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <ChoiceBox fx:id="typeChcBox" prefWidth="150.0">
-                     <HBox.margin>
-                        <Insets left="62.0" />
-                     </HBox.margin>
-                  </ChoiceBox>
-                  <Button mnemonicParsing="false" onAction="#addTickType" text="+" />
-                  <Button layoutX="389.0" layoutY="10.0" mnemonicParsing="false" onAction="#removeTickType" text="-" />
                </children>
             </HBox>
             <Label text="Who do you want to give this ticket to?" />
