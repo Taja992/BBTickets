@@ -9,15 +9,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.CreateCoupon">
    <left>
       <HBox prefHeight="300.0" prefWidth="426.0" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="CENTER" prefHeight="300.0" prefWidth="187.0">
                <children>
                   <Label text="Existing Coupons" />
-                  <ListView prefHeight="283.0" prefWidth="153.0" />
+                  <ListView fx:id="couponLv" prefHeight="283.0" prefWidth="153.0" />
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="300.0" prefWidth="300.0">
@@ -27,8 +26,8 @@
                         <Insets bottom="30.0" />
                      </VBox.margin>
                   </Label>
-                  <MFXTextField prefHeight="49.0" prefWidth="203.0" />
-                  <Button mnemonicParsing="false" text="Create Coupon">
+                  <MFXTextField fx:id="couponTxtField" alignment="CENTER" floatMode="BORDER" prefHeight="52.0" prefWidth="203.0" />
+                  <Button fx:id="createCouponBtn" mnemonicParsing="false" onAction="#createCoupon" text="Create Coupon">
                      <VBox.margin>
                         <Insets top="30.0" />
                      </VBox.margin>
