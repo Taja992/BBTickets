@@ -18,21 +18,21 @@ import java.util.prefs.Preferences;
 
 public class LoginController {
 
-    @FXML
-    private BorderPane mainBp;
-    @FXML
-    private Button closeBtn;
     private double xOffset = 0;
     private double yOffset = 0;
-    public Button loginBtn;
-    public CheckBox rememberCheckBox;
-    public Label errorMsgLabel;
-    public Label forgotPWLbl;
-
+    @FXML
+    private Button loginBtn;
+    @FXML
+    private CheckBox rememberCheckBox;
+    @FXML
+    private Label errorMsgLabel;
+    @FXML
+    private Label forgotPWLbl;
     private UserModel userModel;
-
-    public TextField usernameField;
-    public PasswordField passwordField;
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private PasswordField passwordField;
 
     // Create a Preferences instance
     private Preferences prefs;

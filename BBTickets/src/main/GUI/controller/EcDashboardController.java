@@ -15,42 +15,23 @@ import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.time.format.DateTimeFormatter;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class EcDashboardController {
 
-    public Button editEventBtn;
-    public Button createTicketBtn;
     @FXML
-    private VBox eventWindowVbox;
+    private Button editEventBtn;
     @FXML
-    private BorderPane mainBp;
-    @FXML
-    private VBox eventListVbox;
-    @FXML
-    private BorderPane nestedBp;
+    private Button createTicketBtn;
     @FXML
     private HBox userWindowHbox;
     @FXML
-    private HBox bottomHbox;
-    @FXML
     private Button createEventBtn;
-    @FXML
-    private Button closeBtn;
     @FXML
     private Label eventTypeLbl;
     @FXML
@@ -277,9 +258,6 @@ public class EcDashboardController {
         }
     }
 
-
-    public void assignCoordinator(ActionEvent actionEvent) {
-    }
 
     public void logoutBtn(ActionEvent actionEvent) {
     }
