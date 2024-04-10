@@ -248,8 +248,10 @@ public class CreateTicketController implements Initializable {
     public void removeTickType(ActionEvent actionEvent) throws BBExceptions {
 
         int typeId = types.get(typeChcBox.getSelectionModel().getSelectedIndex()).getId();
-        ticketModel.removeType(typeId);
-        refreshTypes();
+        if(typeId != 2){
+            ticketModel.removeType(typeId);
+            refreshTypes();
+        }
 
     }
 }
