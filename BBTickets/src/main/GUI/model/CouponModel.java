@@ -14,4 +14,12 @@ public class CouponModel {
     public List<String> getAllCouponNotes() {
         return couponBLL.getAllCouponNotes();
     }
+
+    public void deleteCoupon(int coupon_id) {
+        couponBLL.deleteCoupon(coupon_id);
+    }
+
+    public int getCouponId(String couponNote) {
+        return couponBLL.getCouponId(couponNote);
+    }
 }

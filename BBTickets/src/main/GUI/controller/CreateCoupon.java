@@ -4,6 +4,7 @@ import GUI.model.CouponModel;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 
@@ -33,9 +34,37 @@ public class CreateCoupon {
 
         // Clear the ListView
         couponLv.getItems().clear();
+        couponTxtField.clear();
 
         // Repopulate the ListView with the updated list of coupon notes
         List<String> couponNotes = couponModel.getAllCouponNotes();
         couponLv.getItems().addAll(couponNotes);
+    }
+
+    public void deleteCoupon(ActionEvent actionEvent) {
+        // Get the selected coupon note
+        String selectedCouponNote = couponLv.getSelectionModel().getSelectedItem();
+
+        // If no coupon note is selected, show an alert window
+        if (selectedCouponNote == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText(null);
+            alert.setContentText("Select coupon to delete.");
+            alert.showAndWait();
+        } else {
+            // Get the ID of the selected coupon note
+            int couponId = couponModel.getCouponId(selectedCouponNote);
+
+            // Delete the coupon from the database
+            couponModel.deleteCoupon(couponId);
+
+            // Clear the ListView
+            couponLv.getItems().clear();
+
+            // Repopulate the ListView with the updated list of coupon notes
+            List<String> couponNotes = couponModel.getAllCouponNotes();
+            couponLv.getItems().addAll(couponNotes);
+        }
     }
 }

@@ -15,4 +15,14 @@ public class CouponBLL
     {
         return DAO.getAllCouponNotes();
     }
+
+    public void deleteCoupon(int coupon_id)
+    {
+        DAO.deleteCoupon(coupon_id);
+    }
+
+    public int getCouponId(String couponNote)
+    {
+        return DAO.getCouponId(couponNote);
+    }
 }

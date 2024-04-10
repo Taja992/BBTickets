@@ -52,17 +52,38 @@ public class CouponDAO {
         return couponNotes;
     }
 
-    public void deleteCoupon(String coupon_notes) {
-        String sql = "DELETE FROM Coupon WHERE coupon_notes = ?";
+    public void deleteCoupon(int coupon_id) {
+        String sql = "DELETE FROM Coupon WHERE coupon_id = ?";
 
         try (Connection conn = connectionManager.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, coupon_notes);
+            pstmt.setInt(1, coupon_id);
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public int getCouponId(String couponNote) {
+        String sql = "SELECT coupon_id FROM Coupon WHERE coupon_notes = ?";
+        int couponId = -1;
+
+        try (Connection conn = connectionManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, couponNote);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                couponId = rs.getInt("coupon_id");
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return couponId;
     }
 }
