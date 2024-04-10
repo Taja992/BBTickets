@@ -53,9 +53,13 @@ public class ManageEventController {
         eventTypeField.setText(event.getEventType());
         eventLocationField.setText(event.getEventLocation());
         eventStartDatePicker.setValue(event.getEventStartTime().toLocalDate());
+        eventHourSpinner.getValueFactory().setValue(event.getEventStartTime().getHour());
+        eventMinuteSpinner.getValueFactory().setValue(event.getEventStartTime().getMinute());
         if(event.getEventEndingTime() != null){
             eventEndDatePicker.setValue(event.getEventEndingTime().toLocalDate());
         }
+        eventNotesField.setText(event.getEventNotes());
+        locationGuidanceField.setText(event.getLocationGuidance());
     }
 
     public void setEditEventBtn(Button editEventBtn) {
