@@ -3,6 +3,7 @@ package GUI.controller;
 
 import BE.Customer;
 import BE.Event;
+import BE.TicketType;
 import Exceptions.BBExceptions;
 import GUI.model.CustomerModel;
 import GUI.model.TicketModel;
@@ -47,6 +48,10 @@ public class CreateTicketController implements Initializable {
     private CustomerModel custModel = new CustomerModel();
     private List<Customer> allCustomers = new ArrayList<>();
     private Event selectedEvent;
+
+    private List<TicketType> types = new ArrayList<>();
+    private List<String> typesForBox = new ArrayList<>();
+
     private String[] ticketTypes = {"Standard", "VIP"};
     private String uuid = "";
 
@@ -56,7 +61,14 @@ public class CreateTicketController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         allCustomers.addAll(custModel.getAllCustomers());
         showCustomers();
-        typeChcBox.getItems().addAll(ticketTypes);
+
+        types.addAll(ticketModel.getAllTypes());
+
+        for(TicketType type : types){
+            typesForBox.add(type.getName());
+        }
+
+        typeChcBox.getItems().addAll(typesForBox);
     }
 
     public void setCreateTicketBtn(Button createTicketBtn) {
@@ -132,14 +144,15 @@ public class CreateTicketController implements Initializable {
     private void finalizeTicket( Customer cust) throws IOException, BBExceptions {
 
         uuid = ticketModel.generateUUID();
+        int typeId = types.get(typeChcBox.getSelectionModel().getSelectedIndex()).getId();
 
         if(!priceTxt.getText().isEmpty()){
             double price = Double.parseDouble(priceTxt.getText());
-            ticketModel.createTicket(typeChcBox.getValue(), cust.getCustId(), selectedEvent.getEventId(), price, uuid);
+            ticketModel.createTicket(typeId, cust.getCustId(), selectedEvent.getEventId(), price, uuid);
             printTicket(cust);
 
         } else {
-            ticketModel.createTicket(typeChcBox.getValue(), cust.getCustId(), selectedEvent.getEventId(), uuid);
+            ticketModel.createTicket(typeId, cust.getCustId(), selectedEvent.getEventId(), uuid);
             printTicket(cust);
         }
     }
