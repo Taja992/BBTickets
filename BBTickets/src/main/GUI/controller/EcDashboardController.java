@@ -291,4 +291,27 @@ public class EcDashboardController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    public void createCoupon(ActionEvent actionEvent) {
+        try {
+            // Load the FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/createCoupon.fxml"));
+            Parent root = loader.load();
+
+            // Create a new scene with the loaded parent
+            Scene scene = new Scene(root);
+
+            // Create a new stage and set the scene on it
+            Stage stage = new Stage();
+            stage.setScene(scene);
+
+            // Set the title of the stage
+            stage.setTitle("Create Coupon");
+
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            showErrorDialog("Create Coupon Error", "Failed to open the create coupon window.");
+        }
+    }
 }
