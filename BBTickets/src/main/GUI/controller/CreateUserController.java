@@ -24,6 +24,7 @@ public class CreateUserController {
     private User userToEdit;
     private EventHelper eventHelper;
     private Event selectedEvent;
+    @FXML
     private Button createUserBtn;
 
 

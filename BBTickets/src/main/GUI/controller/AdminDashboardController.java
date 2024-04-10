@@ -46,6 +46,8 @@ public class AdminDashboardController {
     @FXML
     private HBox bottomHbox;
     @FXML
+    private Button editProfileBtn;
+    @FXML
     private Button createEventBtn;
     @FXML
     private Button logoutBtn;
@@ -185,6 +187,23 @@ public class AdminDashboardController {
         } catch (IOException e) {
             e.printStackTrace();
             showErrorDialog("Create User Error", "Failed to load user creation view: " + e.getMessage());
+        }
+    }
+
+    public void editProfileBtn(ActionEvent actionEvent){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/EditProfile.fxml"));
+            Parent root = loader.load();
+
+            EditProfile controller = loader.getController();
+            controller.setUserModel(userModel);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showErrorDialog("Edit Profile Error", "Failed to load profile editing view: " + e.getMessage());
         }
     }
 

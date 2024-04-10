@@ -63,4 +63,14 @@ public class UserModel {
     public ObservableList<User> getUsersByType(int userType) {
         return allUsers.filtered(user -> user.getUser_type() == userType);
     }
+
+    public void editProfile(String username, String password, String picturePath) {
+        User user = new User(0, password, username);
+        user.setProfilePicture(picturePath.getBytes());
+        try {
+            userBLL.updateUser(user);
+        } catch (BBExceptions e) {
+            e.printStackTrace();
+        }
+    }
 }

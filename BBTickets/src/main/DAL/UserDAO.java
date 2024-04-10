@@ -17,7 +17,7 @@ public class UserDAO {
     }
 
     public void newUser(User user) throws BBExceptions {
-        String sql = "INSERT INTO [User] (user_type, password, username) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO [User] (user_type, password, username, profile_picture) VALUES (?, ?, ?, ?)";
 
         try {
             Connection connection = connectionManager.getConnection();
@@ -25,6 +25,7 @@ public class UserDAO {
             statement.setInt(1, user.getUser_type());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getUsername());
+            statement.setBytes(4, user.getProfilePicture());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new BBExceptions("Failed to insert user", e);
@@ -32,7 +33,7 @@ public class UserDAO {
     }
 
     public void updateUser(User user) throws BBExceptions {
-        String sql = "UPDATE [User] SET user_type = ?, password = ?, username = ? WHERE user_id = ?";
+        String sql = "UPDATE [User] SET user_type = ?, password = ?, username = ?, profile_picture = ? WHERE user_id = ?";
 
         try {
             Connection connection = connectionManager.getConnection();
@@ -40,7 +41,9 @@ public class UserDAO {
             statement.setInt(1, user.getUser_type());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getUsername());
+            statement.setBytes(4, user.getProfilePicture());
             statement.setInt(4, user.getUserId());
+
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new BBExceptions("Failed to update user", e);
@@ -59,7 +62,8 @@ public class UserDAO {
             if (resultSet.next()) {
                 int userId = resultSet.getInt("user_id");
                 int user_type = resultSet.getInt("user_type");
-                User user = new User(userId, user_type, password, username);
+                byte[] profilePicture = resultSet.getBytes("profile_picture");
+                User user = new User(userId, user_type, password, username, profilePicture);
                 return user;
             } else {
                 return null;
@@ -84,7 +88,8 @@ public class UserDAO {
                 int user_type = resultSet.getInt("user_type");
                 String password = resultSet.getString("password");
                 String username = resultSet.getString("username");
-                User user = new User(userID, user_type, password, username);
+                byte[] profilePicture = resultSet.getBytes("profile_picture");
+                User user = new User(userID, user_type, password, username, profilePicture);
                 allUsers.add(user);
             }
         } catch (SQLException e) {

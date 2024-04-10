@@ -17,9 +17,6 @@ public class UserBLL {
         userDAO.newUser(user);
     }
 
-    public void updateUser(User user) throws BBExceptions {
-        userDAO.updateUser(user);
-    }
 
     public List<User> allUsers() throws BBExceptions {
         return userDAO.allUsers();
@@ -39,5 +36,9 @@ public class UserBLL {
 
     public void deleteUser(User selectedUser) throws BBExceptions {
         userDAO.deleteUser(selectedUser);
+    }
+
+    public void updateUser(User user) throws BBExceptions {
+        userDAO.updateUser(user);
     }
 }

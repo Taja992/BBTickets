@@ -69,6 +69,8 @@ public class EcDashboardController {
     private ListView<User> userListLv;
     @FXML
     private Button logoutBtn;
+    @FXML
+    private Button editProfileBtn;
 
     private int userId;
     private EventModel eventModel;
@@ -274,6 +276,23 @@ public class EcDashboardController {
             createEventStage.show();
         } catch (IOException e) {
             showErrorDialog("Create Event Error", "Failed to create an event.");
+        }
+    }
+
+    public void editProfileBtn(ActionEvent actionEvent){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/EditProfile.fxml"));
+            Parent root = loader.load();
+
+            EditProfile controller = loader.getController();
+            controller.setUserModel(userModel);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showErrorDialog("Edit Profile Error", "Failed to load profile editing view: " + e.getMessage());
         }
     }
 
