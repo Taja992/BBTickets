@@ -68,17 +68,20 @@ public class EcDashboardController {
     public void initialize() {
         this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
         eventModel = new EventModel();
-        setupLogoutButton();
+        setupButtons();
         ListViewSetupUtility.setupEventListView(eventListLv, eventModel);
         eventHelper.eventListObserver();
         ListViewSetupUtility.setupUserListView(userListLv);
         DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
         userListLv.setItems(userModel.getUsersByType(0));
+
     }
 
 
-    private void setupLogoutButton() {
+    private void setupButtons() {
         logoutBtn.setOnAction(this::handleLogoutButtonClick);
+        Button closeBtn = new Button();
+        closeBtn.setId("closeBtn");
     }
 
     @FXML
