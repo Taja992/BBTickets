@@ -159,7 +159,7 @@
             <Insets bottom="40.0" right="20.0" />
          </BorderPane.margin>
          <children>
-            <Circle fill="#b672b9" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE">
+            <Circle fx:id="pictureHolder" fill="#b672b9" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE">
                <VBox.margin>
                   <Insets left="60.0" top="40.0" />
                </VBox.margin>

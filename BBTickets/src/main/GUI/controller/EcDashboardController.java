@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -33,7 +34,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.StageStyle;
 
 
-
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
@@ -88,14 +89,46 @@ public class EcDashboardController {
     private UserModel userModel;
     private EventHelper eventHelper;
 
-    public void setUserId(int userId) {
+    public void setUserId(int userId) throws BBExceptions {
         this.userId = userId;
-        eventListForSpecificUser();
+        loggedInUser = userModel.getUserById(userId);
+        Image image = null;
+        if (loggedInUser != null && loggedInUser.getProfilePicture() != null) {
+            System.out.println("User is logged in");
+            byte[] imageData = loggedInUser.getProfilePicture();
+            if (imageData != null && imageData.length > 0) {
+                // Convert byte array to input stream
+                try (InputStream imageStream = new ByteArrayInputStream(imageData)) {
+                    image = new Image(imageStream);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    String defaultImagePath = "/images/pictureplaceholder.png";
+                    image = new Image(defaultImagePath);
+                }
+            }
+            else
+            {
+                //no image add default
+                String defaultImagePath = "/images/pictureplaceholder.png";
+                image = new Image(defaultImagePath);
+            }
+        }
+        else
+        {
+            //no image add default
+            String defaultImagePath = "/images/pictureplaceholder.png";
+            image = new Image(defaultImagePath);
+        }
+
+        ImagePattern imagePattern = new ImagePattern(image);
+        pictureHolder.setFill(imagePattern);
     }
 
     public EcDashboardController() {
         eventModel = new EventModel();
         userModel = new UserModel();}
+
+
 
     public void initialize() {
         this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
@@ -300,6 +333,7 @@ public class EcDashboardController {
             controller.setUserModel(userModel);
             User loggedInUser = userModel.getUserById(userId);
             controller.setLoggedInUser(loggedInUser);
+
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
