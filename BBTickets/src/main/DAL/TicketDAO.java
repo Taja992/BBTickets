@@ -1,8 +1,6 @@
 package DAL;
 
 import BE.Ticket;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,8 +28,8 @@ public class TicketDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
+
     public void createTicket(int typeId, int customerId, int eventId, String UUID) {
         String sql = "insert into Tickets (type, customer_id, event_id, uuid) VALUES (?,?,?,?)";
 
@@ -47,7 +45,6 @@ public class TicketDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public List<Ticket> getTickets(int customerId, int eventId) {

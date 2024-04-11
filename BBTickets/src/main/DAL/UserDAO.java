@@ -3,7 +3,6 @@ package DAL;
 import BE.Event;
 import BE.User;
 import Exceptions.BBExceptions;
-
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

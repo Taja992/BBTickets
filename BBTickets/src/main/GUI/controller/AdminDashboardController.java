@@ -7,7 +7,6 @@ import GUI.model.EventModel;
 import GUI.model.UserModel;
 import GUI.util.ListViewSetupUtility;
 import com.jfoenix.controls.JFXToggleButton;
-import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,40 +14,26 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.IOException;
-import java.util.List;
 
 public class AdminDashboardController {
-    public Button createUserBtn;
-    public Button closeBtn;
-    public JFXToggleButton toggleUserListBtn;
+
     @FXML
-    private BorderPane mainBp;
+    private Button createUserBtn;
     @FXML
-    private VBox eventListVbox;
+    private Button closeBtn;
+    @FXML
+    private JFXToggleButton toggleUserListBtn;
     @FXML
     private ListView<BE.Event> eventListLv;
     @FXML
     private ListView<User> userListLv;
     @FXML
-    private BorderPane nestedBp;
-    @FXML
     private HBox userWindowHbox;
-    @FXML
-    private VBox eventWindowVbox;
-    @FXML
-    private HBox bottomHbox;
-    @FXML
-    private Button createEventBtn;
-    @FXML
-    private Button logoutBtn;
     @FXML
     private Label eventTypeLbl;
     @FXML
@@ -85,8 +70,7 @@ public class AdminDashboardController {
         eventHelper.eventListObserver();
         DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
         rightClickMenu();
-
-
+        closeBtn.setId("closeBtn");
     }
 
     public void rightClickMenu() {
