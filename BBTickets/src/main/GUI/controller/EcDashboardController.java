@@ -33,20 +33,12 @@ import java.util.Optional;
 
 public class EcDashboardController {
 
-    public Button editEventBtn;
-    public Button createTicketBtn;
     @FXML
-    private VBox eventWindowVbox;
+    private Button editEventBtn;
     @FXML
-    private BorderPane mainBp;
-    @FXML
-    private VBox eventListVbox;
-    @FXML
-    private BorderPane nestedBp;
+    private Button createTicketBtn;
     @FXML
     private HBox userWindowHbox;
-    @FXML
-    private HBox bottomHbox;
     @FXML
     private Button createEventBtn;
     @FXML
@@ -93,6 +85,7 @@ public class EcDashboardController {
         ListViewSetupUtility.setupUserListView(userListLv);
         DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
         userListLv.setItems(userModel.getUsersByType(0));
+        closeBtn.setId("closeBtn");
     }
 
 
