@@ -4,25 +4,25 @@ import java.util.List;
 
 public class CouponBLL
 {
-    DAO.CouponDAO DAO = new DAO.CouponDAO();
+    DAL.CouponDAO DAL = new DAL.CouponDAO();
 
     public void createCoupon(String couponNotes, String couponUUID)
     {
-        DAO.createCoupon(couponNotes, couponUUID);
+        DAL.createCoupon(couponNotes, couponUUID);
     }
 
     public List<String> getAllCouponNotes()
     {
-        return DAO.getAllCouponNotes();
+        return DAL.getAllCouponNotes();
     }
 
     public void deleteCoupon(int coupon_id)
     {
-        DAO.deleteCoupon(coupon_id);
+        DAL.deleteCoupon(coupon_id);
     }
 
     public int getCouponId(String couponNote)
     {
-        return DAO.getCouponId(couponNote);
+        return DAL.getCouponId(couponNote);
     }
 }
