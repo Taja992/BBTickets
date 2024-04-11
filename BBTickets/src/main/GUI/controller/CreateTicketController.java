@@ -5,6 +5,7 @@ import BE.Customer;
 import BE.Event;
 import BE.TicketType;
 import Exceptions.BBExceptions;
+import GUI.model.CouponModel;
 import GUI.model.CustomerModel;
 import GUI.model.TicketModel;
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +30,7 @@ import java.util.ResourceBundle;
 public class CreateTicketController implements Initializable {
 
 
-
+    public ChoiceBox couponChkBox;
     @FXML
     private ListView<Customer> customerLv;
     @FXML
@@ -50,10 +52,13 @@ public class CreateTicketController implements Initializable {
     private CustomerModel custModel = new CustomerModel();
     private List<Customer> allCustomers = new ArrayList<>();
     private Event selectedEvent;
+    private CouponModel couponModel = new CouponModel();
 
     private List<TicketType> types = new ArrayList<>();
     private List<String> typesForBox = new ArrayList<>();
+    List<String> couponNotes = couponModel.getAllCouponNotes();
 
+    private String[] ticketTypes = {"Standard", "VIP"};
     private String uuid = "";
 
     private Button createTicketBtn;
@@ -71,6 +76,8 @@ public class CreateTicketController implements Initializable {
 
         typeChcBox.getItems().addAll(typesForBox);
         typeChcBox.setValue("Standard");
+        couponChkBox.getItems().addAll(couponNotes);
+        couponChkBox.setValue("No Coupon");
     }
 
     public void setCreateTicketBtn(Button createTicketBtn) {

@@ -33,6 +33,8 @@ public class CreateEvent {
     private TextField eventNotesField;
     @FXML
     private TextField locationGuidanceField;
+    @FXML
+    private Button addEvent;
 
     private Button createEventBtn;
     private EcDashboardController ecController;

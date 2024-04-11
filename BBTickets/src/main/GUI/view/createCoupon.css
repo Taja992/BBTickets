@@ -1,0 +1,67 @@
+.rootVbox {
+    -fx-font-family: 'PT Serif';
+    -fx-background-color: linear-gradient(to right, #cfb3ea, #e7d1e8);
+    -fx-text-fill: #333;
+}
+
+.label {
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.text-field {
+    -fx-background-color: #ede1f8;
+    -fx-border-radius: 15;
+    -fx-text-fill: #333;
+}
+
+.text-field:focused {
+    -fx-text-fill: #c694bb;
+    -fx-font-weight: bold;
+}
+
+.date-picker {
+    -fx-background-color: #ede1f8;
+    -fx-border-radius: 15;
+    -fx-text-fill: #333;
+}
+
+.date-picker:focused {
+    -fx-text-fill: #c694bb;
+    -fx-font-weight: bold;
+}
+
+.check-box {
+    -fx-text-fill: #333;
+}
+
+.check-box:focused {
+    -fx-text-fill: #c694bb;
+    -fx-font-weight: bold;
+}
+
+.spinner {
+    -fx-background-color: #ede1f8;
+    -fx-border-radius: 15;
+    -fx-text-fill: #333;
+}
+
+.spinner:focused {
+    -fx-text-fill: #c694bb;
+    -fx-font-weight: bold;
+}
+
+.button {
+    -fx-background-color: #b98ad9;
+    -fx-text-fill: #fff;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+.button:hover {
+    -fx-background-color: #a06cb9;
+}
+
+.button:pressed {
+    -fx-background-color: #c4a2d9;
+}

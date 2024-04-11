@@ -15,23 +15,42 @@ import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.time.format.DateTimeFormatter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public class EcDashboardController {
 
+    public Button editEventBtn;
+    public Button createTicketBtn;
     @FXML
-    private Button editEventBtn;
+    private VBox eventWindowVbox;
     @FXML
-    private Button createTicketBtn;
+    private BorderPane mainBp;
+    @FXML
+    private VBox eventListVbox;
+    @FXML
+    private BorderPane nestedBp;
     @FXML
     private HBox userWindowHbox;
     @FXML
+    private HBox bottomHbox;
+    @FXML
     private Button createEventBtn;
+    @FXML
+    private Button closeBtn;
     @FXML
     private Label eventTypeLbl;
     @FXML
@@ -68,20 +87,17 @@ public class EcDashboardController {
     public void initialize() {
         this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
         eventModel = new EventModel();
-        setupButtons();
+        setupLogoutButton();
         ListViewSetupUtility.setupEventListView(eventListLv, eventModel);
         eventHelper.eventListObserver();
         ListViewSetupUtility.setupUserListView(userListLv);
         DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
         userListLv.setItems(userModel.getUsersByType(0));
-
     }
 
 
-    private void setupButtons() {
+    private void setupLogoutButton() {
         logoutBtn.setOnAction(this::handleLogoutButtonClick);
-        Button closeBtn = new Button();
-        closeBtn.setId("closeBtn");
     }
 
     @FXML
@@ -262,6 +278,9 @@ public class EcDashboardController {
     }
 
 
+    public void assignCoordinator(ActionEvent actionEvent) {
+    }
+
     public void logoutBtn(ActionEvent actionEvent) {
     }
 
@@ -271,5 +290,34 @@ public class EcDashboardController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public void createCoupon(ActionEvent actionEvent) {
+        try {
+            // Load the FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/createCoupon.fxml"));
+            Parent root = loader.load();
+
+            // Create a new scene with the loaded parent
+            Scene scene = new Scene(root);
+
+            // Create a new stage and set the scene on it
+            Stage stage = new Stage();
+            stage.setScene(scene);
+
+            // Set the title of the stage
+            stage.setTitle("Create Coupon");
+
+            // Disable the button
+            ((Node) actionEvent.getSource()).setDisable(true);
+
+            // Add a listener to the window close event to re-enable the button
+            stage.setOnCloseRequest(event -> ((Node) actionEvent.getSource()).setDisable(false));
+
+            // Show the stage
+            stage.show();
+        } catch (IOException e) {
+            showErrorDialog("Create Coupon Error", "Failed to open the create coupon window.");
+        }
     }
 }

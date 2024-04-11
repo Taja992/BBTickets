@@ -2,6 +2,8 @@ package DAL;
 
 import BE.TicketType;
 import Exceptions.BBExceptions;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
