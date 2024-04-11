@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -34,8 +33,6 @@ public class CreateEvent {
     @FXML
     private TextField locationGuidanceField;
     @FXML
-    private Button addEvent;
-
     private Button createEventBtn;
     private EcDashboardController ecController;
 

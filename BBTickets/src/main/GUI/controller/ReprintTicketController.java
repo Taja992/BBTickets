@@ -7,6 +7,7 @@ import GUI.model.TicketModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -17,7 +18,8 @@ import java.util.List;
 
 public class ReprintTicketController {
 
-    public ListView<Ticket> userTktLv;
+    @FXML
+    private ListView<Ticket> userTktLv;
     private Event event;
     private Customer customer;
     private TicketModel ticketModel;

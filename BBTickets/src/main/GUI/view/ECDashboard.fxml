@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainBp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="701.0" prefWidth="1095.0" styleClass="mainBp" stylesheets="/GUI/view/ECDashboard.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.EcDashboardController">
+<BorderPane fx:id="mainBp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="701.0" prefWidth="1095.0" styleClass="mainBp" stylesheets="/GUI/view/ECDashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.EcDashboardController">
    <left>
       <VBox fx:id="eventListVbox" prefWidth="223.0" styleClass="eventListVbox" BorderPane.alignment="CENTER">
          <children>
@@ -31,7 +31,7 @@
                   <Insets left="10.0" right="5.0" />
                </VBox.margin>
                <padding>
-                  <Insets bottom="55.0" top="45.0" />
+                  <Insets bottom="20.0" top="20.0" />
                </padding></ListView>
             <HBox alignment="CENTER">
                <children>
@@ -47,7 +47,7 @@
                   <Insets bottom="40.0" left="10.0" right="5.0" />
                </VBox.margin>
                <padding>
-                  <Insets bottom="50.0" top="45.0" />
+                  <Insets bottom="20.0" top="20.0" />
                </padding></ListView>
          </children>
       </VBox>

@@ -17,7 +17,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
@@ -35,8 +34,6 @@ public class CreateTicketController implements Initializable {
     private ListView<Customer> customerLv;
     @FXML
     private TextField priceTxt;
-    @FXML
-    private Button chooseBtn;
     @FXML
     private TextField filelocationTxt;
     @FXML
@@ -58,7 +55,6 @@ public class CreateTicketController implements Initializable {
     private List<String> typesForBox = new ArrayList<>();
     List<String> couponNotes = couponModel.getAllCouponNotes();
 
-    private String[] ticketTypes = {"Standard", "VIP"};
     private String uuid = "";
 
     private Button createTicketBtn;
