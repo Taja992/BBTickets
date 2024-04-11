@@ -12,7 +12,7 @@ import javafx.collections.ObservableList;
 import java.sql.SQLException;
 
 
-main
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

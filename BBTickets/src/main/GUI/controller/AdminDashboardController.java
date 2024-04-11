@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
@@ -34,7 +35,7 @@ import java.net.MalformedURLException;
 import java.util.Arrays;
 
 import java.io.IOException;
-main
+
 
 public class AdminDashboardController {
 
