@@ -14,9 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
@@ -24,6 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.StageStyle;
+
 
 import java.io.ByteArrayInputStream;
 
@@ -34,10 +33,15 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.util.Arrays;
 
+import java.io.IOException;
+main
+
 public class AdminDashboardController {
 
     @FXML
     private Button createUserBtn;
+    @FXML
+    private Button closeBtn;
     @FXML
     private JFXToggleButton toggleUserListBtn;
     @FXML
@@ -130,8 +134,7 @@ public class AdminDashboardController {
         eventHelper.eventListObserver();
         DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
         rightClickMenu();
-
-
+        closeBtn.setId("closeBtn");
     }
 
     public void rightClickMenu() {

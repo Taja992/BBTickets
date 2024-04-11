@@ -15,6 +15,7 @@
     -fx-font-size: 18px;
     -fx-border-radius: 20;
     -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
 }
 
 .list-view .list-cell {
@@ -34,7 +35,7 @@
     -fx-background-radius: 20;
 }
 
-.closeBtn {
+#closeBtn {
     -fx-background-color: rgba(246, 113, 113, 0.5);
     -fx-text-fill: #EEE;
     -fx-font-weight: bold;
@@ -47,7 +48,7 @@
     -fx-max-height: 17px;
 }
 
-.closeBtn:hover {
+#closeBtn:hover {
     -fx-background-color: rgba(252, 82, 82, 0.7);
 }
 
@@ -78,7 +79,7 @@
 }
 
 .topHbox {
-    -fx-background-color: rgba(176, 130, 220, 0.8);
+    -fx-background-color: #ab77dc;
 }
 
 .userWindowHbox {
@@ -104,13 +105,13 @@
     -fx-background-color: #ede1f8;
     -fx-border-radius: 20;
     -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
 }
 
 .buttonVbox {
     -fx-background-color: #ede1f8;
     -fx-border-radius: 20;
     -fx-background-radius: 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
 }
 
 
@@ -139,14 +140,6 @@
 
 .list-view .scroll-bar .increment-arrow, .eventListLstV .scroll-bar .decrement-arrow {
     -fx-padding: 0;
-}
-
-.eventListLstV {
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
-}
-
-.list-view {
-        -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
 }
 
 .eventInfoLbl {

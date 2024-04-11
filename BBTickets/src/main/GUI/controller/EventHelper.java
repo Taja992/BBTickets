@@ -6,6 +6,7 @@ import Exceptions.BBExceptions;
 import GUI.model.EventModel;
 import GUI.model.UserModel;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -23,15 +24,26 @@ import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 public class EventHelper {
+
+    @FXML
     private ListView<Event> eventListLv;
+    @FXML
     private HBox userWindowHbox;
+    @FXML
     private UserModel userModel;
+    @FXML
     private EventModel eventModel;
+    @FXML
     private Label eventTypeLbl;
+    @FXML
     private Label eventLocationLbl;
+    @FXML
     private Label eventStartLbl;
+    @FXML
     private Label eventEndLbl;
+    @FXML
     private Label eventNotesLbl;
+    @FXML
     private Label eventDirLbl;
 
     public EventHelper(ListView<BE.Event> eventListLv, HBox userWindowHbox, UserModel userModel, EventModel eventModel, Label eventTypeLbl, Label eventLocationLbl, Label eventStartLbl, Label eventEndLbl, Label eventNotesLbl, Label eventDirLbl) {

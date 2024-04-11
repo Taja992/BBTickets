@@ -5,7 +5,9 @@ import BE.Event;
 import BE.TicketType;
 import BE.Ticket;
 import BLL.TicketBLL;
+import BLL.UserBLL;
 import Exceptions.BBExceptions;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -28,12 +30,8 @@ public class TicketModel {
     public List<TicketType> getAllTypes(){
         return ticketBLL.getAllTypes();
     }
-    public void addType(String name) throws BBExceptions {
-        ticketBLL.addType(name);
-    }
-
-    public void removeType(int Id) throws BBExceptions {
-        ticketBLL.removeType(Id);
+    public void addType(int id, String name) throws BBExceptions {
+        ticketBLL.addType(id, name);
     }
 
     public void printTicketWithInfo(int width, int height, Customer cust, Event event, String type, double price,String uuid, String fileLocation) throws IOException {

@@ -28,8 +28,8 @@ public class TicketDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
+
     public void createTicket(int typeId, int customerId, int eventId, String UUID) {
         String sql = "insert into Tickets (type, customer_id, event_id, uuid) VALUES (?,?,?,?)";
 
@@ -45,7 +45,6 @@ public class TicketDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public List<Ticket> getTickets(int customerId, int eventId) {

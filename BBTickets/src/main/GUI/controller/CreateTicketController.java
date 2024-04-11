@@ -5,9 +5,9 @@ import BE.Customer;
 import BE.Event;
 import BE.TicketType;
 import Exceptions.BBExceptions;
+import GUI.model.CouponModel;
 import GUI.model.CustomerModel;
 import GUI.model.TicketModel;
-import GUI.view.CreateTypeController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,13 +29,11 @@ import java.util.ResourceBundle;
 public class CreateTicketController implements Initializable {
 
 
-
+    public ChoiceBox couponChkBox;
     @FXML
     private ListView<Customer> customerLv;
     @FXML
     private TextField priceTxt;
-    @FXML
-    private Button chooseBtn;
     @FXML
     private TextField filelocationTxt;
     @FXML
@@ -51,9 +49,11 @@ public class CreateTicketController implements Initializable {
     private CustomerModel custModel = new CustomerModel();
     private List<Customer> allCustomers = new ArrayList<>();
     private Event selectedEvent;
+    private CouponModel couponModel = new CouponModel();
 
     private List<TicketType> types = new ArrayList<>();
     private List<String> typesForBox = new ArrayList<>();
+    List<String> couponNotes = couponModel.getAllCouponNotes();
 
     private String uuid = "";
 
@@ -64,26 +64,16 @@ public class CreateTicketController implements Initializable {
         allCustomers.addAll(custModel.getAllCustomers());
         showCustomers();
 
-        refreshTypes();
-    }
-
-    public void refreshTypes(){
-        //clearing old values
-        types.clear();
-        typesForBox.clear();
-        typeChcBox.getItems().clear();
-
-        //fetching all the ticket types
         types.addAll(ticketModel.getAllTypes());
 
-        //adding just the names of those types to a list
         for(TicketType type : types){
             typesForBox.add(type.getName());
         }
 
-        //putting list on the choice box
         typeChcBox.getItems().addAll(typesForBox);
-        typeChcBox.setValue(typesForBox.get(0));
+        typeChcBox.setValue("Standard");
+        couponChkBox.getItems().addAll(couponNotes);
+        couponChkBox.setValue("No Coupon");
     }
 
     public void setCreateTicketBtn(Button createTicketBtn) {
@@ -192,6 +182,7 @@ public class CreateTicketController implements Initializable {
             throw new RuntimeException(e);
         }
 
+
     }
 
 
@@ -230,28 +221,6 @@ public class CreateTicketController implements Initializable {
 
     }
 
-    public void addTickType(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/createType.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-
-        CreateTypeController control = loader.getController();
-        control.setController(this);
-
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void removeTickType(ActionEvent actionEvent) throws BBExceptions {
-
-        int typeId = types.get(typeChcBox.getSelectionModel().getSelectedIndex()).getId();
-        if(typeId != 2){
-            ticketModel.removeType(typeId);
-            refreshTypes();
-        }
-
-    }
     public void reprintTktBtn(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/reprintTicket.fxml"));
         Parent root = loader.load();

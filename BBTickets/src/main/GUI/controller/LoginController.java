@@ -13,10 +13,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.util.prefs.Preferences;
 
 public class LoginController {
+
 
     private double xOffset = 0;
     private double yOffset = 0;
@@ -28,11 +28,13 @@ public class LoginController {
     private Label errorMsgLabel;
     @FXML
     private Label forgotPWLbl;
-    private UserModel userModel;
     @FXML
     private TextField usernameField;
     @FXML
     private PasswordField passwordField;
+
+    private UserModel userModel;
+
 
     // Create a Preferences instance
     private Preferences prefs;
