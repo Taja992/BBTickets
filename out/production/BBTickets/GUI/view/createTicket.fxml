@@ -104,12 +104,13 @@
                         <Insets right="1.0" />
                      </HBox.margin>
                   </Button>
-                  <Button alignment="TOP_RIGHT" onAction="#addTicket" text="Create ticket">
+                  <Button alignment="TOP_RIGHT" onAction="#addTicket" text="Create Ticket">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                   </Button>
-                  <Button layoutX="203.0" layoutY="10.0" mnemonicParsing="false" onAction="#reprintTktBtn" text="Reprint ticket" />
+                  <Button mnemonicParsing="false" onAction="#createCoupon" text="Create Coupon" />
+                  <Button layoutX="203.0" layoutY="10.0" mnemonicParsing="false" onAction="#reprintTktBtn" text="Reprint Ticket" />
                </children>
                <padding>
                   <Insets bottom="10.0" />

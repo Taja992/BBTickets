@@ -19,12 +19,16 @@ import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
 public class CreateTicketController implements Initializable {
 
@@ -235,5 +239,45 @@ public class CreateTicketController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    public void createCoupon(ActionEvent actionEvent) {
+        String couponNote = couponChkBox.getSelectionModel().getSelectedItem().toString();
+        String directoryPath = filelocationTxt.getText();
+        String fileLocation = directoryPath + "/" + couponNote + " Coupon.pdf";
+
+        // Check if directoryPath is not empty
+        if (directoryPath == null || directoryPath.trim().isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Directory path is empty. Please provide a valid directory path.");
+            return;
+        }
+
+        // Check if directory exists, if not create it
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            boolean isCreated = directory.mkdirs();
+            if (!isCreated) {
+                showAlert(Alert.AlertType.WARNING, "Failed to create directory. Please check the directory path and permissions.");
+                return;
+            }
+        }
+
+        try {
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream(fileLocation));
+            document.open();
+            document.add(new Paragraph(couponNote));
+            document.close();
+            showAlert(Alert.AlertType.INFORMATION, "Coupon PDF Created!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "An error occurred while creating the PDF.");
+        }
+    }
+
+    private void showAlert(Alert.AlertType alertType, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
