@@ -57,14 +57,14 @@
          <top>
             <ScrollPane fitToHeight="true" maxHeight="101.0" prefHeight="101.0" prefWidth="673.0" styleClass="userSp">
                <content>
-                  <HBox fx:id="userWindowHbox" prefWidth="670.0" spacing="10.0" styleClass="userWindowHbox">
+                  <HBox fx:id="userWindowHbox" prefHeight="100.0" prefWidth="626.0" spacing="10.0" styleClass="userWindowHbox">
                      <padding>
                         <Insets left="20.0" right="20.0" />
                      </padding>
                   </HBox>
                </content>
                <BorderPane.margin>
-                  <Insets top="10.0" />
+                  <Insets left="20.0" top="10.0" />
                </BorderPane.margin>
             </ScrollPane>
          </top>
@@ -161,7 +161,7 @@
          <children>
             <Circle fx:id="pictureHolder" fill="#b672b9" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE">
                <VBox.margin>
-                  <Insets left="60.0" top="40.0" />
+                  <Insets left="60.0" top="20.0" />
                </VBox.margin>
                <effect>
                   <DropShadow>
