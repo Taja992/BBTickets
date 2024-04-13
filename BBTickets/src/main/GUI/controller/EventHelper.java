@@ -16,7 +16,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -58,6 +62,30 @@ public class EventHelper {
         this.eventNotesLbl = eventNotesLbl;
         this.eventDirLbl = eventDirLbl;
 
+    }
+    public void setUserPictures(User user, Circle pictureHolder) {
+        Image image = null;
+        if (user != null && user.getProfilePicture() != null) {
+            byte[] imageData = user.getProfilePicture();
+            if (imageData != null && imageData.length > 0) {
+                try (InputStream imageStream = new ByteArrayInputStream(imageData)) {
+                    image = new Image(imageStream);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    String defaultImagePath = "/images/pictureplaceholder.png";
+                    image = new Image(defaultImagePath);
+                }
+            } else {
+                String defaultImagePath = "/images/pictureplaceholder.png";
+                image = new Image(defaultImagePath);
+            }
+        } else {
+            String defaultImagePath = "/images/pictureplaceholder.png";
+            image = new Image(defaultImagePath);
+        }
+
+        ImagePattern imagePattern = new ImagePattern(image);
+        pictureHolder.setFill(imagePattern);
     }
 
 
@@ -101,7 +129,7 @@ public class EventHelper {
     private void addUserToHbox(User user) throws URISyntaxException {
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
-        Circle circle = createCircleForUser();
+        Circle circle = createCircleForUser(user);
         Label label = createLabelForUser(user);
         vbox.getChildren().addAll(circle, label);
         rightClickMenu(circle, user);
@@ -130,16 +158,30 @@ public class EventHelper {
     }
 
     //These adds the profile pic(random image atm) to the user
-    private Circle createCircleForUser() throws URISyntaxException {
+    private Circle createCircleForUser(User user) throws URISyntaxException {
         Circle circle = new Circle(28);
-        String imagePath = getRandomImagePath();
-        if (imagePath != null) {
-            Image image = new Image(imagePath, 80, 80, false, true);
-            ImagePattern imagePattern = new ImagePattern(image);
-            circle.setFill(imagePattern);
+        Image image = null;
+        if (user != null && user.getProfilePicture() != null) {
+            byte[] imageData = user.getProfilePicture();
+            if (imageData != null && imageData.length > 0) {
+                try (InputStream imageStream = new ByteArrayInputStream(imageData)) {
+                    image = new Image(imageStream);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    String defaultImagePath = "/images/pictureplaceholder.png";
+                    image = new Image(defaultImagePath);
+                }
+            } else {
+                String defaultImagePath = "/images/pictureplaceholder.png";
+                image = new Image(defaultImagePath);
+            }
         } else {
-            circle.setFill(Color.web("#a06cb9"));
+            String defaultImagePath = "/images/pictureplaceholder.png";
+            image = new Image(defaultImagePath);
         }
+
+        ImagePattern imagePattern = new ImagePattern(image);
+        circle.setFill(imagePattern);
         return circle;
     }
 
@@ -150,25 +192,6 @@ public class EventHelper {
         return label;
     }
 
-
-    //This gets the contents of the userImages folder inside the resources folder
-    //Can be later swapped with a way to link profile pic
-    private String getRandomImagePath() throws URISyntaxException {
-        URL url = getClass().getClassLoader().getResource("/userImages");
-        if (url == null) {
-            return null;
-        }
-
-        File folder = new File(url.toURI());
-        File[] listOfFiles = folder.listFiles();
-        if (listOfFiles == null || listOfFiles.length == 0) {
-            return null; // Return null if no files are found
-        }
-
-        //returns a random photo file string to apply
-        int randomIndex = new Random().nextInt(listOfFiles.length);
-        return listOfFiles[randomIndex].toURI().toString();
-    }
 
     private String formatDateTime(LocalDateTime dateTime) {
         if (dateTime == null) {

@@ -2,6 +2,8 @@ package GUI.controller;
 
 import BE.Event;
 import BE.User;
+import BLL.UserBLL;
+import DAL.UserDAO;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
 import GUI.model.UserModel;
@@ -45,6 +47,7 @@ import java.time.format.DateTimeFormatter;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 public class EcDashboardController {
@@ -144,6 +147,26 @@ public class EcDashboardController {
         DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
         userListLv.setItems(userModel.getUsersByType(0));
         closeBtn.setId("closeBtn");
+        //separate this method
+        eventListLv.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                List<User> users = null;
+                try {
+                    UserDAO userDAO = new UserDAO();
+                    users = userDAO.getUsersForEvent(newValue.getEventId());
+                } catch (BBExceptions e) {
+                    e.printStackTrace();
+                }
+                userWindowHbox.getChildren().clear();
+                if (users != null) {
+                    for (User user : users) {
+                        Circle pictureHolder = new Circle(30);
+                        eventHelper.setUserPictures(user, pictureHolder);
+                        userWindowHbox.getChildren().add(pictureHolder);
+                    }
+                }
+            }
+        });
     }
 
 
