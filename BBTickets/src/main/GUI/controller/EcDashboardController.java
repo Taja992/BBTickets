@@ -91,6 +91,10 @@ public class EcDashboardController {
 
     public void setUserId(int userId) throws BBExceptions {
         this.userId = userId;
+        setProfilePicture();
+
+    }
+    public void setProfilePicture() throws BBExceptions {
         loggedInUser = userModel.getUserById(userId);
         Image image = null;
         if (loggedInUser != null && loggedInUser.getProfilePicture() != null) {
