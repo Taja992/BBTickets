@@ -8,6 +8,7 @@ import Exceptions.BBExceptions;
 import java.io.IOException;
 
 
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -37,18 +38,11 @@ public class UserDAO {
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getUsername());
 
-            // Load the placeholder image file
-            File file = new File("src/main/resources/placeholder.png");
-            FileInputStream fis = new FileInputStream(file);
-            byte[] profilePicture = new byte[(int) file.length()];
-            fis.read(profilePicture);
-            fis.close();
-
-            // Set the placeholder image as the profile picture
-            statement.setBytes(4, profilePicture);
+            // Set the profile picture as null
+            statement.setNull(4, Types.BINARY);
 
             statement.executeUpdate();
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             throw new BBExceptions("Failed to insert user", e);
         }
     }
@@ -174,9 +168,13 @@ public class UserDAO {
             while (resultSet.next()) {
                 int userId = resultSet.getInt("user_id");
                 String username = resultSet.getString("username");
-                // Add other user fields as needed
+                byte[] profilePicture = resultSet.getBytes("profile_picture");
+                if (resultSet.wasNull()) {
+                    profilePicture = null;
+                }
 
-                User user = new User(userId, username);
+                // Add other user fields as needed
+                User user = new User(userId, username, profilePicture); // Include the profile picture when creating the User object
                 eventUsers.add(user);
             }
         } catch (SQLException e) {

@@ -25,6 +25,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Random;
 
 public class EventHelper {
@@ -61,31 +62,6 @@ public class EventHelper {
         this.eventEndLbl = eventEndLbl;
         this.eventNotesLbl = eventNotesLbl;
         this.eventDirLbl = eventDirLbl;
-
-    }
-    public void setUserPictures(User user, Circle pictureHolder) {
-        Image image = null;
-        if (user != null && user.getProfilePicture() != null) {
-            byte[] imageData = user.getProfilePicture();
-            if (imageData != null && imageData.length > 0) {
-                try (InputStream imageStream = new ByteArrayInputStream(imageData)) {
-                    image = new Image(imageStream);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    String defaultImagePath = "/images/pictureplaceholder.png";
-                    image = new Image(defaultImagePath);
-                }
-            } else {
-                String defaultImagePath = "/images/pictureplaceholder.png";
-                image = new Image(defaultImagePath);
-            }
-        } else {
-            String defaultImagePath = "/images/pictureplaceholder.png";
-            image = new Image(defaultImagePath);
-        }
-
-        ImagePattern imagePattern = new ImagePattern(image);
-        pictureHolder.setFill(imagePattern);
     }
 
 
@@ -126,10 +102,10 @@ public class EventHelper {
     }
 
     //This is just styling for the top box it creates a Vbox for each user, adds a circle and label containing their name
-    private void addUserToHbox(User user) throws URISyntaxException {
+    private void addUserToHbox(User user) throws URISyntaxException, BBExceptions {
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
-        Circle circle = createCircleForUser(user);
+        Circle circle = createCircleForUser(user); // Pass the user object here
         Label label = createLabelForUser(user);
         vbox.getChildren().addAll(circle, label);
         rightClickMenu(circle, user);
@@ -158,29 +134,9 @@ public class EventHelper {
     }
 
     //These adds the profile pic(random image atm) to the user
-    private Circle createCircleForUser(User user) throws URISyntaxException {
+    private Circle createCircleForUser(User user) throws BBExceptions {
         Circle circle = new Circle(28);
-        Image image = null;
-        if (user != null && user.getProfilePicture() != null) {
-            byte[] imageData = user.getProfilePicture();
-            if (imageData != null && imageData.length > 0) {
-                try (InputStream imageStream = new ByteArrayInputStream(imageData)) {
-                    image = new Image(imageStream);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    String defaultImagePath = "/images/pictureplaceholder.png";
-                    image = new Image(defaultImagePath);
-                }
-            } else {
-                String defaultImagePath = "/images/pictureplaceholder.png";
-                image = new Image(defaultImagePath);
-            }
-        } else {
-            String defaultImagePath = "/images/pictureplaceholder.png";
-            image = new Image(defaultImagePath);
-        }
-
-        ImagePattern imagePattern = new ImagePattern(image);
+        ImagePattern imagePattern = setProfilePicture(user);
         circle.setFill(imagePattern);
         return circle;
     }
@@ -192,6 +148,25 @@ public class EventHelper {
         return label;
     }
 
+
+    //This gets the contents of the userImages folder inside the resources folder
+    //Can be later swapped with a way to link profile pic
+    private String getRandomImagePath() throws URISyntaxException {
+        URL url = getClass().getClassLoader().getResource("/userImages");
+        if (url == null) {
+            return null;
+        }
+
+        File folder = new File(url.toURI());
+        File[] listOfFiles = folder.listFiles();
+        if (listOfFiles == null || listOfFiles.length == 0) {
+            return null; // Return null if no files are found
+        }
+
+        //returns a random photo file string to apply
+        int randomIndex = new Random().nextInt(listOfFiles.length);
+        return listOfFiles[randomIndex].toURI().toString();
+    }
 
     private String formatDateTime(LocalDateTime dateTime) {
         if (dateTime == null) {
@@ -212,6 +187,30 @@ public class EventHelper {
         } catch (BBExceptions | URISyntaxException e) {
             showErrorDialog("Failed to refresh user window.");
         }
+    }
+
+    public ImagePattern setProfilePicture(User user) throws BBExceptions {
+        Image image = null;
+        if (user.getProfilePicture() != null) {
+            byte[] imageData = user.getProfilePicture();
+            if (imageData != null && imageData.length > 0) {
+                try (InputStream imageStream = new ByteArrayInputStream(imageData)) {
+                    image = new Image(imageStream);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    String defaultImagePath = "/images/pictureplaceholder.png";
+                    image = new Image(defaultImagePath);
+                }
+            } else {
+                String defaultImagePath = "/images/pictureplaceholder.png";
+                image = new Image(defaultImagePath);
+            }
+        } else {
+            String defaultImagePath = "/images/pictureplaceholder.png";
+            image = new Image(defaultImagePath);
+        }
+
+        return new ImagePattern(image);
     }
 
     private void showErrorDialog(String message) {

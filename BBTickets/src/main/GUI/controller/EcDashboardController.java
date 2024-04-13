@@ -47,6 +47,7 @@ import java.time.format.DateTimeFormatter;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -101,7 +102,6 @@ public class EcDashboardController {
         loggedInUser = userModel.getUserById(userId);
         Image image = null;
         if (loggedInUser != null && loggedInUser.getProfilePicture() != null) {
-            System.out.println("User is logged in");
             byte[] imageData = loggedInUser.getProfilePicture();
             if (imageData != null && imageData.length > 0) {
                 // Convert byte array to input stream
@@ -147,26 +147,6 @@ public class EcDashboardController {
         DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
         userListLv.setItems(userModel.getUsersByType(0));
         closeBtn.setId("closeBtn");
-        //separate this method
-        eventListLv.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                List<User> users = null;
-                try {
-                    UserDAO userDAO = new UserDAO();
-                    users = userDAO.getUsersForEvent(newValue.getEventId());
-                } catch (BBExceptions e) {
-                    e.printStackTrace();
-                }
-                userWindowHbox.getChildren().clear();
-                if (users != null) {
-                    for (User user : users) {
-                        Circle pictureHolder = new Circle(30);
-                        eventHelper.setUserPictures(user, pictureHolder);
-                        userWindowHbox.getChildren().add(pictureHolder);
-                    }
-                }
-            }
-        });
     }
 
 
