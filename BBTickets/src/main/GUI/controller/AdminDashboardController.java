@@ -95,6 +95,19 @@ public class AdminDashboardController {
         setProfilePicture();
 
     }
+
+
+    public void initialize() {
+        this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
+        ListViewSetupUtility.setupEventListView(eventListLv, eventModel);
+        userListLv.setItems(userModel.getUsersByType(1)); // this is since toggle is starting on admin
+        ListViewSetupUtility.setupUserListView(userListLv);
+        eventHelper.eventListObserver();
+        DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
+        rightClickMenu();
+        closeBtn.setId("closeBtn");
+    }
+
     public void setProfilePicture() throws BBExceptions {
         loggedInUser = userModel.getUserById(userId);
         Image image = null;
@@ -129,18 +142,6 @@ public class AdminDashboardController {
         pictureHolder.setFill(imagePattern);
     }
 
-
-
-    public void initialize() {
-        this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
-        ListViewSetupUtility.setupEventListView(eventListLv, eventModel);
-        userListLv.setItems(userModel.getUsersByType(1)); // this is since toggle is starting on admin
-        ListViewSetupUtility.setupUserListView(userListLv);
-        eventHelper.eventListObserver();
-        DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
-        rightClickMenu();
-        closeBtn.setId("closeBtn");
-    }
 
     public void rightClickMenu() {
 

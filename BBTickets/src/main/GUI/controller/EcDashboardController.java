@@ -96,46 +96,12 @@ public class EcDashboardController {
     public void setUserId(int userId) throws BBExceptions {
         this.userId = userId;
         setProfilePicture();
-
-    }
-    public void setProfilePicture() throws BBExceptions {
-        loggedInUser = userModel.getUserById(userId);
-        Image image = null;
-        if (loggedInUser != null && loggedInUser.getProfilePicture() != null) {
-            byte[] imageData = loggedInUser.getProfilePicture();
-            if (imageData != null && imageData.length > 0) {
-                // Convert byte array to input stream
-                try (InputStream imageStream = new ByteArrayInputStream(imageData)) {
-                    image = new Image(imageStream);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    String defaultImagePath = "/images/pictureplaceholder.png";
-                    image = new Image(defaultImagePath);
-                }
-            }
-            else
-            {
-                //no image add default
-                String defaultImagePath = "/images/pictureplaceholder.png";
-                image = new Image(defaultImagePath);
-            }
-        }
-        else
-        {
-            //no image add default
-            String defaultImagePath = "/images/pictureplaceholder.png";
-            image = new Image(defaultImagePath);
-        }
-
-        ImagePattern imagePattern = new ImagePattern(image);
-        pictureHolder.setFill(imagePattern);
+        eventListForSpecificUser();
     }
 
     public EcDashboardController() {
         eventModel = new EventModel();
         userModel = new UserModel();}
-
-
 
     public void initialize() {
         this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
@@ -180,6 +146,40 @@ public class EcDashboardController {
             showErrorDialog("Event Fetch Error", "Failed to fetch events for the user.");
         }
     }
+
+    public void setProfilePicture() throws BBExceptions {
+        loggedInUser = userModel.getUserById(userId);
+        Image image = null;
+        if (loggedInUser != null && loggedInUser.getProfilePicture() != null) {
+            byte[] imageData = loggedInUser.getProfilePicture();
+            if (imageData != null && imageData.length > 0) {
+                // Convert byte array to input stream
+                try (InputStream imageStream = new ByteArrayInputStream(imageData)) {
+                    image = new Image(imageStream);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    String defaultImagePath = "/images/pictureplaceholder.png";
+                    image = new Image(defaultImagePath);
+                }
+            }
+            else
+            {
+                //no image add default
+                String defaultImagePath = "/images/pictureplaceholder.png";
+                image = new Image(defaultImagePath);
+            }
+        }
+        else
+        {
+            //no image add default
+            String defaultImagePath = "/images/pictureplaceholder.png";
+            image = new Image(defaultImagePath);
+        }
+
+        ImagePattern imagePattern = new ImagePattern(image);
+        pictureHolder.setFill(imagePattern);
+    }
+
 
 
     public void deleteEvent(ActionEvent actionEvent) {
