@@ -38,15 +38,14 @@ public class TicketTypeDAO {
         return types;
     }
 
-    public void addType(int id, String name) throws BBExceptions {
-        String sql = "INSERT INTO TicketTypes (type_id,type_name) VALUES (?,?)";
+    public void addType(String name) throws BBExceptions {
+        String sql = "INSERT INTO TicketTypes (type_name) VALUES (?)";
 
         try(Connection con = connectionManager.getConnection()){
 
             PreparedStatement pstmnt = con.prepareStatement(sql);
 
-            pstmnt.setInt(1, id);
-            pstmnt.setString(2, name);
+            pstmnt.setString(1, name);
 
             pstmnt.executeUpdate();
 

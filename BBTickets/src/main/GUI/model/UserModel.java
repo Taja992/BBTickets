@@ -2,15 +2,24 @@ package GUI.model;
 
 import BE.User;
 import BLL.UserBLL;
+import DAL.UserDAO;
 import Exceptions.BBExceptions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+
+
+import java.sql.SQLException;
+
+
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class UserModel {
+
+    private UserDAO userDAO;
     private UserBLL userBLL;
     private ObservableList<User> allUsers;
     private Map<Integer, ObservableList<User>> usersForEvent = new HashMap<>();
@@ -19,6 +28,7 @@ public class UserModel {
         userBLL = new UserBLL();
         allUsers = FXCollections.observableArrayList();
         loadUsers();
+        userDAO = new UserDAO();
 
     }
 
@@ -62,5 +72,28 @@ public class UserModel {
 
     public ObservableList<User> getUsersByType(int userType) {
         return allUsers.filtered(user -> user.getUser_type() == userType);
+    }
+
+    public void editProfile(String username, String password, String picturePath) {
+        User user = new User(0, password, username);
+        user.setProfilePicture(picturePath.getBytes());
+        try {
+            userBLL.updateUser(user);
+        } catch (BBExceptions e) {
+            e.printStackTrace();
+        }
+    }
+
+    public User getUserById(int userId) throws BBExceptions {
+        for (User user : allUsers) {
+            if (user.getUserId() == userId) {
+                return user;
+            }
+        }
+        throw new BBExceptions("User with id " + userId + " not found.");
+    }
+
+    public void updateProfilePicture(int userId, byte[] pictureData) throws SQLException, SQLException {
+        userDAO.updateProfilePicture(userId, pictureData);
     }
 }

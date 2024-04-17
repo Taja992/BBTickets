@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXToggleButton?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane fx:id="mainBp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="701.0" prefWidth="1095.0" styleClass="mainBp" stylesheets="/GUI/view/AdminDashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.AdminDashboardController">
+<BorderPane fx:id="mainBp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="701.0" prefWidth="1095.0" styleClass="mainBp" stylesheets="/GUI/view/AdminDashboard.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.AdminDashboardController">
     <left>
         <VBox fx:id="eventListVbox" styleClass="eventListVbox" BorderPane.alignment="CENTER">
             <children>
@@ -172,7 +167,7 @@
    <right>
       <VBox prefHeight="677.0" prefWidth="181.0" BorderPane.alignment="CENTER">
          <children>
-            <Circle fill="#b672b9" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE">
+            <Circle fx:id="pictureHolder" fill="#b672b9" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE">
                <VBox.margin>
                   <Insets left="60.0" top="40.0" />
                </VBox.margin>
@@ -184,6 +179,10 @@
                   </DropShadow>
                </effect>
             </Circle>
+             <Button fx:id="editProfileBtn" onAction="#editProfileBtn" text="Edit Profile">
+               <VBox.margin>
+                  <Insets left="53.0" top="7.0" />
+               </VBox.margin></Button>
             <VBox alignment="CENTER" prefHeight="525.0" prefWidth="181.0" spacing="13.0" styleClass="buttonVbox">
                <children>
                         <Button mnemonicParsing="false" onAction="#deleteEvent" text="Delete Event">

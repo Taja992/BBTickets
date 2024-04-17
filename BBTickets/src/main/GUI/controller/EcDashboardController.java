@@ -2,6 +2,8 @@ package GUI.controller;
 
 import BE.Event;
 import BE.User;
+import BLL.UserBLL;
+import DAL.UserDAO;
 import Exceptions.BBExceptions;
 import GUI.model.EventModel;
 import GUI.model.UserModel;
@@ -15,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -23,12 +26,29 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import javafx.stage.StageStyle;
+
+
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.time.format.DateTimeFormatter;
+
+
+
+
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 public class EcDashboardController {
@@ -61,14 +81,20 @@ public class EcDashboardController {
     private ListView<User> userListLv;
     @FXML
     private Button logoutBtn;
-
+    @FXML
+    private Button editProfileBtn;
+    @FXML
+    private Circle pictureHolder;
     private int userId;
+    private User loggedInUser;
     private EventModel eventModel;
     private UserModel userModel;
     private EventHelper eventHelper;
 
-    public void setUserId(int userId) {
+    public void setUserId(int userId) throws BBExceptions {
         this.userId = userId;
+        this.eventHelper.setUserId(userId);
+        setProfilePicture();
         eventListForSpecificUser();
     }
 
@@ -119,6 +145,40 @@ public class EcDashboardController {
             showErrorDialog("Event Fetch Error", "Failed to fetch events for the user.");
         }
     }
+
+    public void setProfilePicture() throws BBExceptions {
+        loggedInUser = userModel.getUserById(userId);
+        Image image = null;
+        if (loggedInUser != null && loggedInUser.getProfilePicture() != null) {
+            byte[] imageData = loggedInUser.getProfilePicture();
+            if (imageData != null && imageData.length > 0) {
+                // Convert byte array to input stream
+                try (InputStream imageStream = new ByteArrayInputStream(imageData)) {
+                    image = new Image(imageStream);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    String defaultImagePath = "/images/pictureplaceholder.png";
+                    image = new Image(defaultImagePath);
+                }
+            }
+            else
+            {
+                //no image add default
+                String defaultImagePath = "/images/pictureplaceholder.png";
+                image = new Image(defaultImagePath);
+            }
+        }
+        else
+        {
+            //no image add default
+            String defaultImagePath = "/images/pictureplaceholder.png";
+            image = new Image(defaultImagePath);
+        }
+
+        ImagePattern imagePattern = new ImagePattern(image);
+        pictureHolder.setFill(imagePattern);
+    }
+
 
 
     public void deleteEvent(ActionEvent actionEvent) {
@@ -269,6 +329,28 @@ public class EcDashboardController {
             showErrorDialog("Create Event Error", "Failed to create an event.");
         }
     }
+
+    public void editProfileBtn(ActionEvent actionEvent){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/EditProfile.fxml"));
+            Parent root = loader.load();
+
+            EditProfile controller = loader.getController();
+            controller.setUserModel(userModel);
+            User loggedInUser = userModel.getUserById(userId);
+            controller.setLoggedInUser(loggedInUser);
+
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException | BBExceptions e) {
+            e.printStackTrace();
+            showErrorDialog("Edit Profile Error", "Failed to load profile editing view: " + e.getMessage());
+        }
+    }
+
+
 
 
     public void assignCoordinator(ActionEvent actionEvent) {

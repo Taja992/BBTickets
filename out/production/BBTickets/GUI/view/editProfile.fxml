@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="200.0" prefWidth="310.0" spacing="10" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.EditProfile">
+    <children>
+        <Label text="Edit Profile" />
+        <HBox spacing="10">
+            <children>
+                <Label text="Username:" />
+                <TextField fx:id="usernameField" prefHeight="26.0" prefWidth="150.0" promptText="Enter Username">
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin></TextField>
+            </children>
+        </HBox>
+        <HBox spacing="10">
+            <children>
+                <Label text="Password:" />
+                <TextField fx:id="passwordField" prefHeight="26.0" prefWidth="150.0" promptText="Enter Password">
+               <HBox.margin>
+                  <Insets left="24.0" />
+               </HBox.margin></TextField>
+            </children>
+        </HBox>
+        <HBox prefHeight="26.0" prefWidth="218.0" spacing="10">
+            <children>
+                <Label text="Profile picture:" />
+                <TextField fx:id="picturePathField" promptText="Enter picture path" />
+                <Button fx:id="browseProfilePictureBtn" onAction="#browseProfilePicture" text="Browse" />
+            </children>
+        </HBox>
+        <HBox spacing="10">
+            <children>
+                <Button fx:id="saveProfileBtn" onAction="#saveProfile" text="Save">
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin></Button>
+                <Button fx:id="cancelEditProfileBtn" onAction="#cancelEditProfile" text="Cancel">
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin></Button>
+            </children>
+        </HBox>
+    </children>
+   <padding>
+      <Insets left="5.0" />
+   </padding>
+</VBox>

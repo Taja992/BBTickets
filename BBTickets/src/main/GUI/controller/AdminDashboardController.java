@@ -15,10 +15,27 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.StageStyle;
+
+
+import java.io.ByteArrayInputStream;
+
+
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.util.Arrays;
+
+import java.io.IOException;
+
 
 public class AdminDashboardController {
 
@@ -35,6 +52,18 @@ public class AdminDashboardController {
     @FXML
     private HBox userWindowHbox;
     @FXML
+
+    private VBox eventWindowVbox;
+    @FXML
+    private HBox bottomHbox;
+    @FXML
+    private Button editProfileBtn;
+    @FXML
+    private Button createEventBtn;
+    @FXML
+    private Button logoutBtn;
+    @FXML
+
     private Label eventTypeLbl;
     @FXML
     private Label eventLocationLbl;
@@ -46,21 +75,26 @@ public class AdminDashboardController {
     private Label eventNotesLbl;
     @FXML
     private Label eventDirLbl;
+    @FXML
+    private Circle pictureHolder;
     private EventModel eventModel;
     private UserModel userModel;
     private EventHelper eventHelper;
     private int userId;
+    private User loggedInUser;
 
 
 
-    public AdminDashboardController() {
+    public AdminDashboardController() throws BBExceptions {
         eventModel = new EventModel();
         userModel = new UserModel();
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(int userId) throws BBExceptions {
         this.userId = userId;
+        setProfilePicture();
     }
+
 
     public void initialize() {
         this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
@@ -72,6 +106,41 @@ public class AdminDashboardController {
         rightClickMenu();
         closeBtn.setId("closeBtn");
     }
+
+    public void setProfilePicture() throws BBExceptions {
+        loggedInUser = userModel.getUserById(userId);
+        Image image = null;
+        if (loggedInUser != null && loggedInUser.getProfilePicture() != null) {
+            System.out.println("User is logged in");
+            byte[] imageData = loggedInUser.getProfilePicture();
+            if (imageData != null && imageData.length > 0) {
+                // Convert byte array to input stream
+                try (InputStream imageStream = new ByteArrayInputStream(imageData)) {
+                    image = new Image(imageStream);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    String defaultImagePath = "/images/pictureplaceholder.png";
+                    image = new Image(defaultImagePath);
+                }
+            }
+            else
+            {
+                //no image add default
+                String defaultImagePath = "/images/pictureplaceholder.png";
+                image = new Image(defaultImagePath);
+            }
+        }
+        else
+        {
+            //no image add default
+            String defaultImagePath = "/images/pictureplaceholder.png";
+            image = new Image(defaultImagePath);
+        }
+
+        ImagePattern imagePattern = new ImagePattern(image);
+        pictureHolder.setFill(imagePattern);
+    }
+
 
     public void rightClickMenu() {
 
@@ -169,6 +238,26 @@ public class AdminDashboardController {
         } catch (IOException e) {
             e.printStackTrace();
             showErrorDialog("Create User Error", "Failed to load user creation view: " + e.getMessage());
+        }
+    }
+
+    public void editProfileBtn(ActionEvent actionEvent){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/view/EditProfile.fxml"));
+            Parent root = loader.load();
+
+            EditProfile controller = loader.getController();
+            controller.setUserModel(userModel);
+            User loggedInUser = userModel.getUserById(userId);
+            controller.setLoggedInUser(loggedInUser);
+
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException | BBExceptions e) {
+            e.printStackTrace();
+            showErrorDialog("Edit Profile Error", "Failed to load profile editing view: " + e.getMessage());
         }
     }
 

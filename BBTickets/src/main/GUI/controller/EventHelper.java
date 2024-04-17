@@ -16,11 +16,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Random;
 
 public class EventHelper {
@@ -45,6 +50,11 @@ public class EventHelper {
     private Label eventNotesLbl;
     @FXML
     private Label eventDirLbl;
+    private int currentUserId;
+
+    public void setUserId(int userId) {
+        this.currentUserId = userId;
+    }
 
     public EventHelper(ListView<BE.Event> eventListLv, HBox userWindowHbox, UserModel userModel, EventModel eventModel, Label eventTypeLbl, Label eventLocationLbl, Label eventStartLbl, Label eventEndLbl, Label eventNotesLbl, Label eventDirLbl) {
         this.eventListLv = eventListLv;
@@ -57,7 +67,6 @@ public class EventHelper {
         this.eventEndLbl = eventEndLbl;
         this.eventNotesLbl = eventNotesLbl;
         this.eventDirLbl = eventDirLbl;
-
     }
 
 
@@ -98,10 +107,10 @@ public class EventHelper {
     }
 
     //This is just styling for the top box it creates a Vbox for each user, adds a circle and label containing their name
-    private void addUserToHbox(User user) throws URISyntaxException {
+    private void addUserToHbox(User user) throws URISyntaxException, BBExceptions {
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
-        Circle circle = createCircleForUser();
+        Circle circle = createCircleForUser(user); // Pass the user object here
         Label label = createLabelForUser(user);
         vbox.getChildren().addAll(circle, label);
         rightClickMenu(circle, user);
@@ -113,6 +122,15 @@ public class EventHelper {
         MenuItem removeUser = new MenuItem("Remove User");
         removeUser.setOnAction(e -> {
             try {
+                // Check if the user being removed is the current user
+                System.out.println("User Id: " + user.getUserId());
+                System.out.println("CurrentUser: " + currentUserId);
+
+                if (user.getUserId() == currentUserId) {
+                    showErrorDialog("You cannot remove yourself from the event.");
+                    return;
+                }
+
                 Event selectedEvent = eventListLv.getSelectionModel().getSelectedItem();
                 eventModel.removeUserFromEvent(user.getUserId(), selectedEvent.getEventId());
                 refreshUserWindowHbox(selectedEvent);
@@ -130,16 +148,10 @@ public class EventHelper {
     }
 
     //These adds the profile pic(random image atm) to the user
-    private Circle createCircleForUser() throws URISyntaxException {
+    private Circle createCircleForUser(User user) throws BBExceptions {
         Circle circle = new Circle(28);
-        String imagePath = getRandomImagePath();
-        if (imagePath != null) {
-            Image image = new Image(imagePath, 80, 80, false, true);
-            ImagePattern imagePattern = new ImagePattern(image);
-            circle.setFill(imagePattern);
-        } else {
-            circle.setFill(Color.web("#a06cb9"));
-        }
+        ImagePattern imagePattern = setProfilePicture(user);
+        circle.setFill(imagePattern);
         return circle;
     }
 
@@ -189,6 +201,30 @@ public class EventHelper {
         } catch (BBExceptions | URISyntaxException e) {
             showErrorDialog("Failed to refresh user window.");
         }
+    }
+
+    public ImagePattern setProfilePicture(User user) throws BBExceptions {
+        Image image = null;
+        if (user.getProfilePicture() != null) {
+            byte[] imageData = user.getProfilePicture();
+            if (imageData != null && imageData.length > 0) {
+                try (InputStream imageStream = new ByteArrayInputStream(imageData)) {
+                    image = new Image(imageStream);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    String defaultImagePath = "/images/pictureplaceholder.png";
+                    image = new Image(defaultImagePath);
+                }
+            } else {
+                String defaultImagePath = "/images/pictureplaceholder.png";
+                image = new Image(defaultImagePath);
+            }
+        } else {
+            String defaultImagePath = "/images/pictureplaceholder.png";
+            image = new Image(defaultImagePath);
+        }
+
+        return new ImagePattern(image);
     }
 
     private void showErrorDialog(String message) {

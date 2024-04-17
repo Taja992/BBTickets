@@ -1,14 +1,12 @@
 package BE;
 
 public class User {
-
-
-
     private int userId;
     private int user_type;
     private String password;
     private String username;
     private String roleName;
+    private byte[] profilePicture;
 
     ///why?
     public User(Integer userID, Integer user_type, String password, String username) {
@@ -16,8 +14,25 @@ public class User {
         this.user_type = user_type;
         this.password = password;
         this.username = username;
+
     }
-    public User(Integer user_type, String password, String username) {
+    public User(Integer userId, Integer user_type, String password, String username, byte[] profilePicture) {
+        this.user_type = user_type;
+        this.userId = userId;
+        this.password = password;
+        this.username = username;
+        this.profilePicture = profilePicture;
+    }
+
+    public User(Integer userId, String username, byte[] profilePicture) {
+        this.userId = userId;
+        this.username = username;
+        this.profilePicture = profilePicture;
+    }
+
+
+
+    public User (Integer user_type, String password, String username){
         this.user_type = user_type;
         this.password = password;
         this.username = username;
@@ -46,6 +61,14 @@ public class User {
 
     public int getUserId() {
         return userId;
+    }
+
+    public byte[] getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(byte[] profilePicture) {
+        this.profilePicture = profilePicture;
     }
 
     public void setUserId(int userId) {

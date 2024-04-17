@@ -24,6 +24,7 @@ public class CreateUserController {
     private User userToEdit;
     private EventHelper eventHelper;
     private Event selectedEvent;
+    @FXML
     private Button createUserBtn;
 
 
@@ -94,6 +95,7 @@ public class CreateUserController {
             }
 
         } catch (BBExceptions e) {
+            e.printStackTrace();
             showErrorDialog("Failed to create or edit user.");
         }
 

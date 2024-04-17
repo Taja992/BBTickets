@@ -3,10 +3,23 @@ package DAL;
 import BE.Event;
 import BE.User;
 import Exceptions.BBExceptions;
+
+
+import java.io.IOException;
+
+
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.sql.Blob;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UserDAO {
     private ConnectionManager connectionManager;
@@ -16,7 +29,7 @@ public class UserDAO {
     }
 
     public void newUser(User user) throws BBExceptions {
-        String sql = "INSERT INTO [User] (user_type, password, username) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO [User] (user_type, password, username, profile_picture) VALUES (?, ?, ?, ?)";
 
         try {
             Connection connection = connectionManager.getConnection();
@@ -24,6 +37,10 @@ public class UserDAO {
             statement.setInt(1, user.getUser_type());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getUsername());
+
+            // Set the profile picture as null
+            statement.setNull(4, Types.BINARY);
+
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new BBExceptions("Failed to insert user", e);
@@ -31,7 +48,7 @@ public class UserDAO {
     }
 
     public void updateUser(User user) throws BBExceptions {
-        String sql = "UPDATE [User] SET user_type = ?, password = ?, username = ? WHERE user_id = ?";
+        String sql = "UPDATE [User] SET user_type = ?, password = ?, username = ?, profile_picture = ? WHERE user_id = ?";
 
         try {
             Connection connection = connectionManager.getConnection();
@@ -39,11 +56,21 @@ public class UserDAO {
             statement.setInt(1, user.getUser_type());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getUsername());
-            statement.setInt(4, user.getUserId());
+            statement.setBytes(4, user.getProfilePicture());
+            statement.setInt(5, user.getUserId());
+
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new BBExceptions("Failed to update user", e);
         }
+    }
+    public void updateProfilePicture(int userId, byte[] profilePicture) throws SQLException {
+        String sql = "UPDATE [User] SET profile_picture = ? WHERE user_id = ?";
+        Connection connection = connectionManager.getConnection();
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        pstmt.setBytes(1, profilePicture);
+        pstmt.setInt(2, userId);
+        pstmt.executeUpdate();
     }
 
     public User getUser(String username, String password) throws BBExceptions {
@@ -58,7 +85,8 @@ public class UserDAO {
             if (resultSet.next()) {
                 int userId = resultSet.getInt("user_id");
                 int user_type = resultSet.getInt("user_type");
-                User user = new User(userId, user_type, password, username);
+                byte[] profilePicture = resultSet.getBytes("profile_picture");
+                User user = new User(userId, user_type, password, username, profilePicture);
                 return user;
             } else {
                 return null;
@@ -83,7 +111,8 @@ public class UserDAO {
                 int user_type = resultSet.getInt("user_type");
                 String password = resultSet.getString("password");
                 String username = resultSet.getString("username");
-                User user = new User(userID, user_type, password, username);
+                byte[] profilePicture = resultSet.getBytes("profile_picture");
+                User user = new User(userID, user_type, password, username, profilePicture);
                 allUsers.add(user);
             }
         } catch (SQLException e) {
@@ -139,9 +168,13 @@ public class UserDAO {
             while (resultSet.next()) {
                 int userId = resultSet.getInt("user_id");
                 String username = resultSet.getString("username");
-                // Add other user fields as needed
+                byte[] profilePicture = resultSet.getBytes("profile_picture");
+                if (resultSet.wasNull()) {
+                    profilePicture = null;
+                }
 
-                User user = new User(userId, username);
+                // Add other user fields as needed
+                User user = new User(userId, username, profilePicture); // Include the profile picture when creating the User object
                 eventUsers.add(user);
             }
         } catch (SQLException e) {
