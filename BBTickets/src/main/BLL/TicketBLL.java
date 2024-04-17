@@ -60,7 +60,8 @@ public class TicketBLL {
         typeDAO.addType(name);
     }
 
-    public void printTicketWithInfo(int width, int height, Customer cust, Event event, String type, double price, String uuid, String fileLocation) throws IOException  {
+    public void printTicketWithInfo(int width, int height, Customer cust, Event event, String type, double price,
+                                    String uuid, String fileLocation) throws IOException  {
 
         PDDocument ticketDoc = new PDDocument(); //the document itself
         PDRectangle pageSize = new PDRectangle(width, height); //we can set the page size to be the same as a rectangle, thus making it customizable
@@ -99,20 +100,21 @@ public class TicketBLL {
             stream.newLineAtOffset(490,32);
             stream.showText("Date: " + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(event.getEventStartTime()));
             stream.newLine();
-            stream.showText("Open Doors: " + event.getEventStartTime().toString().substring(event.getEventStartTime().toString().lastIndexOf('T')+1));
+            stream.showText("Open Doors: " + event.getEventStartTime().toString()
+                    .substring(event.getEventStartTime().toString().lastIndexOf('T')+1));
         } else{
             stream.newLineAtOffset(-240,-350);
             stream.showText("Location: " + event.getEventLocation());
             stream.newLineAtOffset(490,0);
             stream.showText("Date: " + DateTimeFormatter.ofPattern("dd/MM/yyyy").format(event.getEventStartTime()));
             stream.newLine();
-            stream.showText("Open Doors: " + event.getEventStartTime().toString().substring(event.getEventStartTime().toString().lastIndexOf('T')+1));
+            stream.showText("Open Doors: " + event.getEventStartTime().toString()
+                    .substring(event.getEventStartTime().toString().lastIndexOf('T')+1));
         }
 
         printTypeAndName(stream, bold, regular, type, cust);
 
         stream.endText();
-
 
 
         BitMatrix bitMatrix = null;
@@ -122,7 +124,8 @@ public class TicketBLL {
             BufferedImage bfImg = MatrixToImageWriter.toBufferedImage(bitMatrix);
             PDImageXObject xObject = JPEGFactory.createFromImage(ticketDoc, bfImg); //creating an object from the buffered image so it can be put on the doc
             //rotating barcode -90 degrees
-            AffineTransform at = new AffineTransform(xObject.getHeight(), 0, 0, xObject.getWidth(),width-70, height-35);
+            AffineTransform at = new AffineTransform(xObject.getHeight(), 0, 0,
+                    xObject.getWidth(),width-70, height-35);
             at.rotate(Math.toRadians(-90));
             stream.drawImage(xObject, new Matrix(at)); //drawing image on document
 
@@ -138,7 +141,7 @@ public class TicketBLL {
             throw new RuntimeException(e);
         }
 
-        stream.setLineDashPattern(new float[]{10,7}, 0);//makes a line pattern with 3 on, 1 off
+        stream.setLineDashPattern(new float[]{10,7}, 0);//makes a line pattern with 10 on, 7 off
         stream.moveTo(width-368, height);
         stream.lineTo(width-368, 0);
         stream.setLineWidth(2f);
@@ -158,27 +161,33 @@ public class TicketBLL {
         ticketDoc.close();
     }
 
-    private void printTypeAndName(PDPageContentStream stream, PDType1Font bold, PDType1Font regular, String type, Customer cust) throws IOException {
-        stream.setFont(bold, 30);
+    private void printTypeAndName(PDPageContentStream stream, PDType1Font bold, PDType1Font regular,
+                                  String type, Customer cust) throws IOException {
+
+        int boldSize = 30;
+        int regularSize = 25;
+
+        stream.setFont(bold, boldSize);
         stream.newLineAtOffset(330, 350);
         stream.showText("Ticket Type:");
-        float titleWidth = bold.getStringWidth("Ticket Type:")/1000*30; //dividing by 1000 because the method gives width in 1/1000 and 25 is the font size
-        float typeWidth = regular.getStringWidth(type)/1000*25;
+        float titleWidth = bold.getStringWidth("Ticket Type:")/1000*boldSize; //dividing by 1000 because the method gives width in 1/1000 and 25 is the font size
+        float typeWidth = regular.getStringWidth(type)/1000*regularSize;
         stream.setFont(regular, 25);
         stream.newLineAtOffset(titleWidth/2 - typeWidth/2, -32);
         stream.showText(type);
 
-        float nameWidth = bold.getStringWidth("Name:")/1000*30;
+        float nameWidth = bold.getStringWidth("Name:")/1000*boldSize;
         float nameStartX = typeWidth/2 - nameWidth/2;
-        stream.setFont(bold, 30);
+        stream.setFont(bold, boldSize);
         stream.newLineAtOffset(nameStartX,-70);
         stream.showText("Name:");
 
-        stream.setFont(regular, 25);
-        stream.newLineAtOffset(nameWidth/2 - (regular.getStringWidth(cust.getCustomerName())/1000*25)/2, -32);
+        stream.setFont(regular, regularSize);
+        stream.newLineAtOffset(nameWidth/2 - (regular.getStringWidth(cust.getCustomerName())/1000*regularSize)/2, -32);
         stream.showText(cust.getCustomerName());
 
-        stream.newLineAtOffset((regular.getStringWidth(cust.getCustomerName())/1000*25)/2 - (regular.getStringWidth(cust.getCustomerEmail())/1000*25)/2, -32);
+        stream.newLineAtOffset((regular.getStringWidth(cust.getCustomerName())/1000*regularSize)/2
+                - (regular.getStringWidth(cust.getCustomerEmail())/1000*regularSize)/2, -32);
         stream.showText(cust.getCustomerEmail());
     }
 
