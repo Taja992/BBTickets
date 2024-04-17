@@ -8,7 +8,14 @@
     -fx-background-color: transparent;
 }
 
+.root .context-menu {
+    -fx-background-color: white;
+}
 
+.root .context-menu .menu-item:focused {
+    -fx-text-fill: black;
+    -fx-background-color: grey;
+}
 
 .list-view {
     -fx-background-color: #ede1f8;
