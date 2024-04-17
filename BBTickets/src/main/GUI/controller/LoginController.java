@@ -8,11 +8,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.util.Objects;
 import java.util.prefs.Preferences;
 
 public class LoginController {
@@ -83,10 +86,8 @@ public class LoginController {
 
     private void setupPasswordFieldEnterKey() {
         passwordField.setOnKeyPressed(event -> {
-            switch (event.getCode()) {
-                case ENTER:
-                    loginBtn.fire();
-                    break;
+            if (Objects.requireNonNull(event.getCode()) == KeyCode.ENTER) {
+                loginBtn.fire();
             }
         });
     }
