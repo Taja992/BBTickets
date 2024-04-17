@@ -111,7 +111,6 @@ public class AdminDashboardController {
         loggedInUser = userModel.getUserById(userId);
         Image image = null;
         if (loggedInUser != null && loggedInUser.getProfilePicture() != null) {
-            System.out.println("User is logged in");
             byte[] imageData = loggedInUser.getProfilePicture();
             if (imageData != null && imageData.length > 0) {
                 // Convert byte array to input stream

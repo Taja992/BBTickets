@@ -7,6 +7,7 @@ public class Ticket {
     private int eventId;
     private double price;
     private String uuid;
+    private String customerName;
 
     // Getters
     public int getTicketId() {
@@ -56,5 +57,13 @@ public class Ticket {
 
     public void setUUID(String uuid) {
         this.uuid = uuid;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerName() {
+        return customerName;
     }
 }

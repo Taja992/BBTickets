@@ -48,7 +48,9 @@ public class TicketDAO {
     }
 
     public List<Ticket> getTickets(int customerId, int eventId) {
-        String sql = "SELECT * FROM Tickets WHERE customer_id = ? AND event_id = ?";
+        String sql = "SELECT Tickets.*, Customer.name FROM Tickets " +
+                "JOIN Customer ON Tickets.customer_id = Customer.cust_id " +
+                "WHERE Tickets.customer_id = ? AND Tickets.event_id = ?";
 
         List<Ticket> tickets = new ArrayList<>();
 
@@ -67,6 +69,7 @@ public class TicketDAO {
                 ticket.setEventId(rs.getInt("event_id"));
                 ticket.setPrice(rs.getDouble("price"));
                 ticket.setUUID(rs.getString("uuid"));
+                ticket.setCustomerName(rs.getString("name")); // Add this line
 
                 tickets.add(ticket);
             }

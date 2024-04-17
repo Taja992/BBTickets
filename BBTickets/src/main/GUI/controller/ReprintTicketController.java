@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
@@ -87,6 +88,17 @@ public class ReprintTicketController {
 
             ObservableList<Ticket> observableList = FXCollections.observableArrayList(tickets);
             userTktLv.setItems(observableList);
+            userTktLv.setCellFactory(lv -> new ListCell<Ticket>() {
+                @Override
+                protected void updateItem(Ticket ticket, boolean empty) {
+                    super.updateItem(ticket, empty);
+                    if (empty) {
+                        setText(null);
+                    } else {
+                        setText("Ticket #: " + ticket.getTicketId() + ", Customer: " + ticket.getCustomerName());
+                    }
+                }
+            });
         }
     }
 
