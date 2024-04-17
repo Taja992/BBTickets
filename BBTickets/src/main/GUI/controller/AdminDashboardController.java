@@ -93,7 +93,6 @@ public class AdminDashboardController {
     public void setUserId(int userId) throws BBExceptions {
         this.userId = userId;
         setProfilePicture();
-
     }
 
 

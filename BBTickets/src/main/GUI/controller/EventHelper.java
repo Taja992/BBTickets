@@ -50,6 +50,11 @@ public class EventHelper {
     private Label eventNotesLbl;
     @FXML
     private Label eventDirLbl;
+    private int currentUserId;
+
+    public void setUserId(int userId) {
+        this.currentUserId = userId;
+    }
 
     public EventHelper(ListView<BE.Event> eventListLv, HBox userWindowHbox, UserModel userModel, EventModel eventModel, Label eventTypeLbl, Label eventLocationLbl, Label eventStartLbl, Label eventEndLbl, Label eventNotesLbl, Label eventDirLbl) {
         this.eventListLv = eventListLv;
@@ -117,6 +122,15 @@ public class EventHelper {
         MenuItem removeUser = new MenuItem("Remove User");
         removeUser.setOnAction(e -> {
             try {
+                // Check if the user being removed is the current user
+                System.out.println("User Id: " + user.getUserId());
+                System.out.println("CurrentUser: " + currentUserId);
+
+                if (user.getUserId() == currentUserId) {
+                    showErrorDialog("You cannot remove yourself from the event.");
+                    return;
+                }
+
                 Event selectedEvent = eventListLv.getSelectionModel().getSelectedItem();
                 eventModel.removeUserFromEvent(user.getUserId(), selectedEvent.getEventId());
                 refreshUserWindowHbox(selectedEvent);

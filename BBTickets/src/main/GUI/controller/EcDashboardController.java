@@ -87,14 +87,13 @@ public class EcDashboardController {
     private Circle pictureHolder;
     private int userId;
     private User loggedInUser;
-
-
     private EventModel eventModel;
     private UserModel userModel;
     private EventHelper eventHelper;
 
     public void setUserId(int userId) throws BBExceptions {
         this.userId = userId;
+        this.eventHelper.setUserId(userId);
         setProfilePicture();
         eventListForSpecificUser();
     }
