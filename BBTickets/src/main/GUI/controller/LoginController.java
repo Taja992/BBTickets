@@ -50,6 +50,7 @@ public class LoginController {
         loadSavedCredentials();
         setupForgotPasswordLabel();
         setupLoginButton();
+        setupPasswordFieldEnterKey();
     }
 
     private void loadSavedCredentials() {
@@ -78,6 +79,16 @@ public class LoginController {
 
     private void setupLoginButton() {
         loginBtn.setOnAction(this::handleLoginButtonClick);
+    }
+
+    private void setupPasswordFieldEnterKey() {
+        passwordField.setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case ENTER:
+                    loginBtn.fire();
+                    break;
+            }
+        });
     }
 
     @FXML
