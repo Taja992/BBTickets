@@ -8,7 +8,14 @@
     -fx-background-color: transparent;
 }
 
+.root .context-menu {
+    -fx-background-color: white;
+}
 
+.root .context-menu .menu-item:focused {
+    -fx-text-fill: black;
+    -fx-background-color: grey;
+}
 
 .list-view {
     -fx-background-color: #ede1f8;
@@ -86,12 +93,14 @@
     -fx-background-color: #ede1f8;
     -fx-border-radius: 20;
     -fx-background-radius: 20;
+
 }
 
 .userSp {
     -fx-background-color: TRANSPARENT;
     -fx-border-radius: 20;
     -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 0);
 }
 
 .eventWindowVbox {
@@ -105,7 +114,7 @@
     -fx-background-color: #ede1f8;
     -fx-border-radius: 20;
     -fx-background-radius: 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 0);
 }
 
 .buttonVbox {

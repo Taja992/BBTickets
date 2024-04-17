@@ -24,6 +24,14 @@ public class User {
         this.profilePicture = profilePicture;
     }
 
+    public User(Integer userId, String username, byte[] profilePicture) {
+        this.userId = userId;
+        this.username = username;
+        this.profilePicture = profilePicture;
+    }
+
+
+
     public User (Integer user_type, String password, String username){
         this.user_type = user_type;
         this.password = password;

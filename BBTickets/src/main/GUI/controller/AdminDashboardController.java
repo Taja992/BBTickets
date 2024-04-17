@@ -92,10 +92,25 @@ public class AdminDashboardController {
 
     public void setUserId(int userId) throws BBExceptions {
         this.userId = userId;
+        setProfilePicture();
+    }
+
+
+    public void initialize() {
+        this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
+        ListViewSetupUtility.setupEventListView(eventListLv, eventModel);
+        userListLv.setItems(userModel.getUsersByType(1)); // this is since toggle is starting on admin
+        ListViewSetupUtility.setupUserListView(userListLv);
+        eventHelper.eventListObserver();
+        DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
+        rightClickMenu();
+        closeBtn.setId("closeBtn");
+    }
+
+    public void setProfilePicture() throws BBExceptions {
         loggedInUser = userModel.getUserById(userId);
         Image image = null;
         if (loggedInUser != null && loggedInUser.getProfilePicture() != null) {
-            System.out.println("User is logged in");
             byte[] imageData = loggedInUser.getProfilePicture();
             if (imageData != null && imageData.length > 0) {
                 // Convert byte array to input stream
@@ -125,18 +140,6 @@ public class AdminDashboardController {
         pictureHolder.setFill(imagePattern);
     }
 
-
-
-    public void initialize() {
-        this.eventHelper = new EventHelper(eventListLv, userWindowHbox, userModel, eventModel, eventTypeLbl, eventLocationLbl, eventStartLbl, eventEndLbl, eventNotesLbl, eventDirLbl);
-        ListViewSetupUtility.setupEventListView(eventListLv, eventModel);
-        userListLv.setItems(userModel.getUsersByType(1)); // this is since toggle is starting on admin
-        ListViewSetupUtility.setupUserListView(userListLv);
-        eventHelper.eventListObserver();
-        DragAndDrop dragAndDrop = new DragAndDrop(userListLv, eventListLv, userWindowHbox, eventHelper);
-        rightClickMenu();
-        closeBtn.setId("closeBtn");
-    }
 
     public void rightClickMenu() {
 

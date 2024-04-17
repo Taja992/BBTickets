@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainBp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="701.0" prefWidth="1095.0" styleClass="mainBp" stylesheets="/GUI/view/ECDashboard.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.EcDashboardController">
+<BorderPane fx:id="mainBp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="701.0" prefWidth="1095.0" styleClass="mainBp" stylesheets="/GUI/view/ECDashboard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.EcDashboardController">
    <left>
       <VBox fx:id="eventListVbox" prefWidth="223.0" styleClass="eventListVbox" BorderPane.alignment="CENTER">
          <children>
@@ -57,14 +57,14 @@
          <top>
             <ScrollPane fitToHeight="true" maxHeight="101.0" prefHeight="101.0" prefWidth="673.0" styleClass="userSp">
                <content>
-                  <HBox fx:id="userWindowHbox" prefWidth="670.0" spacing="10.0" styleClass="userWindowHbox">
+                  <HBox fx:id="userWindowHbox" prefHeight="100.0" prefWidth="626.0" spacing="10.0" styleClass="userWindowHbox">
                      <padding>
                         <Insets left="20.0" right="20.0" />
                      </padding>
                   </HBox>
                </content>
                <BorderPane.margin>
-                  <Insets top="10.0" />
+                  <Insets left="20.0" top="10.0" />
                </BorderPane.margin>
             </ScrollPane>
          </top>
@@ -159,9 +159,9 @@
             <Insets bottom="40.0" right="20.0" />
          </BorderPane.margin>
          <children>
-            <Circle fill="#b672b9" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE">
+            <Circle fx:id="pictureHolder" fill="#b672b9" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE">
                <VBox.margin>
-                  <Insets left="60.0" top="40.0" />
+                  <Insets left="60.0" top="20.0" />
                </VBox.margin>
                <effect>
                   <DropShadow>
@@ -179,10 +179,9 @@
                <children>
                   <Button fx:id="createEventBtn" mnemonicParsing="false" onAction="#createEventBtn" text="Create Event">
                      <VBox.margin>
-                        <Insets top="100.0" />
+                        <Insets top="25.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="createCouponBtn" mnemonicParsing="false" onAction="#createCoupon" text="Create Coupon" />
                   <Button fx:id="editEventBtn" mnemonicParsing="false" onAction="#editEvent" text="Edit Event">
                      <VBox.margin>
                         <Insets />
@@ -195,9 +194,10 @@
                   </Button>
                   <Button fx:id="createTicketBtn" mnemonicParsing="false" onAction="#createTicket" text="Assign Tickets to Events">
                      <VBox.margin>
-                        <Insets />
+                        <Insets top="75.0" />
                      </VBox.margin>
                   </Button>
+                  <Button fx:id="createCouponBtn" mnemonicParsing="false" onAction="#createCoupon" text="Create Coupon" />
                   <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logoutBtn" text="Log Out">
                      <VBox.margin>
                         <Insets top="100.0" />

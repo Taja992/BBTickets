@@ -32,7 +32,6 @@ public class ListViewSetupUtility {
             eventListLv.getItems().setAll(eventModel.getAllEvents());
         } catch (BBExceptions e) {
             e.printStackTrace();
-            // Handle error
         }
     }
 
