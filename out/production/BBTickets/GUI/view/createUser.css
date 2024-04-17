@@ -1,0 +1,66 @@
+.root {
+    -fx-font-family: 'PT Serif';
+    -fx-background-color: linear-gradient(to right, #c69eec, #e6b8d4);
+    -fx-text-fill: #333;
+}
+
+.root .context-menu {
+    -fx-background-color: white;
+}
+
+.root .context-menu .menu-item:focused {
+    -fx-text-fill: black;
+    -fx-background-color: grey;
+}
+
+.button {
+    -fx-background-color: #b98ad9;
+    -fx-text-fill: #fff;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+.button:hover {
+    -fx-background-color: #a06cb9;
+}
+
+.button:pressed {
+    -fx-background-color: #c4a2d9;
+}
+
+.text-field {
+    -fx-background-color: #ede1f8;
+}
+
+.text-field .scroll-bar {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10;
+}
+
+.text-field .scroll-bar .thumb {
+    -fx-background-color: #b98ad9;
+    -fx-background-insets: 2;
+    -fx-background-radius: 10;
+    -fx-padding: 0.25em;
+}
+
+.text-field .scroll-bar .increment-arrow, .text-field .scroll-bar .decrement-arrow {
+    -fx-padding: 0;
+}
+
+#closeBtn {
+    -fx-background-color: rgba(246, 113, 113, 0.5);
+    -fx-text-fill: #EEE;
+    -fx-font-weight: bold;
+    -fx-padding: 5;
+    -fx-background-radius: 1000;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 0);
+    -fx-min-width: 17px;
+    -fx-min-height: 17px;
+    -fx-max-width: 17px;
+    -fx-max-height: 17px;
+}
+
+#closeBtn:hover {
+    -fx-background-color: rgba(252, 82, 82, 0.7);
+}
