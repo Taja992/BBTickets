@@ -93,12 +93,14 @@
     -fx-background-color: #ede1f8;
     -fx-border-radius: 20;
     -fx-background-radius: 20;
+
 }
 
 .userSp {
     -fx-background-color: TRANSPARENT;
     -fx-border-radius: 20;
     -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 10, 0, 0, 0);
 }
 
 .eventWindowVbox {
