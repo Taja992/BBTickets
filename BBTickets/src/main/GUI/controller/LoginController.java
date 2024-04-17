@@ -54,6 +54,7 @@ public class LoginController {
         setupForgotPasswordLabel();
         setupLoginButton();
         setupPasswordFieldEnterKey();
+        setupUsernameFieldEnterKey();
     }
 
     private void loadSavedCredentials() {
@@ -86,6 +87,14 @@ public class LoginController {
 
     private void setupPasswordFieldEnterKey() {
         passwordField.setOnKeyPressed(event -> {
+            if (Objects.requireNonNull(event.getCode()) == KeyCode.ENTER) {
+                loginBtn.fire();
+            }
+        });
+    }
+
+    private void setupUsernameFieldEnterKey() {
+        usernameField.setOnKeyPressed(event -> {
             if (Objects.requireNonNull(event.getCode()) == KeyCode.ENTER) {
                 loginBtn.fire();
             }

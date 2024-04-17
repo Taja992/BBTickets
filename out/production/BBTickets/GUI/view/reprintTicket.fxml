@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox alignment="CENTER" prefHeight="295.0" prefWidth="386.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.ReprintTicketController">
+<VBox alignment="CENTER" prefHeight="295.0" prefWidth="386.0" stylesheets="/GUI/view/reprintTicket.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.ReprintTicketController">
    <children>
-      <ListView fx:id="userTktLv" prefHeight="200.0" prefWidth="200.0" />
-      <Button mnemonicParsing="false" onAction="#reprintTkt" text="Reprint" />
+      <ListView fx:id="userTktLv" prefHeight="200.0" prefWidth="200.0">
+         <padding>
+            <Insets bottom="15.0" top="15.0" />
+         </padding>
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </VBox.margin></ListView>
+      <Button mnemonicParsing="false" onAction="#reprintTkt" text="Reprint">
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin></Button>
    </children>
 </VBox>
