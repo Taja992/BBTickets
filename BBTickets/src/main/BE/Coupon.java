@@ -4,11 +4,17 @@ public class Coupon {
 
     private int couponId;
     private String couponNotes;
-    private int uuid;
+    private String uuid;
 
     // Constructors
-    public Coupon(String couponNotes, int uuid) {
+    public Coupon(String couponNotes, String uuid) {
         this.couponNotes = couponNotes;
+        this.uuid = uuid;
+    }
+
+    public Coupon(int id, String couponNote, String uuid) {
+        this.couponId = id;
+        this.couponNotes = couponNote;
         this.uuid = uuid;
     }
 
@@ -25,11 +31,11 @@ public class Coupon {
         this.couponNotes = couponNotes;
     }
 
-    public int getUuid() {
+    public String getUuid() {
         return uuid;
     }
 
-    public void setUuid(int uuid) {
+    public void setUuid(String uuid) {
         this.uuid = uuid;
     }
 

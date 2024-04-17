@@ -15,5 +15,7 @@
     <orderEntry type="library" name="jfoenix" level="project" />
     <orderEntry type="library" name="google.zxing.javase1" level="project" />
     <orderEntry type="library" name="itextpdf" level="project" />
+    <orderEntry type="library" name="google.zxing.javase" level="project" />
+    <orderEntry type="library" name="google.zxing.core" level="project" />
   </component>
 </module>

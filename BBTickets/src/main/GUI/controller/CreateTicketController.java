@@ -8,6 +8,11 @@ import Exceptions.BBExceptions;
 import GUI.model.CouponModel;
 import GUI.model.CustomerModel;
 import GUI.model.TicketModel;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.itextpdf.text.Image;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,8 +21,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -243,6 +253,7 @@ public class CreateTicketController implements Initializable {
 
     public void createCoupon(ActionEvent actionEvent) {
         String couponNote = couponChkBox.getSelectionModel().getSelectedItem().toString();
+        String couponUUID = couponModel.getCouponByNote(couponNote).getUuid();
         String directoryPath = filelocationTxt.getText();
         String fileLocation = directoryPath + "/" + couponNote + " Coupon.pdf";
 
@@ -267,6 +278,14 @@ public class CreateTicketController implements Initializable {
             PdfWriter.getInstance(document, new FileOutputStream(fileLocation));
             document.open();
             document.add(new Paragraph(couponNote));
+
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            BitMatrix bitMatrix = qrCodeWriter.encode(couponUUID, BarcodeFormat.QR_CODE, 200, 200);
+
+            BufferedImage qrImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
+            Image image = Image.getInstance(qrImage, Color.gray);
+            document.add(image);
+
             document.close();
             showAlert(Alert.AlertType.INFORMATION, "Coupon PDF Created!");
         } catch (Exception e) {

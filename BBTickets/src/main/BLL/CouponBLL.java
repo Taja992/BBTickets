@@ -1,5 +1,7 @@
 package BLL;
 
+import BE.Coupon;
+
 import java.util.List;
 
 public class CouponBLL
@@ -24,5 +26,9 @@ public class CouponBLL
     public int getCouponId(String couponNote)
     {
         return DAL.getCouponId(couponNote);
+    }
+
+    public Coupon getCouponByNote(String couponNote) {
+        return DAL.getCouponByNote(couponNote);
     }
 }

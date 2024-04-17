@@ -1,5 +1,6 @@
 package GUI.model;
 
+import BE.Coupon;
 import BLL.CouponBLL;
 
 import java.util.List;
@@ -21,5 +22,9 @@ public class CouponModel {
 
     public int getCouponId(String couponNote) {
         return couponBLL.getCouponId(couponNote);
+    }
+
+    public Coupon getCouponByNote(String couponNote) {
+        return couponBLL.getCouponByNote(couponNote);
     }
 }

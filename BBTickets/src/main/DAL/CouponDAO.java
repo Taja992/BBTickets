@@ -1,5 +1,6 @@
 package DAL;
 
+import BE.Coupon;
 import DAL.ConnectionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -84,5 +85,28 @@ public class CouponDAO {
         }
 
         return couponId;
+    }
+
+    public Coupon getCouponByNote(String couponNote) {
+        String sql = "SELECT * FROM Coupon WHERE coupon_notes = ?";
+        Coupon coupon = null;
+
+        try (Connection conn = connectionManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, couponNote);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int id = rs.getInt("coupon_id");
+                String uuid = rs.getString("coupon_uuid");
+                coupon = new Coupon(id, couponNote, uuid);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return coupon;
     }
 }
