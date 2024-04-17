@@ -340,9 +340,14 @@ public class EcDashboardController {
             User loggedInUser = userModel.getUserById(userId);
             controller.setLoggedInUser(loggedInUser);
 
+            controller.setEditProfileBtn(editProfileBtn);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+
+            ((Node) actionEvent.getSource()).setDisable(true);
+            stage.setOnCloseRequest(event -> ((Node) actionEvent.getSource()).setDisable(false));
+
             stage.show();
         } catch (IOException | BBExceptions e) {
             e.printStackTrace();

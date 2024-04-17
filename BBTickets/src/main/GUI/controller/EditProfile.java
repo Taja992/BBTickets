@@ -26,7 +26,7 @@ public class EditProfile {
     private Button saveProfileBtn;
     private UserModel userModel;
     private BE.User loggedInUser;
-
+    private Button editProfileBtn;
     @FXML
     private javafx.scene.control.TextField usernameField;
     @FXML
@@ -49,6 +49,11 @@ public class EditProfile {
             picturePathField.setText("");
         }
     }
+
+    public void setEditProfileBtn(Button editProfileBtn) {
+        this.editProfileBtn = editProfileBtn;
+    }
+
     @FXML
     private void browseProfilePicture(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
@@ -87,6 +92,11 @@ public class EditProfile {
     }
 
     public void cancelEditProfile(ActionEvent actionEvent) {
+        // Re-enable the editProfileBtn
+        if (editProfileBtn != null) {
+            editProfileBtn.setDisable(false);
+        }
+
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();

@@ -251,8 +251,15 @@ public class AdminDashboardController {
             controller.setLoggedInUser(loggedInUser);
 
 
+            // Pass the editProfileBtn to the EditProfile controller
+            controller.setEditProfileBtn(editProfileBtn);
+
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+
+            editProfileBtn.setDisable(true);
+            stage.setOnCloseRequest(event -> editProfileBtn.setDisable(false));
+
             stage.show();
         } catch (IOException | BBExceptions e) {
             e.printStackTrace();
