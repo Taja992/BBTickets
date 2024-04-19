@@ -12,15 +12,13 @@ You can start off as admin or event coordinator
 
 **Admin:**
 
-Username: admin
-
-Password: admin
+**Username:** admin
+**Password:** admin
 
 **Event Coordinator:**
 
-Username: ec
-
-Password: 123
+**Username:** ec
+**Password:** 123
 
 On both dashboards you can assign Event Coordinators to the selected event by dragging and dropping them into the
 box showing assigned coordinators.
