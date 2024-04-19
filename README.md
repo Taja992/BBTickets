@@ -6,7 +6,7 @@ We've attached some easy to follow pictures to give a basic understanding on how
 
 When you run the program you will be met with the login screen.
 
-![Login Screen](https://raw.githubusercontent.com/Taja992/BBTickets/main/BBTickets/resources/images/loginhelp.png)
+![Login Screen](https://raw.githubusercontent.com/Taja992/BBTickets/main/BBTickets/resources/images/loginhelp.PNG)
 
 You can start off as admin or event coordinator
 **Admin:**
