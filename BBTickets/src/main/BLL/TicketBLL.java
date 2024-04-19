@@ -210,15 +210,6 @@ public class TicketBLL {
 
     }
 
-    /*
-    //incase I want to add these later
-    stream.addRect(390,220,20,20); //new rectangle
-
-    //adding test image
-    Path path = Paths.get(ClassLoader.getSystemResource("images/deleteThisLater.png").toURI()); //getting path
-    PDImageXObject image = PDImageXObject.createFromFile(path.toAbsolutePath().toString(), document); //converting to image object
-    stream.drawImage(image, 0, 469);
-     */
 
     private void addImages(PDPageContentStream stream, PDDocument document, int width){
 
