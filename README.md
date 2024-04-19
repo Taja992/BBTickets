@@ -9,9 +9,11 @@ When you run the program you will be met with the login screen.
 ![Login Screen](https://raw.githubusercontent.com/Taja992/BBTickets/main/BBTickets/resources/images/loginhelp.PNG)
 
 You can start off as admin or event coordinator
+
 **Admin:**
 Username: admin
 Password: admin
+
 **Event Coordinator:**
 Username: ec
 Password: 123
