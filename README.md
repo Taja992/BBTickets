@@ -10,14 +10,12 @@ When you run the program you will be met with the login screen.
 
 You can start off as admin or event coordinator
 
-**Admin:**
-
-**Username:** admin
+<u>**Admin:**</u>  
+**Username:** admin  
 **Password:** admin
 
-**Event Coordinator:**
-
-**Username:** ec
+<u>**Event Coordinator:**</u>  
+**Username:** ec  
 **Password:** 123
 
 On both dashboards you can assign Event Coordinators to the selected event by dragging and dropping them into the
